@@ -1,0 +1,66 @@
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "4Kh-UT-VrL"; */
+"4Kh-UT-VrL.normalTitle" = "Log In";
+
+/* Class = "UINavigationItem"; title = "Main Feed"; ObjectID = "5bR-Nl-J11"; */
+"5bR-Nl-J11.title" = "Main Feed";
+
+/* Class = "UIViewController"; title = "Log In"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "Log In";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "DHg-m8-t9J"; */
+"DHg-m8-t9J.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "E85-rC-SpB"; */
+"E85-rC-SpB.normalTitle" = "Log In";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "IV6-v8-ytL"; */
+"IV6-v8-ytL.title" = "Title";
+
+/* Class = "UILabel"; text = "*Passwords don't match"; ObjectID = "Jkr-h5-eeP"; */
+"Jkr-h5-eeP.text" = "*Passwords don't match";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "KGp-BE-gq7"; */
+"KGp-BE-gq7.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "LBM-PJ-yB2"; */
+"LBM-PJ-yB2.normalTitle" = "Sign Up";
+
+/* Class = "UILabel"; text = "Already have an Account ?"; ObjectID = "LT2-6E-3sm"; */
+"LT2-6E-3sm.text" = "Already have an Account ?";
+
+/* Class = "UITextField"; placeholder = "First Name"; ObjectID = "P1z-YH-Hiz"; */
+"P1z-YH-Hiz.placeholder" = "First Name";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Q1L-ES-wrP"; */
+"Q1L-ES-wrP.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Confirm Password"; ObjectID = "RyR-jB-RQM"; */
+"RyR-jB-RQM.placeholder" = "Confirm Password";
+
+/* Class = "UITextField"; placeholder = "Last Name"; ObjectID = "Xc2-jg-zZT"; */
+"Xc2-jg-zZT.placeholder" = "Last Name";
+
+/* Class = "UILabel"; text = "Dont't have an account ?"; ObjectID = "YcP-9I-5js"; */
+"YcP-9I-5js.text" = "Dont't have an account ?";
+
+/* Class = "UISegmentedControl"; ZPe-5c-jSi.segmentTitles[0] = "Singles"; ObjectID = "ZPe-5c-jSi"; */
+"ZPe-5c-jSi.segmentTitles[0]" = "Singles";
+
+/* Class = "UISegmentedControl"; ZPe-5c-jSi.segmentTitles[1] = "Couples"; ObjectID = "ZPe-5c-jSi"; */
+"ZPe-5c-jSi.segmentTitles[1]" = "Couples";
+
+/* Class = "UITabBarItem"; title = "MainFeed"; ObjectID = "aY3-wZ-HrE"; */
+"aY3-wZ-HrE.title" = "MainFeed";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "ceY-vL-wem"; */
+"ceY-vL-wem.normalTitle" = "Sign Up";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "siX-Nb-cJO"; */
+"siX-Nb-cJO.title" = "Title";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "wmh-kB-VxV"; */
+"wmh-kB-VxV.placeholder" = "Password";
+
+/* Class = "UIViewController"; title = "Sign Up"; ObjectID = "wp7-Ri-BDj"; */
+"wp7-Ri-BDj.title" = "Sign Up";

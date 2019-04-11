@@ -21,7 +21,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     
-    
     var userToken = ""
 
     override func viewDidLoad() {
@@ -56,7 +55,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             print("default selected")
         }// end of switch
-        
+        feedTableView.reloadData()
     }// end of feedIndexChanges
     
     // MARK: - Declare cellForRowAT
@@ -70,7 +69,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             cell.nameLabel.text = messageArray[indexPath.row]
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
+            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven"]
+            cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             return cell
         }// end of if/else
     }// end of cellForRowAt

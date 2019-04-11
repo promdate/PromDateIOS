@@ -67,7 +67,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         if status == 200 {
             //segue towards mainfeed
              token = json["result"].stringValue
-            performSegue(withIdentifier: "goToMainFeed", sender: self)
+            goToMainFeed()
+            //performSegue(withIdentifier: "goToMainFeed", sender: self)
         } else {
             print("an error occured while loging in")
         }// end of if/else
@@ -82,14 +83,25 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
      //MARK: - Navigation
 
      //In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "goToMainFeed" {
+//            //         Get the new view controller using segue.destination.
+//            let destinationVC = segue.destination as! MainFeedViewController
+//            destinationVC.userToken = token
+//            //         Pass the selected object to the new view controller.
+//        }// end of if
+//    }// end of prepareForSegue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToMainFeed" {
-            //         Get the new view controller using segue.destination.
-            let destinationVC = segue.destination as! MainFeedViewController
-            destinationVC.userToken = token
-            //         Pass the selected object to the new view controller.
-        }// end of if
-
-    }// end of prepareForSegue
+        let destinationVC = segue.destination as! MainTabViewController
+        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+        destinationVC.selectedViewController = mainTabViewController.viewControllers?[0]
+    }
+    
+    func goToMainFeed(){
+        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+        mainTabViewController.selectedViewController = mainTabViewController.viewControllers?[0]
+        present(mainTabViewController, animated: true, completion: nil)
+    }
 
 }//end of LogInViewController
