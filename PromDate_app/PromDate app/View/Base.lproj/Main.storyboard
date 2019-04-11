@@ -79,6 +79,7 @@
                         <outlet property="emailTextField" destination="Q1L-ES-wrP" id="V3T-sl-NDS"/>
                         <outlet property="passwordTextField" destination="DHg-m8-t9J" id="c5y-w9-Ves"/>
                         <segue destination="Bmr-Li-P2t" kind="show" identifier="goToMainFeed" id="2MU-YW-rvz"/>
+                        <segue destination="uEa-fi-cI0" kind="showDetail" id="mVi-lw-0yL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -281,10 +282,10 @@
             </objects>
             <point key="canvasLocation" x="3201" y="-315"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="TAa-GG-BIq">
             <objects>
-                <tabBarController id="uEa-fi-cI0" sceneMemberID="viewController">
+                <tabBarController id="uEa-fi-cI0" customClass="MainTabBarViewController" customModule="PromDate_app" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h7L-wo-EN0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -1,17 +1,20 @@
 //
-//  MainFeedViewController.swift
+//  MainTabBarViewController.swift
 //  PromDate app
 //
-//  Created by Olivier Caron on 2019-04-09.
+//  Created by Olivier Caron on 2019-04-10.
 //  Copyright © 2019 Olivier Caron. All rights reserved.
 //
 
 import UIKit
 
-class MainFeedViewController: UIViewController {
+class MainTabBarViewController: UITabBarController {
     
-    
-    var userToken = ""
+    //override var viewControllers: [UIViewController]? = [MainFeedViewController]
+    override var viewControllers: [UIViewController]?
+    override func setViewControllers(_ viewControllers: [UIViewController]?, animated: Bool) {
+        <#code#>
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
