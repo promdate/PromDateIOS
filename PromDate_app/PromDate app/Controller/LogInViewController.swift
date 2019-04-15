@@ -17,9 +17,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    var token = ""
+    var token : String = ""
     
-
+    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +31,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        
+        //token = defaults.data(forKey: "userToken")
+        print("token avant aller le chercher dans defaults : \(token)")
+        if let fetchToken = defaults.string(forKey: "userToken") {
+            token = fetchToken
+        }
+        print("token appres avoir ete le chercher\(token)")
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewControllerTapped))
 //        emailTextField.addGestureRecognizer(tapGesture)
@@ -67,6 +75,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         if status == 200 {
             //segue towards mainfeed
              token = json["result"].stringValue
+            //We add the token to the userDefaults
+            defaults.set(token, forKey: "userToken")
             goToMainFeed()
             //performSegue(withIdentifier: "goToMainFeed", sender: self)
         } else {
