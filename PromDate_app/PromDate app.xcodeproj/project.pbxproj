@@ -427,6 +427,7 @@
 			baseConfigurationReference = CCBBFAF010155237901C8D86 /* Pods-PromDate app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PromDate app/Info.plist";
@@ -436,6 +437,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.OlivierCaron.PromDate-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -446,6 +448,7 @@
 			baseConfigurationReference = 39F4AF0D907CAFFD8E029B7D /* Pods-PromDate app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "PromDate app/Info.plist";
@@ -455,6 +458,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.OlivierCaron.PromDate-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

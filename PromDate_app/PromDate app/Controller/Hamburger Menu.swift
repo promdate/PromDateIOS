@@ -7,15 +7,5 @@
 //
 
 import Foundation
-class HamburgerMenuViewController: UITabBarController {
-    
-    @IBAction func logout(_ sender: Any) {
-        
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-}
-    
-}
+
+
