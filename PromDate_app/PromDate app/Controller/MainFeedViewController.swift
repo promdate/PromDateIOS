@@ -21,7 +21,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     
-    var userToken = ""
+    var userToken = UserData().defaults.string(forKey: "userToken")
 
     override func viewDidLoad() {
         super.viewDidLoad()

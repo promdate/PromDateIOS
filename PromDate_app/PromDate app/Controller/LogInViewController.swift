@@ -18,25 +18,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var token : String = ""
+    let userData = UserData()
     
     
-    let defaults = UserDefaults.standard
+    //let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
+
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
         //token = defaults.data(forKey: "userToken")
         print("token avant aller le chercher dans defaults : \(token)")
-        if let fetchToken = defaults.string(forKey: "userToken") {
+//        if let fetchToken = defaults.string(forKey: "userToken") {
+//            token = fetchToken
+//        }
+        if let fetchToken = userData.defaults.string(forKey: "userToken") {
             token = fetchToken
         }
+        
         print("token appres avoir ete le chercher\(token)")
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewControllerTapped))
@@ -76,7 +81,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             //segue towards mainfeed
              token = json["result"].stringValue
             //We add the token to the userDefaults
-            defaults.set(token, forKey: "userToken")
+            //defaults.set(token, forKey: "userToken")
+            userData.defaults.set(token, forKey: "userToken")
             goToMainFeed()
             //performSegue(withIdentifier: "goToMainFeed", sender: self)
         } else {
@@ -102,13 +108,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 //        }// end of if
 //    }// end of prepareForSegue
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! MainTabViewController
-        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-        destinationVC.selectedViewController = mainTabViewController.viewControllers?[0]
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! MainTabViewController
+//        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
+//        destinationVC.selectedViewController = mainTabViewController.viewControllers?[0]
+//    }
     
     func goToMainFeed(){
+        passwordTextField.text = nil
+        emailTextField.text = nil
         let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
         mainTabViewController.selectedViewController = mainTabViewController.viewControllers?[0]
         present(mainTabViewController, animated: true, completion: nil)
