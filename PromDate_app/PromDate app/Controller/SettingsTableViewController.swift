@@ -44,26 +44,34 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
         let finalURL = baseURL + "/php/logout.php"
         let params : [String : String] = ["token" : userToken!]
-        Alamofire.request(finalURL, method: .post, parameters: params).responseJSON {
-            response in
-            if response.result.isSuccess{
-                print("succes got data")
-                //let logoutJSON : JSON = JSON(response.result.value!)
-                let logoutSucess : JSON = JSON(response.result.value!)["status"]
-                print(logoutSucess)
-                //let logoutSucess = logoutJSON["status"]
-                if logoutSucess == 200 {
-                    print("logout sucessfull")
-                    UserData().defaults.set("", forKey: "userToken")
-                    self.dismiss(animated: true, completion: nil)
+        
+        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout ?", preferredStyle: .alert)
+        
+        let logoutAction = UIAlertAction(title: "Log Out", style: .default, handler: { (UIAlertAction) in
+            Alamofire.request(finalURL, method: .post, parameters: params).responseJSON {
+                response in
+                if response.result.isSuccess{
+                    print("succes got data")
+                    //let logoutJSON : JSON = JSON(response.result.value!)
+                    let logoutSucess : JSON = JSON(response.result.value!)["status"]
+                    //let logoutSucess = logoutJSON["status"]
+                    if logoutSucess == 200 {
+                        print("logout sucessfull")
+                        UserData().defaults.set("", forKey: "userToken")
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        print("logout unsucessfull please try again")
+                    }// end of if/else
                 } else {
-                    print("logout unsucessfull please try again")
+                    print ("There was an error communicating with the server, please try again")
+                    print("this is the error code: \(response.result.error!)")
                 }// end of if/else
-            } else {
-                print ("There was an error communicating with the server, please try again")
-                print("this is the error code: \(response.result.error!)")
-            }// end of if/else
-        }// end of request
+            }// end of request
+        })// end of logoutAction
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(logoutAction)
+        self.present(alert, animated: true, completion: nil)
     }// end of logoutPressed
     
 
