@@ -58,6 +58,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print(password)
         let params : [String : String] = ["email" : email, "password" : password ]
         callLogIn(url: callURL, parameters: params)
+        userData.defaults.set(true, forKey: "isLoggedIn")
+        
     }// end of logInPressed
     
     
