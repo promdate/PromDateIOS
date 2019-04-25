@@ -64,7 +64,7 @@ class UserProfileViewController: UIViewController {
     
     func updateUI(userJSON : JSON) {
         firstNameTextField.text = userJSON["result"]["FirstName"].string
-        lastNameTextField.text = userJSON["result"][""LastName""].string
+        lastNameTextField.text = userJSON["result"]["LastName"].string
         
     }
     
