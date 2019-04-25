@@ -359,7 +359,7 @@
         <!--Apparel Registery-->
         <scene sceneID="IGQ-Gp-Xqg">
             <objects>
-                <viewController title="Apparel Registery" id="KGc-mB-jt6" sceneMemberID="viewController">
+                <viewController title="Apparel Registery" id="KGc-mB-jt6" customClass="ApparelRegistryViewController" customModule="PromDate_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jX3-TL-VWr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,7 +374,7 @@
         <!--User Profile-->
         <scene sceneID="aab-Rx-Xuo">
             <objects>
-                <viewController title="User Profile" id="PUL-hQ-uHq" sceneMemberID="viewController">
+                <viewController title="User Profile" id="PUL-hQ-uHq" customClass="UserProfileViewController" customModule="PromDate_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PQk-43-ndw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,8 +403,8 @@
                                 <rect key="frame" x="20" y="78" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-0b-ABK">
-                                <rect key="frame" x="154" y="95" width="55" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-0b-ABK">
+                                <rect key="frame" x="154" y="95" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -421,6 +421,9 @@
                                 <rect key="frame" x="20" y="186" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change picture"/>
+                                <connections>
+                                    <action selector="changePicturePressed:" destination="PUL-hQ-uHq" eventType="touchUpInside" id="Mtc-HB-edv"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N9q-NK-1NX">
                                 <rect key="frame" x="246" y="131" width="162" height="30"/>
@@ -429,8 +432,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcE-iu-lrz">
-                                <rect key="frame" x="20" y="327" width="25" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcE-iu-lrz">
+                                <rect key="frame" x="20" y="327" width="29" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -483,8 +486,21 @@
                         <viewLayoutGuide key="safeArea" id="xRW-XH-FYg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="u1W-Sw-qDL">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="zWP-PX-qlj"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="zWP-PX-qlj">
+                            <connections>
+                                <action selector="donePressed:" destination="PUL-hQ-uHq" id="qz1-Jn-RJt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="bioTextField" destination="PVA-AC-50E" id="4wd-ph-aJA"/>
+                        <outlet property="firstNameTextField" destination="sFA-hS-u21" id="8XL-MT-BdL"/>
+                        <outlet property="instagramHandleTextField" destination="Qug-ha-6di" id="Omx-bV-emM"/>
+                        <outlet property="lastNameTextField" destination="N9q-NK-1NX" id="CL5-Qd-wHD"/>
+                        <outlet property="snapchatHandleTextField" destination="ohN-hf-A7d" id="Grw-Ko-P5c"/>
+                        <outlet property="twitterHandleTextField" destination="kRN-SR-yWf" id="45R-kZ-388"/>
+                        <outlet property="userAvatar" destination="xp5-QL-UXh" id="rUp-LC-U0N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWw-RN-ITz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -579,7 +595,7 @@
         <!--Change Password-->
         <scene sceneID="c9g-Qn-Obl">
             <objects>
-                <viewController title="Change Password" id="V5f-lq-kiC" sceneMemberID="viewController">
+                <viewController title="Change Password" id="V5f-lq-kiC" customClass="ChangePasswordViewController" customModule="PromDate_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CVb-0Q-NqB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -605,18 +621,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*Passwords don't match" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5js-xo-r28">
+                                <rect key="frame" x="20" y="259" width="186" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="483-k4-s93">
-                                <rect key="frame" x="65" y="346" width="285" height="40"/>
+                                <rect key="frame" x="65" y="319" width="285" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Change Password">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="changePasswordPressed:" destination="V5f-lq-kiC" eventType="touchUpInside" id="gsc-ch-gux"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gIo-RM-6xo"/>
                     </view>
+                    <connections>
+                        <outlet property="confirmNewPasswordTextField" destination="yx7-S9-zbg" id="Zsf-5G-Vqg"/>
+                        <outlet property="currentPasswordTextField" destination="OXA-lm-bcU" id="GpH-PK-Xcs"/>
+                        <outlet property="newPasswordTextField" destination="XB0-9P-oXL" id="OB1-LM-xrF"/>
+                        <outlet property="warningLabel" destination="5js-xo-r28" id="6rf-bK-Mfh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3s-7Y-6xV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

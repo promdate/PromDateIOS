@@ -7,13 +7,65 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class UserProfileViewController: UIViewController {
+    
+    //variables
+    @IBOutlet weak var userAvatar: UIImageView!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var bioTextField: UITextView!
+    @IBOutlet weak var twitterHandleTextField: UITextField!
+    @IBOutlet weak var snapchatHandleTextField: UITextField!
+    @IBOutlet weak var instagramHandleTextField: UITextField!
+    
+    //user variables
+    let userToken = UserData().defaults.string(forKey: "userToken")
+    let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        getUserData()
+    }
+    
+    @IBAction func changePicturePressed(_ sender: UIButton) {
+        // open pictures and chose one
+    }// end of changePicture
+    
+    @IBAction func donePressed(_ sender: UIBarButtonItem) {
+        // call the callUpdate method
+        // pop out that says saved!
+    }// end of donePressed
+    
+    
+    func getUserData() {
+        let callURL = baseURL + "/php/getUser.php"
+        
+        let params : [String : Any] = ["token" : userToken!]
+        Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                let userJSON : JSON = JSON(response.result.value!)
+                print(userJSON)
+                self.updateUI(userJSON: userJSON)
+            } else {
+                print("there was an error getting the data please try again")
+                print("this is the error code: \(response.result.error!)")
+            }
+        }// end of the closure
+    }// end of getUserData
+    
+    
+    func updateUI(userJSON : JSON) {
+        firstNameTextField.text = userJSON["result"]["FirstName"].string
+        lastNameTextField.text = userJSON["result"][""LastName""].string
+        
     }
     
 
@@ -27,4 +79,4 @@ class UserProfileViewController: UIViewController {
     }
     */
 
-}
+}// end of UserProfileViewController

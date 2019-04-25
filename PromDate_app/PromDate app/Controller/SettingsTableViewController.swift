@@ -15,7 +15,7 @@ class SettingsTableViewController: UITableViewController {
     //variables
     var userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    var settingsArray = ["Profile","Change Password", "Apparel Registery"]
+    var settingsArray = ["Profile","Change Password", "Apparel Registery", "Delete Account"]
     
     
 
@@ -38,12 +38,13 @@ class SettingsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
         cell.textLabel?.text = settingsArray[indexPath.row]
         cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.textColor = UIColor.red
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 4
     }
     
     //MARK: - TableViewDelegate methods
