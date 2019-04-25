@@ -74,7 +74,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }// end of if/else
         }// fin de la requette
     }// end of callLogIn
-    
     func verifyStatus(json : JSON){
         let status = json["status"]
         if status == 200 {
@@ -120,6 +119,5 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
         mainTabViewController.selectedViewController = mainTabViewController.viewControllers?[0]
         present(mainTabViewController, animated: true, completion: nil)
-    }
-
+    }// end of goToMainFeed
 }//end of LogInViewController
