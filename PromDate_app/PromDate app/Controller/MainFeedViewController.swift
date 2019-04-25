@@ -67,11 +67,14 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
             cell.nameLabel.text = messageArray[indexPath.row]
+            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
             let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven"]
             cell.couplesNamesLabel.text = couplesArray[indexPath.row]
+            cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
+            cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
             return cell
         }// end of if/else
     }// end of cellForRowAt
@@ -80,6 +83,14 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }// end of numbersOfRowsInSection
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if singlesSelected == true {
+            performSegue(withIdentifier: "goToSelectedUser", sender: self)
+        } else {
+            
+        }// end of the if/else
+    }// end of didSelectRowAt
     
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly

@@ -97,5 +97,10 @@ class SignUpViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func loginPressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }// end of loginPressed
+    
 
 }// end of SignUpViewController

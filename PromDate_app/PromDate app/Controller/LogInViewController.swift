@@ -25,6 +25,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        checkIfLoggedIn()
         // Do any additional setup after loading the view.
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -57,9 +58,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print(email)
         print(password)
         let params : [String : String] = ["email" : email, "password" : password ]
-        callLogIn(url: callURL, parameters: params)
         userData.defaults.set(true, forKey: "isLoggedIn")
-        
+        callLogIn(url: callURL, parameters: params)
     }// end of logInPressed
     
     
@@ -122,4 +122,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         mainTabViewController.selectedViewController = mainTabViewController.viewControllers?[0]
         present(mainTabViewController, animated: true, completion: nil)
     }// end of goToMainFeed
+    
+    func checkIfLoggedIn() {
+        let isLoggedIn  = UserData().defaults.bool(forKey: "isLoggedIn")
+        if isLoggedIn == true {
+            goToMainFeed()
+        }
+    }
 }//end of LogInViewController
