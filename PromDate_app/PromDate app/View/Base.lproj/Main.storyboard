@@ -341,10 +341,60 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="V5f-lq-kiC" kind="show" identifier="goToChangePassword" id="Ztf-4d-uaz"/>
+                        <segue destination="KGc-mB-jt6" kind="show" identifier="goToApparelRegistery" id="M8a-eN-mv4"/>
+                        <segue destination="PUL-hQ-uHq" kind="show" identifier="goToUserProfile" id="y01-eY-DiO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xph-pl-DGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3067" y="280"/>
+        </scene>
+        <!--Apparel Registery-->
+        <scene sceneID="IGQ-Gp-Xqg">
+            <objects>
+                <viewController title="Apparel Registery" id="KGc-mB-jt6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jX3-TL-VWr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="F3B-44-DdP"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bts-kz-O2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3899" y="721"/>
+        </scene>
+        <!--User Profile-->
+        <scene sceneID="aab-Rx-Xuo">
+            <objects>
+                <viewController title="User Profile" id="PUL-hQ-uHq" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PQk-43-ndw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="xRW-XH-FYg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GWw-RN-ITz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4704" y="370"/>
+        </scene>
+        <!--Change Password-->
+        <scene sceneID="c9g-Qn-Obl">
+            <objects>
+                <viewController title="Change Password" id="V5f-lq-kiC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CVb-0Q-NqB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gIo-RM-6xo"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y3s-7Y-6xV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3899" y="24"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Enl-yb-MBJ">
@@ -380,7 +430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTS-zV-42c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3843" y="-463"/>
+            <point key="canvasLocation" x="3765" y="-801"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="x6e-5g-88r">
@@ -408,7 +458,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHC-Xm-5fM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4587" y="-463"/>
+            <point key="canvasLocation" x="4510" y="-801"/>
         </scene>
         <!--Main Tab View Controller-->
         <scene sceneID="yZM-VH-Z3H">
@@ -464,7 +514,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qj1-0P-FHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2292.753623188406" y="279.61956521739131"/>
+            <point key="canvasLocation" x="2293" y="280"/>
         </scene>
     </scenes>
 </document>

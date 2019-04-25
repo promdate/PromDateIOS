@@ -32,13 +32,30 @@ class SettingsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 3
     }
+    
+    //MARK: - TableViewDelegate methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 1 :
+            performSegue(withIdentifier: "goToUserProfile", sender: self)
+        case 2 :
+            performSegue(withIdentifier: "goToChangePassword", sender: self)
+        case 3 :
+            performSegue(withIdentifier: "goToApparelRegistery", sender: self)
+        case 4 :
+            deleteAccount()
+        default :
+            break
+        }// end of switch
+    }// end of didSelectRowAt
+    
     
     //MARK: - logoutPressed
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
@@ -73,6 +90,16 @@ class SettingsTableViewController: UITableViewController {
         alert.addAction(logoutAction)
         self.present(alert, animated: true, completion: nil)
     }// end of logoutPressed
+    
+    
+    //MARK: - Delete account methods
+    
+    // TODO: - deleteAccount func
+    func deleteAccount() {
+        
+    }// end of deleteAccount
+    
+    //TODO: - delete account confirm prompt and call
     
 
     
