@@ -61,7 +61,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         userData.defaults.set(true, forKey: "isLoggedIn")
         
     }// end of logInPressed
-    
+    fileprivate func remainLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isLoggedIn")
+        
+    }
     
     func callLogIn(url : String, parameters : [String : String]) {
         Alamofire.request(url, method: .post, parameters: parameters).responseJSON {

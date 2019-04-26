@@ -9,6 +9,7 @@
 import UIKit
 
 class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
     
     //variables
     @IBOutlet weak var feedTableView: UITableView!
@@ -16,6 +17,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     var singlesSelected : Bool = true
     var feedReusableCell = ""
+ 
     
     //setting self as delegate and datasource of feedTableView
     
@@ -88,6 +90,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         feedTableView.estimatedRowHeight = 60.0
     }
     
+   
     
     
     /*
