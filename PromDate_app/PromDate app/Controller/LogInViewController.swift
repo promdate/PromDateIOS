@@ -19,6 +19,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var token : String = ""
     let userData = UserData()
+    let userMain = UserDefaults.standard
+
+    
+    struct Data {
+        static let remainLoggedIn = "remainLoggedIn"
+    }
     
     
     //let defaults = UserDefaults.standard
@@ -58,13 +64,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print(email)
         print(password)
         let params : [String : String] = ["email" : email, "password" : password ]
-        userData.defaults.set(true, forKey: "isLoggedIn")
+        userMain.set(true, forKey: "remainLoggedIn")
         callLogIn(url: callURL, parameters: params)
     }// end of logInPressed
     fileprivate func remainLoggedIn() -> Bool {
-        return UserDefaults.standard.bool(forKey: "isLoggedIn")
+        return userMain.bool(forKey: Data.remainLoggedIn)
         
     }
+    
+  
+    
+    
     
     func callLogIn(url : String, parameters : [String : String]) {
         Alamofire.request(url, method: .post, parameters: parameters).responseJSON {

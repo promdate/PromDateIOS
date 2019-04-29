@@ -21,6 +21,12 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var snapchatHandleTextField: UITextField!
     @IBOutlet weak var instagramHandleTextField: UITextField!
     
+    
+    struct Data {
+        static let keepName = "keepName"
+    }
+    
+    let userMain = UserDefaults.standard
     //user variables
     let userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
@@ -38,9 +44,12 @@ class UserProfileViewController: UIViewController {
     }// end of changePicture
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
+        keepNames()
         // call the callUpdate method
         // pop out that says saved!
     }// end of donePressed
+    
+    
     
     
     func getUserData() {
@@ -68,6 +77,10 @@ class UserProfileViewController: UIViewController {
         
     }
     
+    func keepNames() {
+        userMain.set(firstNameTextField!, forKey: Data.keepName)
+        userMain.set(lastNameTextField!, forKey: Data.keepName)
+    }
 
     /*
     // MARK: - Navigation
