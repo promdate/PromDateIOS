@@ -9,6 +9,13 @@
 import UIKit
 
 class ChangePasswordViewController: UIViewController {
+    
+    // variables
+    @IBOutlet weak var currentPasswordTextField: UITextField!
+    @IBOutlet weak var newPasswordTextField: UITextField!
+    @IBOutlet weak var confirmNewPasswordTextField: UITextField!
+    @IBOutlet weak var warningLabel: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +24,21 @@ class ChangePasswordViewController: UIViewController {
     }
     
 
+    @IBAction func changePasswordPressed(_ sender: Any) {
+        verifyPassword()
+    }// end of changePasswordPressed
+    
+    
+    func verifyPassword() {
+        if newPasswordTextField.text != confirmNewPasswordTextField.text {
+            warningLabel.isHidden = false
+        } else {
+            warningLabel.isHidden = true
+        }// end of if/else
+        
+    }// end of verifyPassword
+    
+    
     /*
     // MARK: - Navigation
 

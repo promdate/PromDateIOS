@@ -9,6 +9,9 @@
 import UIKit
 
 class ApparelRegistryViewController: UIViewController {
+    
+    // varriables
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

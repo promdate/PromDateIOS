@@ -15,41 +15,48 @@ class SettingsTableViewController: UITableViewController {
     //variables
     var userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
+    var settingsArray = ["Profile","Change Password", "Apparel Registery", "Delete Account"]
+    
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingsCell")
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
+        cell.textLabel?.text = settingsArray[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.textColor = UIColor.red
+        return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 4
     }
     
     //MARK: - TableViewDelegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1 :
+        case 0 :
             performSegue(withIdentifier: "goToUserProfile", sender: self)
-        case 2 :
+        case 1 :
             performSegue(withIdentifier: "goToChangePassword", sender: self)
-        case 3 :
+        case 2 :
             performSegue(withIdentifier: "goToApparelRegistery", sender: self)
-        case 4 :
+        case 3 :
             deleteAccount()
         default :
             break
@@ -75,6 +82,7 @@ class SettingsTableViewController: UITableViewController {
                     if logoutSucess == 200 {
                         print("logout sucessfull")
                         UserData().defaults.set("", forKey: "userToken")
+                        UserData().defaults.set(false, forKey: "isLoggedIn")
                         self.dismiss(animated: true, completion: nil)
                     } else {
                         print("logout unsucessfull please try again")
