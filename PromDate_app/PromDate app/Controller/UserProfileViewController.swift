@@ -23,31 +23,36 @@ class UserProfileViewController: UIViewController {
     
     
     struct Data {
-        static let keepName = "keepName"
+        static let keepFirstName = "keepFirstName"
+        static let keepLastName = "keepLastName"
     }
     
-    let userMain = UserDefaults.standard
+    
     //user variables
     let userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    
+    let userMain = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         getUserData()
+        checkedForSavedNames()
     }
     
     @IBAction func changePicturePressed(_ sender: UIButton) {
+        
         // open pictures and chose one
     }// end of changePicture
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
-        keepNames()
+        saveNames()
+        
         // call the callUpdate method
         // pop out that says saved!
     }// end of donePressed
+
+  
     
     
     
@@ -77,11 +82,18 @@ class UserProfileViewController: UIViewController {
         
     }
     
-    func keepNames() {
-        userMain.set(firstNameTextField!, forKey: Data.keepName)
-        userMain.set(lastNameTextField!, forKey: Data.keepName)
+    func saveNames() {
+        userMain.set(firstNameTextField.text!, forKey: Data.keepFirstName)
+        userMain.set(lastNameTextField.text!, forKey: Data.keepLastName)
     }
 
+    func checkedForSavedNames() {
+        let firstName = userMain.value(forKey: Data.keepFirstName) as? String ?? ""
+        let lastName = userMain.value(forKey: Data.keepLastName) as? String ?? ""
+        
+        firstNameTextField.text = firstName
+        lastNameTextField.text = lastName
+    }
     /*
     // MARK: - Navigation
 

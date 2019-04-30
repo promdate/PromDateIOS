@@ -19,14 +19,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var token : String = ""
     let userData = UserData()
-    let userMain = UserDefaults.standard
+    let userMain = UserDefaults.standard                //creating userMain variable declaring it as UserDefaults.standard (place to store user info)
 
     
-    struct Data {
-        static let remainLoggedIn = "remainLoggedIn"
+    struct Data {                                           //creating a structure for storing strings
+        static let keepEmail = "keepEmail"                  //string
+        static let keepPassword = "keepPassword"            //string
     }
     
-    
+
     //let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,17 +65,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print(email)
         print(password)
         let params : [String : String] = ["email" : email, "password" : password ]
-        userMain.set(true, forKey: "remainLoggedIn")
         callLogIn(url: callURL, parameters: params)
+        remainLoggedIn()
     }// end of logInPressed
-    fileprivate func remainLoggedIn() -> Bool {
-        return userMain.bool(forKey: Data.remainLoggedIn)
-        
-    }
+    
     
   
-    
-    
     
     func callLogIn(url : String, parameters : [String : String]) {
         Alamofire.request(url, method: .post, parameters: parameters).responseJSON {
@@ -87,7 +83,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }else {
                 print("error \(response.result.error!)")
             }// end of if/else
+            
         }// fin de la requette
+        
     }// end of callLogIn
     func verifyStatus(json : JSON){
         let status = json["status"]
@@ -136,10 +134,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         present(mainTabViewController, animated: true, completion: nil)
     }// end of goToMainFeed
     
-    func checkIfLoggedIn() {
-        let isLoggedIn  = UserData().defaults.bool(forKey: "isLoggedIn")
-        if isLoggedIn == true {
-            goToMainFeed()
-        }
+    func remainLoggedIn() {
+        userMain.set(emailTextField.text!, forKey: Data.keepEmail)                     // creates a saved section for emailTextField in userMain
+        userMain.set(passwordTextField.text!, forKey: Data.keepPassword)              //creates a saved section for passwordTextField in userMain
     }
+    
+    func checkIfLoggedIn() {
+        let email = userMain.value(forKey: Data.keepEmail) as? String ?? ""          //retrieves email and displays it on screen in userMain
+        let password = userMain.value(forKey: Data.keepPassword) as? String ?? ""    // retrieves password and displays it on screen userMain
+        
+        emailTextField.text = email                                                //declaring that emailTextField should be doing the retrieve func
+        passwordTextField.text = password                                         //declaring that passwordTextField should be doing the retrieve func
+    }
+    
+
 }//end of LogInViewController
