@@ -22,22 +22,25 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var instagramHandleTextField: UITextField!
     
     
-    struct Data {
-        static let keepFirstName = "keepFirstName"
-        static let keepLastName = "keepLastName"
-    }
-    
-    
-    //user variables
     let userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userMain = UserDefaults.standard
-
+    
+    struct Data {
+        static let keepFirstName = "keepFirstName"
+        static let keepLastName = "keepLastName"
+        static let keepTwitterhandle = "keeptTwitterhandle"
+        static let keepSnapchateHandle = "keepSnapchatHandle"
+        static let keepInstagramHandle = "keepInstagramHandle"
+        static let keepBio = "keepBio"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkedForSavedNames()
         // Do any additional setup after loading the view.
         getUserData()
-        checkedForSavedNames()
+        
     }
     
     @IBAction func changePicturePressed(_ sender: UIButton) {
@@ -46,15 +49,15 @@ class UserProfileViewController: UIViewController {
     }// end of changePicture
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
+        let firstName : String = firstNameTextField.text!
+        let lastName : String = lastNameTextField.text!
+        print(firstName)
+        print(lastName)
         saveNames()
         
         // call the callUpdate method
         // pop out that says saved!
     }// end of donePressed
-
-  
-    
-    
     
     
     func getUserData() {
@@ -79,24 +82,38 @@ class UserProfileViewController: UIViewController {
     func updateUI(userJSON : JSON) {
         firstNameTextField.text = userJSON["result"]["FirstName"].string
         lastNameTextField.text = userJSON["result"]["LastName"].string
-        
+      
     }
     
     func saveNames() {
         userMain.set(firstNameTextField.text!, forKey: Data.keepFirstName)
         userMain.set(lastNameTextField.text!, forKey: Data.keepLastName)
+        userMain.set(instagramHandleTextField.text!, forKey: Data.keepInstagramHandle)
+        userMain.set(twitterHandleTextField.text!, forKey: Data.keepTwitterhandle)
+        userMain.set(snapchatHandleTextField.text!, forKey: Data.keepSnapchateHandle)
+        userMain.set(bioTextField.text!, forKey: Data.keepBio)
     }
 
     func checkedForSavedNames() {
         let firstName = userMain.value(forKey: Data.keepFirstName) as? String ?? ""
         let lastName = userMain.value(forKey: Data.keepLastName) as? String ?? ""
         
+        let instagram = userMain.value(forKey: Data.keepInstagramHandle) as? String ?? ""
+        let twitter = userMain.value(forKey: Data.keepTwitterhandle) as? String ?? ""
+        let snap = userMain.value(forKey: Data.keepSnapchateHandle) as? String ?? ""
+        let bio = userMain.value(forKey: Data.keepBio) as? String ?? ""
+        
         firstNameTextField.text = firstName
         lastNameTextField.text = lastName
+        
+        instagramHandleTextField.text = instagram
+        twitterHandleTextField.text = twitter
+        snapchatHandleTextField.text = snap
+        twitterHandleTextField.text = twitter
+        bioTextField.text = bio
     }
     /*
-    // MARK: - Navigation
-
+     //MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
