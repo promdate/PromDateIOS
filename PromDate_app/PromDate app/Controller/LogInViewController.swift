@@ -87,6 +87,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }// fin de la requette
         
     }// end of callLogIn
+    
     func verifyStatus(json : JSON){
         let status = json["status"]
         if status == 200 {

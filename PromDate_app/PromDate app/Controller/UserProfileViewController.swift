@@ -36,10 +36,9 @@ class UserProfileViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        checkedForSavedNames()
         // Do any additional setup after loading the view.
         getUserData()
+        checkedForSavedNames()
         
     }
     
@@ -51,14 +50,25 @@ class UserProfileViewController: UIViewController {
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let firstName : String = firstNameTextField.text!
         let lastName : String = lastNameTextField.text!
+        let instagram : String = instagramHandleTextField.text!
+        let twitter : String = twitterHandleTextField.text!
+        let snap : String = snapchatHandleTextField.text!
+        let bio : String = bioTextField.text!
         print(firstName)
         print(lastName)
+        print(bio)
+        print(instagram)
+        print(snap)
+        print(twitter)
         saveNames()
         
         // call the callUpdate method
         // pop out that says saved!
     }// end of donePressed
     
+    @IBAction func saveTest(_ sender: Any) {
+        saveNames()
+    }
     
     func getUserData() {
         let callURL = baseURL + "/php/getUser.php"
