@@ -92,9 +92,8 @@ class UserProfileViewController: UIViewController {
     func updateUI(userJSON : JSON) {
         firstNameTextField.text = userJSON["result"]["FirstName"].string
         lastNameTextField.text = userJSON["result"]["LastName"].string
-      
+     
     }
-    
     func saveNames() {
         userMain.set(firstNameTextField.text!, forKey: Data.keepFirstName)
         userMain.set(lastNameTextField.text!, forKey: Data.keepLastName)
@@ -103,6 +102,7 @@ class UserProfileViewController: UIViewController {
         userMain.set(snapchatHandleTextField.text!, forKey: Data.keepSnapchateHandle)
         userMain.set(bioTextField.text!, forKey: Data.keepBio)
     }
+   
 
     func checkedForSavedNames() {
         let firstName = userMain.value(forKey: Data.keepFirstName) as? String ?? ""
