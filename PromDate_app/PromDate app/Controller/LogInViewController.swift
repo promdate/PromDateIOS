@@ -25,12 +25,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 //        static let keepPassword = "keepPassword"            //string
 //    }
     
-    
-    //let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkIfLoggedIn()
         // Do any additional setup after loading the view.
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -53,6 +50,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewControllerTapped))
         //        emailTextField.addGestureRecognizer(tapGesture)
         //        passwordTextField.addGestureRecognizer(tapGesture)
+        checkIfLoggedIn()
     }// end of viewDidLoad
     
     @IBAction func logInPressed(_ sender: UIButton) {
@@ -104,28 +102,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Navigation
     
-    //In a storyboard-based application, you will often want to do a little preparation before navigation
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "goToMainFeed" {
-    //            //         Get the new view controller using segue.destination.
-    //            let destinationVC = segue.destination as! MainFeedViewController
-    //            destinationVC.userToken = token
-    //            //         Pass the selected object to the new view controller.
-    //        }// end of if
-    //    }// end of prepareForSegue
+//    In a storyboard-based application, you will often want to do a little preparation before navigation
+//        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        let destinationVC = segue.destination as! MainTabViewController
-    //        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-    //        destinationVC.selectedViewController = mainTabViewController.viewControllers?[0]
-    //    }
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "goToMainFeed" {
+            }// end of if
+        }// end of prepareForSegue
     
     func goToMainFeed(){
         passwordTextField.text = nil
         emailTextField.text = nil
-        let mainTabViewController = storyboard?.instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
-        mainTabViewController.selectedViewController = mainTabViewController.viewControllers?[0]
-        present(mainTabViewController, animated: true, completion: nil)
+        performSegue(withIdentifier: "goToMainFeed", sender: self)
     }// end of goToMainFeed
     
     func remainLoggedIn() {
@@ -134,11 +122,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
     }
     func checkIfLoggedIn() {
-        let email = userData.defaults.value(forKey: "keepEmail") as? String ?? ""          //retrieves email and displays it on screen in userMain
-        let password = userData.defaults.value(forKey: "keepPassword") as? String ?? ""    // retrieves password and displays it on screen userMain
+        let boolLogIn = userData.defaults.bool(forKey: "isLoggedIn")
+        // if the "isLoggedIn" var in the userDefaukts is true the app direcly goes to the main feed otherwise the user has to login normally
+        if boolLogIn == true {
+            print("User is logged in")
+            
+            // call regen token
+            
+            goToMainFeed()
+        } else {
+            print("user is not logged in")
+        }//end of if/else
         
-        emailTextField.text = email                                                //declaring that emailTextField should be doing the retrieve func
-        passwordTextField.text = password                                         //declaring that passwordTextField should be doing the retrieve func
+//        let email = userData.defaults.value(forKey: "keepEmail") as? String ?? ""          //retrieves email and displays it on screen in userMain
+//        let password = userData.defaults.value(forKey: "keepPassword") as? String ?? ""    // retrieves password and displays it on screen userMain
+//
+//        emailTextField.text = email                                                //declaring that emailTextField should be doing the retrieve func
+//        passwordTextField.text = password                                         //declaring that passwordTextField should be doing the retrieve func
+        
     }// end of checkIfLoggedIn
     
     
