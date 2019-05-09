@@ -66,9 +66,7 @@ class UserProfileViewController: UIViewController {
         // pop out that says saved!
     }// end of donePressed
     
-    @IBAction func saveTest(_ sender: Any) {
-        saveNames()
-    }
+   
     
     func getUserData() {
         let callURL = baseURL + "/php/getUser.php"
