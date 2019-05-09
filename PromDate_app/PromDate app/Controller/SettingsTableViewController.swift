@@ -81,7 +81,10 @@ class SettingsTableViewController: UITableViewController {
                     //let logoutSucess = logoutJSON["status"]
                     if logoutSucess == 200 {
                         print("logout sucessfull")
+                        // we delete the user's login information from the userDefaults
                         UserData().defaults.set("", forKey: "userToken")
+                        UserData().defaults.set("", forKey: "keepEmail")
+                        UserData().defaults.set("", forKey: "keepPassword")
                         UserData().defaults.set(false, forKey: "isLoggedIn")
                         self.dismiss(animated: true, completion: nil)
                     } else {
