@@ -120,7 +120,6 @@
 		0998FF2B225D7A1E00CEB49B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
 				09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */,
 				09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */,
 				096E510122565F1F00D86172 /* AppDelegate.swift */,
@@ -129,6 +128,7 @@
 				096E51132256652300D86172 /* SignUpViewController.swift */,
 				0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */,
 				09FB55042268F80D00C9416F /* SettingsTableViewController.swift */,
+				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
 				637FA88F2279E85C00D31B4E /* PopUpViewController.swift */,
 			);
 			path = Controller;

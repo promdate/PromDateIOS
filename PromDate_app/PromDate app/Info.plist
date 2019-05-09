@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This application uses the photo library so that the user is able to set photos as profile pictures</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This application uses the camera so that the user is able to take photos as profile pictures</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_CA</string>
 	<key>CFBundleExecutable</key>

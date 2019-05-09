@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class UserProfileViewController: UIViewController {
+class UserProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //variables
     @IBOutlet weak var userAvatar: UIImageView!
@@ -25,6 +25,8 @@ class UserProfileViewController: UIViewController {
     let userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userMain = UserDefaults.standard
+    var imagePicker : UIImagePickerController!
+    
     
     struct Data {
         static let keepFirstName = "keepFirstName"
@@ -34,38 +36,67 @@ class UserProfileViewController: UIViewController {
         static let keepInstagramHandle = "keepInstagramHandle"
         static let keepBio = "keepBio"
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        getUserData()
-        checkedForSavedNames()
+        // setup delegates
         
-    }
+        bioTextField.layer.borderWidth = 1
+        bioTextField.layer.borderColor = UIColor.black.cgColor
+        getUserData()
+        //checkedForSavedNames()
+        
+    }//end of viewDidLoad
     
     @IBAction func changePicturePressed(_ sender: UIButton) {
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
         
-        // open pictures and chose one
+        let alert = UIAlertController(title: "Picture Source", message: nil, preferredStyle: .actionSheet)
+        let takePicture = UIAlertAction(title: "Take Picture", style: .default) { (UIAlertAction) in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }//end of takePicture
+        let choosePicture = UIAlertAction(title: "Pick from Library", style: .default) { (UIAlertAction) in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }// end of chosePicture
+        
+        alert.addAction(takePicture)
+        alert.addAction(choosePicture)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }// end of changePicture
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        userAvatar.image = info[.originalImage] as? UIImage
+    }
+    
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
-        let firstName : String = firstNameTextField.text!
-        let lastName : String = lastNameTextField.text!
-        let instagram : String = instagramHandleTextField.text!
-        let twitter : String = twitterHandleTextField.text!
-        let snap : String = snapchatHandleTextField.text!
-        let bio : String = bioTextField.text!
-        print(firstName)
-        print(lastName)
-        print(bio)
-        print(instagram)
-        print(snap)
-        print(twitter)
-        saveNames()
+        let callURL = baseURL + "/php/update.php"
+        let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!]
+        print("twitterHandle : \(twitterHandleTextField.text!)")
+        print("userToken : \(userToken!)")
+        print("firstName: \(firstNameTextField.text!)")
         
-        // call the callUpdate method
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                print(response.result.value!)
+                
+            } else {
+                print("there was an error getting the data please try again")
+                print("networking error")
+                print("this is the error code: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+
         // pop out that says saved!
     }// end of donePressed
-    
    
     
     func getUserData() {
@@ -88,10 +119,17 @@ class UserProfileViewController: UIViewController {
     
     
     func updateUI(userJSON : JSON) {
-        firstNameTextField.text = userJSON["result"]["FirstName"].string
-        lastNameTextField.text = userJSON["result"]["LastName"].string
-     
-    }
+        print("updateUI")
+        // we get the data from the userJSON and load it in the appropriate places
+        //userAvatar.image = userJSON["result"]["user"]["ProfilePicture"]
+        firstNameTextField.text = userJSON["result"]["user"]["FirstName"].string
+        lastNameTextField.text = userJSON["result"]["user"]["LastName"].string
+        bioTextField.text = userJSON["result"]["user"]["Biography"].string
+        twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
+        snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
+        instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
+    }//end of updateUI
+    
     func saveNames() {
         userMain.set(firstNameTextField.text!, forKey: Data.keepFirstName)
         userMain.set(lastNameTextField.text!, forKey: Data.keepLastName)
