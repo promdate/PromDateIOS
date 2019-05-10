@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,11 +17,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var feedSegmentedControl: UISegmentedControl!
     
-    var singlesSelected : Bool = true
+    var singlesSelected : Bool = false
+    let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var feedReusableCell = ""
- 
-    
-    //setting self as delegate and datasource of feedTableView
+    var feedJSON : JSON!
     
     
     
@@ -50,10 +51,15 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             print("Couples Selected")
             // set singles as selected
             singlesSelected = false
+            feedTableView.reloadData()
         case 1:
             print("Singles Selected")
             // set couples as selected
             singlesSelected = true
+            feedTableView.reloadData()
+        case 3:
+            print("wish selected")
+            feedTableView.reloadData()
         default:
             print("default selected")
         }// end of switch
@@ -64,16 +70,21 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     // declare cellForRowAt func
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
-        let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
+        //let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
+        getFeed()
         if singlesSelected == true {
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-            cell.nameLabel.text = messageArray[indexPath.row]
+//            cell.nameLabel.text = messageArray[indexPath.row]
+//            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            cell.nameLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["FirstName"].string
+            cell.gradeLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Grade"].string
+            cell.bioLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Biography"].string
             cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher"]
+            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
             cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
@@ -83,7 +94,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - Declare numbersOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 11
     }// end of numbersOfRowsInSection
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -95,6 +106,24 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             performSegue(withIdentifier: "goToSelectedCouple", sender: self)
         }// end of if
     }// end of didSelectRowAt
+    
+    //MARK: - getFeedCall function
+    func getFeed() {
+        let callURL = baseURL + "/php/search.php"
+        let params : [String : Any] = ["token" : userToken!, "max-users" : 11]
+        Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                self.feedJSON = JSON(response.result.value!)
+                
+                print(self.feedJSON)
+            } else {
+                print("Failed to get Data : there was an error during the request")
+                print("error: \(response.result.error!)")
+            }//end of if/else
+        }// end of request
+    }// end of getFeed
     
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly

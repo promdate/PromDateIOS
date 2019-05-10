@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */; };
 		096E510222565F1F00D86172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E510122565F1F00D86172 /* AppDelegate.swift */; };
 		096E510722565F1F00D86172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096E510522565F1F00D86172 /* Main.storyboard */; };
 		096E510922565F2100D86172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096E510822565F2100D86172 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SinglesUserProfileViewController.swift; path = "PromDate app/Controller/SinglesUserProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
 		096E50FE22565F1F00D86172 /* PromDate app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromDate app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		096E510122565F1F00D86172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		096E510622565F1F00D86172 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,10 +111,10 @@
 		0998FF20225D5CAB00CEB49B /* Custom Cell */ = {
 			isa = PBXGroup;
 			children = (
-				0998FF21225D5D3700CEB49B /* SinglesTableViewCell.swift */,
 				0998FF22225D5D3700CEB49B /* SinglesTableViewCell.xib */,
-				0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */,
+				0998FF21225D5D3700CEB49B /* SinglesTableViewCell.swift */,
 				0998FF26225D6B6C00CEB49B /* CouplesTableViewCell.xib */,
+				0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -120,15 +122,16 @@
 		0998FF2B225D7A1E00CEB49B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				096E510122565F1F00D86172 /* AppDelegate.swift */,
 				09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */,
 				09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */,
-				096E510122565F1F00D86172 /* AppDelegate.swift */,
 				09A483F7225FC8670029A6CC /* MainTabViewController.swift */,
-				096E51152256699100D86172 /* LogInViewController.swift */,
 				096E51132256652300D86172 /* SignUpViewController.swift */,
+				096E51152256699100D86172 /* LogInViewController.swift */,
 				0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */,
 				09FB55042268F80D00C9416F /* SettingsTableViewController.swift */,
 				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
+				091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */,
 				637FA88F2279E85C00D31B4E /* PopUpViewController.swift */,
 			);
 			path = Controller;
@@ -300,6 +303,7 @@
 				637FA8902279E85C00D31B4E /* PopUpViewController.swift in Sources */,
 				096E510222565F1F00D86172 /* AppDelegate.swift in Sources */,
 				09A483F8225FC8670029A6CC /* MainTabViewController.swift in Sources */,
+				091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */,
 				096E51162256699100D86172 /* LogInViewController.swift in Sources */,
 				09B02DB62271EC1000B00CAF /* ApparelRegistryViewController.swift in Sources */,
 			);
