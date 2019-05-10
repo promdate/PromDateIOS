@@ -45,7 +45,11 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         bioTextField.layer.borderWidth = 1
         bioTextField.layer.borderColor = UIColor.black.cgColor
         getUserData()
-        //checkedForSavedNames()
+        
+        //block which permits to click away when using keyboard
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         
     }//end of viewDidLoad
     
@@ -77,7 +81,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let callURL = baseURL + "/php/update.php"
-        let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!]
+        let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!, "bio" : bioTextField.text!, "social-snapchat" : snapchatHandleTextField.text!, "social-instagram" : snapchatHandleTextField.text!, "last-name" : lastNameTextField.text!]
         print("twitterHandle : \(twitterHandleTextField.text!)")
         print("userToken : \(userToken!)")
         print("firstName: \(firstNameTextField.text!)")
@@ -128,6 +132,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
         snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
         instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
+        
     }//end of updateUI
     
     func saveNames() {

@@ -64,7 +64,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     // declare cellForRowAt func
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
-        let messageArray = ["test 12","Hello world", "Live long and prosper"]
+        let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
         if singlesSelected == true {
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
@@ -73,7 +73,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven"]
+            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher"]
             cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
@@ -83,7 +83,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - Declare numbersOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }// end of numbersOfRowsInSection
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
