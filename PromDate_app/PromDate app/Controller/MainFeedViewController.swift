@@ -36,7 +36,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         feedTableView.register(UINib(nibName: "CouplesTableViewCell", bundle: nil), forCellReuseIdentifier: "couplesCell")
         
         //giving basic value of true to singlesSelected so that it is the default tab shown when loading this view
-        singlesSelected = true
+        singlesSelected = false
         
         // call some kind of function that loads singles data --> dataLoaded() or loadData()
         
@@ -47,13 +47,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func feedIndexChanged(_ sender: UISegmentedControl) {
         switch feedSegmentedControl.selectedSegmentIndex {
         case 0:
-            print("singles Selected")
-            // set singles as selected
-            singlesSelected = true
-        case 1:
             print("Couples Selected")
-            // set couples as selected
+            // set singles as selected
             singlesSelected = false
+        case 1:
+            print("Singles Selected")
+            // set couples as selected
+            singlesSelected = true
         default:
             print("default selected")
         }// end of switch
