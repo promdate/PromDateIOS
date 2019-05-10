@@ -61,7 +61,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBM-PJ-yB2">
                                         <rect key="frame" x="195" y="7" width="61" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Sign Up"/>
+                                        <state key="normal" title="Sign Up">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="SnW-9F-vJB" kind="show" id="tNI-3K-Ms1"/>
                                         </connections>
@@ -170,7 +172,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Kh-UT-VrL">
                                 <rect key="frame" x="275" y="671" width="47" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Log In"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="loginPressed:" destination="wp7-Ri-BDj" eventType="touchUpInside" id="uhY-BL-bzA"/>
                                 </connections>
@@ -272,6 +276,7 @@
                                     <segment title="Singles"/>
                                     <segment title="Couples"/>
                                 </segments>
+                                <color key="tintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="feedIndexChanged:" destination="Bmr-Li-P2t" eventType="valueChanged" id="02q-SJ-Uar"/>
                                 </connections>
@@ -291,18 +296,46 @@
                     <tabBarItem key="tabBarItem" title="Main Feed" id="bUh-ey-cvn"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Main Feed" id="pyt-5W-I8O">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Jxh-89-ERX"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Jxh-89-ERX">
+                            <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="feedSegmentedControl" destination="ZPe-5c-jSi" id="9Yc-Jj-zHK"/>
                         <outlet property="feedTableView" destination="xqW-wD-goS" id="qki-kV-khO"/>
                         <segue destination="1mB-eQ-fyL" kind="show" identifier="goToSelectedUser" id="0uC-2l-kF6"/>
+                        <segue destination="Xfn-jg-KZG" kind="show" identifier="goToSelectedCouple" id="dja-ss-18l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqJ-O7-nwl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4881.159420289855" y="-463.04347826086962"/>
+        </scene>
+        <!--Couple's name-->
+        <scene sceneID="huk-uq-Kko">
+            <objects>
+                <viewController id="Xfn-jg-KZG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NwO-H7-Oet">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Couples Page !!!!!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgc-Ay-KXW">
+                                <rect key="frame" x="137" y="321" width="140" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ZzW-A1-oyW"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Couple's name" id="GVr-ge-AGq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPf-H7-6AM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5643" y="-85"/>
         </scene>
         <!--Settings-->
         <scene sceneID="987-z0-K94">
@@ -329,6 +362,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="hRR-AS-oQG">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="yi2-yX-X9q">
+                            <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="logoutPressed:" destination="Zpf-eq-shJ" id="4bA-xp-y3W"/>
                             </connections>
@@ -475,6 +509,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="u1W-Sw-qDL">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="zWP-PX-qlj">
+                            <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="donePressed:" destination="PUL-hQ-uHq" id="STG-tn-QsA"/>
                             </connections>
@@ -578,7 +613,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLA-Cn-qb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5620.289855072464" y="-463.04347826086962"/>
+            <point key="canvasLocation" x="5651" y="-751"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="c9g-Qn-Obl">
@@ -640,7 +675,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3s-7Y-6xV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5713.04347826087" y="246.19565217391306"/>
+            <point key="canvasLocation" x="5717" y="730"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Enl-yb-MBJ">
@@ -714,6 +749,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="iFu-ZB-eWP" kind="relationship" relationship="viewControllers" id="atP-Oa-Hls"/>
@@ -733,6 +769,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="40u-Xd-T33">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -747,11 +787,17 @@
         <scene sceneID="bg4-qy-rBT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grR-Bc-Mk6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="ExK-4G-Qoa"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="ExK-4G-Qoa">
+                        <color key="badgeColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SNr-3v-XqH">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -770,6 +816,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dnN-Xh-ZK0">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -788,6 +838,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2mI-pO-QOT">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -808,4 +862,5 @@
         <image name="settings" width="21.333333969116211" height="21.333333969116211"/>
         <image name="snap-ghost" width="144" height="144"/>
     </resources>
+    <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
 </document>

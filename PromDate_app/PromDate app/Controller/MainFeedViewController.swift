@@ -89,9 +89,11 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if singlesSelected == true {
             performSegue(withIdentifier: "goToSelectedUser", sender: self)
-        } else {
-            
-        }// end of the if/else
+        }// end of if
+        
+        if singlesSelected == false {
+            performSegue(withIdentifier: "goToSelectedCouple", sender: self)
+        }// end of if
     }// end of didSelectRowAt
     
     //MARK: - Declare configureTableView
