@@ -17,14 +17,16 @@ class SinglesUserProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var schoolLabel: UILabel!
     @IBOutlet weak var gradeLabel: UILabel!
-    @IBOutlet weak var bioLabel: UITextView!
     @IBOutlet weak var twitterHandleLabel: UILabel!
     @IBOutlet weak var instagramHandleLabel: UILabel!
     @IBOutlet weak var snapchatHandleLabel: UILabel!
+    @IBOutlet weak var navBar: UINavigationItem!
+    @IBOutlet weak var bioLabel: UILabel!
     
     // variables
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userToken = UserData().defaults.string(forKey: "userToken")
+    var userID = ""
     
     
 
@@ -32,6 +34,7 @@ class SinglesUserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print(userID)
         getUserData()
     }//end of viewDidLoad
     
@@ -41,7 +44,7 @@ class SinglesUserProfileViewController: UIViewController {
     
     func getUserData() {
         let callURL = baseURL + "/php/getUser.php"
-        let params : [String : Any] = ["token" : userToken!, "id" : 303]
+        let params : [String : Any] = ["token" : userToken!, "id" : userID]
         
         Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
             response in
@@ -66,8 +69,7 @@ class SinglesUserProfileViewController: UIViewController {
         gradeLabel.text = "Grade: \(userJSON["result"]["user"]["Grade"])"
         nameLabel.text = "\(userJSON["result"]["user"]["FirstName"]) \(userJSON["result"]["user"]["LastName"])"
         schoolLabel.text = "School: \(userJSON["result"]["school"]["Name"])"
-        
-        
+        navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
     }//end of updateUI
 
     /*
@@ -80,4 +82,4 @@ class SinglesUserProfileViewController: UIViewController {
     }
     */
 
-}
+}//end of SinglesUserProfileViewController

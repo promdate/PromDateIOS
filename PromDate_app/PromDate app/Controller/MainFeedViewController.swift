@@ -21,6 +21,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var feedReusableCell = ""
     var feedJSON : JSON!
+    var selectedUserID = ""
     
     
     
@@ -97,8 +98,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         return 11
     }// end of numbersOfRowsInSection
     
+    //MARK: - didSelectRowAt function
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if singlesSelected == true {
+            selectedUserID = feedJSON["result"]["unmatched"][indexPath.row]["ID"].string!
             performSegue(withIdentifier: "goToSelectedUser", sender: self)
         }// end of if
         
@@ -130,7 +133,16 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func configureTableView() {
         feedTableView.rowHeight = UITableView.automaticDimension
         feedTableView.estimatedRowHeight = 60.0
-    }
+    }//end of configureTableView
+    
+    
+    //MARK: - PrepareForSegue functions
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSelectedUser" {
+            let destinationVC = segue.destination as! SinglesUserProfileViewController
+            destinationVC.userID = selectedUserID
+        }//end of if
+    }//end of prepare for segue
     
    
     
