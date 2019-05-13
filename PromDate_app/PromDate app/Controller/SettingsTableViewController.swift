@@ -18,7 +18,6 @@ class SettingsTableViewController: UITableViewController {
     var settingsArray = ["Profile","Change Password", "Apparel Registery", "Delete Account"]
     
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self

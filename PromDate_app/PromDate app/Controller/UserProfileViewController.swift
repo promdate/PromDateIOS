@@ -27,16 +27,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     let userMain = UserDefaults.standard
     var imagePicker : UIImagePickerController!
     
-    
-    struct Data {
-        static let keepFirstName = "keepFirstName"
-        static let keepLastName = "keepLastName"
-        static let keepTwitterhandle = "keeptTwitterhandle"
-        static let keepSnapchateHandle = "keepSnapchatHandle"
-        static let keepInstagramHandle = "keepInstagramHandle"
-        static let keepBio = "keepBio"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -132,37 +122,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
         snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
         instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
-        
     }//end of updateUI
-    
-    func saveNames() {
-        userMain.set(firstNameTextField.text!, forKey: Data.keepFirstName)
-        userMain.set(lastNameTextField.text!, forKey: Data.keepLastName)
-        userMain.set(instagramHandleTextField.text!, forKey: Data.keepInstagramHandle)
-        userMain.set(twitterHandleTextField.text!, forKey: Data.keepTwitterhandle)
-        userMain.set(snapchatHandleTextField.text!, forKey: Data.keepSnapchateHandle)
-        userMain.set(bioTextField.text!, forKey: Data.keepBio)
-    }
    
-
-    func checkedForSavedNames() {
-        let firstName = userMain.value(forKey: Data.keepFirstName) as? String ?? ""
-        let lastName = userMain.value(forKey: Data.keepLastName) as? String ?? ""
-        
-        let instagram = userMain.value(forKey: Data.keepInstagramHandle) as? String ?? ""
-        let twitter = userMain.value(forKey: Data.keepTwitterhandle) as? String ?? ""
-        let snap = userMain.value(forKey: Data.keepSnapchateHandle) as? String ?? ""
-        let bio = userMain.value(forKey: Data.keepBio) as? String ?? ""
-        
-        firstNameTextField.text = firstName
-        lastNameTextField.text = lastName
-        
-        instagramHandleTextField.text = instagram
-        twitterHandleTextField.text = twitter
-        snapchatHandleTextField.text = snap
-        twitterHandleTextField.text = twitter
-        bioTextField.text = bio
-    }
     /*
      //MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
