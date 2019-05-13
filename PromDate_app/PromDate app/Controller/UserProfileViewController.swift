@@ -122,7 +122,10 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
         snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
         instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
-    }//end of updateUI
+        var profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
+        let dotsIndex = profilePicURL!.startIndex..<profilePicURL!.index(profilePicURL!.startIndex, offsetBy: 2)
+        profilePicURL!.removeSubrange(dotsIndex)
+            }//end of updateUI
    
     /*
      //MARK: - Navigation
