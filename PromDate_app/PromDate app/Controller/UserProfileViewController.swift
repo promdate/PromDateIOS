@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class UserProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -125,6 +126,17 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         var profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
         let dotsIndex = profilePicURL!.startIndex..<profilePicURL!.index(profilePicURL!.startIndex, offsetBy: 2)
         profilePicURL!.removeSubrange(dotsIndex)
+        let imageURL = baseURL + profilePicURL!
+        Alamofire.request(imageURL).responseImage {
+            response in
+            if response.result.isSuccess {
+                let profileImage = response.result.value
+                self.userAvatar.image = profileImage
+            } else {
+                print("there was an error getting the photo")
+                print("error: \(response.result.error!)")
+            }
+        }
             }//end of updateUI
    
     /*
