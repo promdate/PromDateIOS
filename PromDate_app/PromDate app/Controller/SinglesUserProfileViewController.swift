@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class SinglesUserProfileViewController: UIViewController {
@@ -70,7 +71,31 @@ class SinglesUserProfileViewController: UIViewController {
         nameLabel.text = "\(userJSON["result"]["user"]["FirstName"]) \(userJSON["result"]["user"]["LastName"])"
         schoolLabel.text = "School: \(userJSON["result"]["school"]["Name"])"
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
+        
+        let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
+        loadUserPicture(pictureURL: profilePicURL!)
+        
+        
     }//end of updateUI
+    
+    func loadUserPicture(pictureURL : String) {
+        var profilePicURL = pictureURL
+        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        profilePicURL.removeSubrange(dotsIndex)
+        
+        let callURL = baseURL + profilePicURL
+        
+        Alamofire.request(callURL).responseImage {
+            response in
+            if response.result.isSuccess {
+                let userImage = response.result.value
+                self.userAvatar.image = userImage
+            } else {
+                print("there was a problem getting the image")
+                print("error: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+    }//end of loadUserPicture
 
     /*
     // MARK: - Navigation
