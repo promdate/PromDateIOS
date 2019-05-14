@@ -8,9 +8,10 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
-class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
 
     
     //variables
@@ -21,7 +22,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var feedReusableCell = ""
     var feedJSON : JSON!
+    var feedImages : Image!
     var selectedUserID = ""
+    let numberUserLoaded = 10
     
     
     
@@ -32,6 +35,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         //setting self as delegate and datasource of feedTableView
         feedTableView.delegate = self
         feedTableView.dataSource = self
+        feedTableView.prefetchDataSource = self
         
         // register custom table view Cells
         feedTableView.register(UINib(nibName: "SinglesTableViewCell", bundle: nil), forCellReuseIdentifier: "singlesCell")
@@ -67,6 +71,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         feedTableView.reloadData()
     }// end of feedIndexChanges
     
+    //MARK: - prefetchRowsAt
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    }//end of prefetchRowsAt
+    
     // MARK: - Declare cellForRowAT
     // declare cellForRowAt func
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,6 +82,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         //let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
         getFeed()
         if singlesSelected == true {
+            print("singlesSelected")
+//            let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
+//            loadUserPicture(pictureURL: imageURL!)
+            
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
 //            cell.nameLabel.text = messageArray[indexPath.row]
@@ -82,6 +94,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             cell.gradeLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Grade"].string
             cell.bioLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Biography"].string
             cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            //let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
+            //cell.avatarImageView.image = loadUserPicture(pictureURL: imageURL!)
+            //cell.avatarImageView.image = feedImages
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
@@ -112,8 +128,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - getFeedCall function
     func getFeed() {
-        let callURL = baseURL + "/php/search.php"
-        let params : [String : Any] = ["token" : userToken!, "max-users" : 11]
+        let callURL = baseURL + "/php/feed.php"
+        let params : [String : Any] = ["token" : userToken!, "max-users" : numberUserLoaded]
         Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
             response in
             if response.result.isSuccess {
@@ -144,7 +160,26 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }//end of if
     }//end of prepare for segue
     
-   
+    func loadUserPicture(pictureURL : String) {
+        print("loadUserPicture")
+        var profilePicURL = pictureURL
+        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        profilePicURL.removeSubrange(dotsIndex)
+        let callURL = baseURL + profilePicURL
+        //var userImage : Image?
+        
+        Alamofire.request(callURL).responseImage {
+            response in
+            if response.result.isSuccess {
+                print("alamofire request if")
+                self.feedImages = response.result.value
+            } else {
+                print("there was an error getting the image")
+                print("error: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+        //return userImage ?? UIImage(named: "avatar_placeholder")!
+    }//end of loadUserPicture
     
     
     /*

@@ -9,4 +9,5 @@ target 'PromDate app' do
 
 pod 'Alamofire'
 pod 'SwiftyJSON'
+pod 'AlamofireImage'
 end

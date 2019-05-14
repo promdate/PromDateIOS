@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class UserProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -70,7 +71,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
-        let callURL = baseURL + "/php/update.php"
+        let callURL = baseURL + "/php/updateUser.php"
         let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!, "bio" : bioTextField.text!, "social-snapchat" : snapchatHandleTextField.text!, "social-instagram" : snapchatHandleTextField.text!, "last-name" : lastNameTextField.text!]
         print("twitterHandle : \(twitterHandleTextField.text!)")
         print("userToken : \(userToken!)")
@@ -122,7 +123,31 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
         snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
         instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
+        let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
+        loadUserPicture(imageURL: profilePicURL!)
+
+
     }//end of updateUI
+    
+    func loadUserPicture(imageURL : String) {
+        var profilePicURL = imageURL
+        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        profilePicURL.removeSubrange(dotsIndex)
+        
+        let callURL = baseURL + profilePicURL
+        
+        //alamofire request to load the userAvatar image
+        Alamofire.request(callURL).responseImage {
+            response in
+            if response.result.isSuccess {
+                let profileImage = response.result.value
+                self.userAvatar.image = profileImage
+            } else {
+                print("there was an error getting the photo")
+                print("error: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+    }
    
     /*
      //MARK: - Navigation
