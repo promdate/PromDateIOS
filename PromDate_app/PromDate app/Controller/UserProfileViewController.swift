@@ -128,7 +128,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
 
 
     }//end of updateUI
-    
+  
     func loadUserPicture(imageURL : String) {
         var profilePicURL = imageURL
         let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
@@ -149,6 +149,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         }//end of request
     }
    
+  
+    
+    
     /*
      //MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
