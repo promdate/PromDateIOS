@@ -14,6 +14,7 @@
 		096E510C22565F2100D86172 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096E510A22565F2100D86172 /* LaunchScreen.storyboard */; };
 		096E51142256652300D86172 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E51132256652300D86172 /* SignUpViewController.swift */; };
 		096E51162256699100D86172 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E51152256699100D86172 /* LogInViewController.swift */; };
+		098D50B9228DA5E100669493 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098D50B8228DA5E100669493 /* NotificationsViewController.swift */; };
 		0998FF23225D5D3700CEB49B /* SinglesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998FF21225D5D3700CEB49B /* SinglesTableViewCell.swift */; };
 		0998FF24225D5D3700CEB49B /* SinglesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0998FF22225D5D3700CEB49B /* SinglesTableViewCell.xib */; };
 		0998FF27225D6B6C00CEB49B /* CouplesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */; };
@@ -39,6 +40,7 @@
 		096E510D22565F2100D86172 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		096E51132256652300D86172 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		096E51152256699100D86172 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		098D50B8228DA5E100669493 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		0998FF21225D5D3700CEB49B /* SinglesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglesTableViewCell.swift; sourceTree = "<group>"; };
 		0998FF22225D5D3700CEB49B /* SinglesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SinglesTableViewCell.xib; sourceTree = "<group>"; };
 		0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesTableViewCell.swift; sourceTree = "<group>"; };
@@ -125,10 +127,11 @@
 				096E510122565F1F00D86172 /* AppDelegate.swift */,
 				09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */,
 				09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */,
-				09A483F7225FC8670029A6CC /* MainTabViewController.swift */,
-				096E51132256652300D86172 /* SignUpViewController.swift */,
 				096E51152256699100D86172 /* LogInViewController.swift */,
+				096E51132256652300D86172 /* SignUpViewController.swift */,
+				09A483F7225FC8670029A6CC /* MainTabViewController.swift */,
 				0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */,
+				098D50B8228DA5E100669493 /* NotificationsViewController.swift */,
 				09FB55042268F80D00C9416F /* SettingsTableViewController.swift */,
 				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
 				091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */,
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				098D50B9228DA5E100669493 /* NotificationsViewController.swift in Sources */,
 				09B02DB42271EBD300B00CAF /* ChangePasswordViewController.swift in Sources */,
 				096E51142256652300D86172 /* SignUpViewController.swift in Sources */,
 				0998FF30225D8CEC00CEB49B /* MainFeedViewController.swift in Sources */,
