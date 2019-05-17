@@ -128,8 +128,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             print("User is logged in")
             
             // call regen token
-            
-            goToMainFeed()
+            callRegenToken()
         } else {
             print("user is not logged in")
         }//end of if/else
@@ -142,5 +141,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
     }// end of checkIfLoggedIn
     
+    func callRegenToken() {
+        let callURL = baseURL + "/php/regenToken.php"
+        let params : [String : Any] = ["token" : UserData().defaults.string(forKey: "userToken")!]
+        
+        
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON { response in
+            if response.result.isSuccess {
+                print("regen token was sucessfull")
+                let regenJSON : JSON = JSON(response.result.value!)
+                let regenToken = regenJSON["result"].string
+                UserData().defaults.set(regenToken, forKey: "userToken")
+                print("goToMainFeed")
+                self.goToMainFeed()
+            } else {
+                print("there was an error getting the Data")
+            }//end of if/else
+        }//end of request
+    }//end of callRegenToken
+
     
 }//end of LogInViewController

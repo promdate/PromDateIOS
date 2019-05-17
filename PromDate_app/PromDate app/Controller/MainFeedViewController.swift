@@ -87,8 +87,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-//            cell.nameLabel.text = messageArray[indexPath.row]
-//            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.nameLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["FirstName"].string
             cell.gradeLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Grade"].string
             cell.bioLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Biography"].string
@@ -100,8 +98,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
-            cell.couplesNamesLabel.text = couplesArray[indexPath.row]
+            cell.couplesNamesLabel.text = "\(feedJSON["result"]["matched"][indexPath.row][0]["FirstName"]) & \(feedJSON["result"]["matched"][indexPath.row][1]["FirstName"])"
+            //let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
+            //cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
             return cell
