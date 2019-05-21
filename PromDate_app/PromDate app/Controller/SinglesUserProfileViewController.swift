@@ -35,7 +35,7 @@ class SinglesUserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print(userID)
+        //print(userID)
         getUserData()
     }//end of viewDidLoad
     

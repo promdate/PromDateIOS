@@ -37,7 +37,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.view.addGestureRecognizer(tap)
         
         //token = defaults.data(forKey: "userToken")
-        print("token avant aller le chercher dans defaults : \(token)")
+        //print("token avant aller le chercher dans defaults : \(token)")
         //        if let fetchToken = defaults.string(forKey: "userToken") {
         //            token = fetchToken
         //        }
@@ -45,7 +45,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             token = fetchToken
         }
         
-        print("token appres avoir ete le chercher\(token)")
+        //print("token appres avoir ete le chercher\(token)")
         
         //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewControllerTapped))
         //        emailTextField.addGestureRecognizer(tapGesture)
@@ -151,6 +151,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 print("regen token was sucessfull")
                 let regenJSON : JSON = JSON(response.result.value!)
                 let regenToken = regenJSON["result"].string
+                print("userToken(regen): \(regenToken!)")
                 UserData().defaults.set(regenToken, forKey: "userToken")
                 print("goToMainFeed")
                 self.goToMainFeed()

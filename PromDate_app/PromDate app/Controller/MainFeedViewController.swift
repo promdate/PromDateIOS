@@ -24,7 +24,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedJSON : JSON!
     var feedImages : Image!
     var selectedUserID = ""
-    let numberUserLoaded = 10
+    let numberUserLoaded = 12
     var userToken = UserData().defaults.string(forKey: "userToken")
 
     override func viewDidLoad() {
@@ -129,6 +129,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }// end of if
         
         if singlesSelected == false {
+            selectedUserID = feedJSON["result"]["matched"][indexPath.row][0]["ID"].string!
             performSegue(withIdentifier: "goToSelectedCouple", sender: self)
         }// end of if
     }// end of didSelectRowAt
@@ -163,6 +164,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToSelectedUser" {
             let destinationVC = segue.destination as! SinglesUserProfileViewController
+            destinationVC.userID = selectedUserID
+        }//end of if
+        if segue.identifier == "goToSelectedCouple" {
+            let destinationVC = segue.destination as! CouplesUserProfileViewController
             destinationVC.userID = selectedUserID
         }//end of if
     }//end of prepare for segue
