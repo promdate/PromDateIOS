@@ -101,7 +101,7 @@ class SinglesUserProfileViewController: UIViewController {
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
         
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
-        loadUserPicture(pictureURL: profilePicURL!)
+        //loadUserPicture(pictureURL: profilePicURL!)
         
         
     }//end of updateUI

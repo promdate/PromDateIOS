@@ -24,7 +24,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedJSON : JSON!
     var feedImages : Image!
     var selectedUserID = ""
-    let numberUserLoaded = 12
+    let numberUserLoaded = 94
     var userToken = UserData().defaults.string(forKey: "userToken")
 
     override func viewDidLoad() {
