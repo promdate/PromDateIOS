@@ -41,7 +41,35 @@ class SinglesUserProfileViewController: UIViewController {
     
     
     @IBAction func sendRequestPressed(_ sender: UIButton) {
+        //make call to server
+        print("promRequest pressed")
+        let callURL = baseURL + "/php/match.php"
+        let params : [String : Any] = ["token" : userToken!, "partner-id" : userID, "action" : 0]
+        
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                print(response.result.value!)
+                let matchJSON = JSON(response.result.value!)
+                self.matchRequestStatus(matchJSON: matchJSON)
+            } else {
+                print("there was an error making the match request")
+                print("here is the error code: \(response.result.value!)")
+            }//end of if/else
+        }//end of request
     }// end of sendRequest
+    
+    func matchRequestStatus(matchJSON : JSON) {
+        
+        if matchJSON["status"] == 200 {
+            print("match request was sent sucessfully")
+            let alert = UIAlertController(title: "Match Request", message: "The match request was sent sucessfully", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }//end of if
+    }//end of matchRequestStatus
     
     func getUserData() {
         let callURL = baseURL + "/php/getUser.php"

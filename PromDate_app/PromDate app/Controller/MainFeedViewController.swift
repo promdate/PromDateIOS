@@ -25,9 +25,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedImages : Image!
     var selectedUserID = ""
     let numberUserLoaded = 10
-    
-    
-    
     var userToken = UserData().defaults.string(forKey: "userToken")
 
     override func viewDidLoad() {
@@ -45,9 +42,12 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         singlesSelected = false
         
         // call some kind of function that loads singles data --> dataLoaded() or loadData()
-        
         configureTableView()
-    }
+        
+        //get user data
+        getFeed()
+        
+    }//end of viewDidLoad
     
     
     @IBAction func feedIndexChanged(_ sender: UISegmentedControl) {
@@ -80,7 +80,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
         //let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
-        getFeed()
         if singlesSelected == true {
             print("singlesSelected")
 //            let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
@@ -88,8 +87,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-//            cell.nameLabel.text = messageArray[indexPath.row]
-//            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.nameLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["FirstName"].string
             cell.gradeLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Grade"].string
             cell.bioLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Biography"].string
@@ -101,8 +98,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
-            cell.couplesNamesLabel.text = couplesArray[indexPath.row]
+            cell.couplesNamesLabel.text = "\(feedJSON["result"]["matched"][indexPath.row][0]["FirstName"]) & \(feedJSON["result"]["matched"][indexPath.row][1]["FirstName"])"
+            //let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
+            //cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
             cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
             return cell
@@ -111,7 +109,16 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - Declare numbersOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 11
+        //return 11
+        if feedJSON != nil {
+            if singlesSelected == true {
+                return feedJSON["result"]["unmatched"].count
+            } else {
+                return feedJSON["result"]["matched"].count
+            }//end of if/else
+        } else {
+            return 0
+        }
     }// end of numbersOfRowsInSection
     
     //MARK: - didSelectRowAt function
@@ -135,8 +142,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             if response.result.isSuccess {
                 print("sucess got data")
                 self.feedJSON = JSON(response.result.value!)
-                
                 print(self.feedJSON)
+                self.feedTableView.reloadData()
             } else {
                 print("Failed to get Data : there was an error during the request")
                 print("error: \(response.result.error!)")
