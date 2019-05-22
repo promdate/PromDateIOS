@@ -20,6 +20,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     var notificationJSON : JSON!
     var notificationSender : [String]!
     var senderID = ""
+    var matchAction = 2
     
 
     override func viewDidLoad() {
@@ -55,6 +56,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             //cell.bioLabel.text = "\(notificationSender[0]) rejected your match request"
         case "3":
             cell.titleLabel.text = "Match Accepted"
+        case "4":
+            cell.titleLabel.text = "Unmatch Notice"
         default:
             cell.messageLabel.text = notificationJSON["result"]["notifications"][indexPath.row]["Message"].string
         }//end of switch
@@ -80,7 +83,29 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
         senderID.removeSubrange(dotsIndex)
         performSegue(withIdentifier: "goToSelectedUser", sender: self)
+        
     }//fin de didSelectRowAt
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        senderID = notificationJSON["result"]["notifications"][indexPath.row]["Parameters"].string!
+        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
+        senderID.removeSubrange(dotsIndex)
+        
+        if notificationJSON["result"]["notifications"][indexPath.row]["Type"] == "1" {
+            let alert = UIAlertController(title: "Match Request", message: "User __ sent you a match request", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Accept Match", style: .default, handler: { (UIAlertAction) in
+                print("match request accepted")
+                self.matchAction = 0
+                self.replyMatchRequest()
+            }))
+            alert.addAction(UIAlertAction(title: "Deny Match", style: .default, handler: { (UIAlertAction) in
+                print("match denied")
+                self.matchAction = 1
+                self.replyMatchRequest()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }//end of if
+    }//end of accessoryButtonTappedForRowWith
     
     func getNotificationData(){
         let callURL = baseURL + "/php/notifications.php"
@@ -148,6 +173,23 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
 //        }//end of for loop
         //self.notificationTableView.reloadData()
     }//end of loadNotificationData
+    
+    func replyMatchRequest() {
+        let callURL = baseURL + "/php/match.php"
+        let params : [String : Any] = ["token" : userToken!, "partner-id" : senderID, "action" : matchAction]
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                let responseJSON : JSON = JSON(response.result.value!)
+                print(responseJSON)
+                
+            } else {
+                print("there was an issue answering the match request")
+                print("here is the error code: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+    }//end of replyMatchRequest
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToSelectedUser" {

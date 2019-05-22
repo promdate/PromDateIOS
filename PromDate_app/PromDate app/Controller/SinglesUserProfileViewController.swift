@@ -35,7 +35,7 @@ class SinglesUserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print(userID)
+        //print(userID)
         getUserData()
     }//end of viewDidLoad
     
@@ -101,7 +101,7 @@ class SinglesUserProfileViewController: UIViewController {
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
         
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
-        loadUserPicture(pictureURL: profilePicURL!)
+        //loadUserPicture(pictureURL: profilePicURL!)
         
         
     }//end of updateUI
