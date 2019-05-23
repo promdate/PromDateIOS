@@ -24,8 +24,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedJSON : JSON!
     var feedImages : Image!
     var selectedUserID = ""
-    let numberUserLoaded = 94
+    let numberUserLoaded = 15
     var userToken = UserData().defaults.string(forKey: "userToken")
+    var feedOffset = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         // call some kind of function that loads singles data --> dataLoaded() or loadData()
         configureTableView()
         
+        //we make sure feedoffset is = to 0
+        feedOffset = 0
         //get user data
         getFeed()
         
@@ -73,6 +76,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - prefetchRowsAt
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        //feedOffset += numberUserLoaded
+        //getFeed()
     }//end of prefetchRowsAt
     
     // MARK: - Declare cellForRowAT
@@ -81,15 +86,20 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
         //let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
         if singlesSelected == true {
+            print(feedJSON["result"]["single"].count)
+            if indexPath.row == feedJSON["result"]["single"].count {
+                print("if index path is equal to feed.count")
+                getFeed()
+            }//end of if
             print("singlesSelected")
 //            let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
 //            loadUserPicture(pictureURL: imageURL!)
             
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-            cell.nameLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["FirstName"].string
-            cell.gradeLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Grade"].string
-            cell.bioLabel.text = feedJSON["result"]["unmatched"][indexPath.row]["Biography"].string
+            cell.nameLabel.text = feedJSON["result"]["single"][indexPath.row]["FirstName"].string
+            cell.gradeLabel.text = "Grade: \(feedJSON["result"]["single"][indexPath.row]["Grade"])"
+            cell.bioLabel.text = feedJSON["result"]["single"][indexPath.row]["Biography"].string
             cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
             //let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
             //cell.avatarImageView.image = loadUserPicture(pictureURL: imageURL!)
@@ -98,7 +108,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            cell.couplesNamesLabel.text = "\(feedJSON["result"]["matched"][indexPath.row][0]["FirstName"]) & \(feedJSON["result"]["matched"][indexPath.row][1]["FirstName"])"
+            cell.couplesNamesLabel.text = "\(feedJSON["result"]["couple"][indexPath.row][0]["FirstName"]) & \(feedJSON["result"]["couple"][indexPath.row][1]["FirstName"])"
             //let couplesArray = ["El & Sam", "Lucas & Max", "Mike & Eleven", "t'pol & tripp", "Picard & Crusher", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam", "El & Sam"]
             //cell.couplesNamesLabel.text = couplesArray[indexPath.row]
             cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
@@ -110,11 +120,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Declare numbersOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 11
+        print("entered numbersOfRowsInSection")
+        print(feedJSON)
         if feedJSON != nil {
             if singlesSelected == true {
-                return feedJSON["result"]["unmatched"].count
+                return feedJSON["result"]["single"].count
             } else {
-                return feedJSON["result"]["matched"].count
+                return feedJSON["result"]["couple"].count
             }//end of if/else
         } else {
             return 0
@@ -124,20 +136,21 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - didSelectRowAt function
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if singlesSelected == true {
-            selectedUserID = feedJSON["result"]["unmatched"][indexPath.row]["ID"].string!
+            selectedUserID = feedJSON["result"]["single"][indexPath.row]["ID"].string!
             performSegue(withIdentifier: "goToSelectedUser", sender: self)
         }// end of if
         
         if singlesSelected == false {
-            selectedUserID = feedJSON["result"]["matched"][indexPath.row][0]["ID"].string!
+            selectedUserID = feedJSON["result"]["couple"][indexPath.row][0]["ID"].string!
             performSegue(withIdentifier: "goToSelectedCouple", sender: self)
         }// end of if
     }// end of didSelectRowAt
     
     //MARK: - getFeedCall function
     func getFeed() {
-        let callURL = baseURL + "/php/feed.php"
-        let params : [String : Any] = ["token" : userToken!, "max-users" : numberUserLoaded]
+        print(feedOffset)
+        let callURL = baseURL + "/php/feed.new.php"
+        let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
         Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
             response in
             if response.result.isSuccess {
