@@ -23,8 +23,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedReusableCell = ""
     var feedJSON : JSON!
     var feedImages : Image!
+    var feedArray : [JSON]!
     var selectedUserID = ""
     let numberUserLoaded = 15
+    var numberOfTimesLoaded = 0
     var userToken = UserData().defaults.string(forKey: "userToken")
     var feedOffset = 0
 
@@ -76,8 +78,17 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - prefetchRowsAt
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        //feedOffset += numberUserLoaded
+//        numberOfTimesLoaded += 1
+//        print(numberOfTimesLoaded)
+//        feedOffset += numberUserLoaded
+//        getFeed()
+        
+        numberOfTimesLoaded += 1
+        print(numberOfTimesLoaded)
+        feedOffset += numberUserLoaded
         //getFeed()
+        getRestOfFeed()
+        
     }//end of prefetchRowsAt
     
     // MARK: - Declare cellForRowAT
@@ -86,21 +97,20 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
         //let messageArray = ["test 12","Hello world", "Live long and prosper", "Hamza Khan", "Logan Mack"]
         if singlesSelected == true {
-            print(feedJSON["result"]["single"].count)
-            if indexPath.row == feedJSON["result"]["single"].count {
-                print("if index path is equal to feed.count")
-                getFeed()
-            }//end of if
             print("singlesSelected")
 //            let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
 //            loadUserPicture(pictureURL: imageURL!)
             
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-            cell.nameLabel.text = feedJSON["result"]["single"][indexPath.row]["FirstName"].string
-            cell.gradeLabel.text = "Grade: \(feedJSON["result"]["single"][indexPath.row]["Grade"])"
-            cell.bioLabel.text = feedJSON["result"]["single"][indexPath.row]["Biography"].string
+            //cell.nameLabel.text = feedJSON["result"]["single"][indexPath.row]["FirstName"].string
+            //cell.gradeLabel.text = "Grade: \(feedJSON["result"]["single"][indexPath.row]["Grade"])"
+            //cell.bioLabel.text = feedJSON["result"]["single"][indexPath.row]["Biography"].string
             cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            
+            cell.nameLabel.text = feedArray[numberOfTimesLoaded]["result"]["single"][indexPath.row]["FirstName"].string
+            cell.gradeLabel.text = "Grade: \(feedArray[numberOfTimesLoaded]["result"]["single"][indexPath.row]["Grade"])"
+            //cell.bioLabel.text = feedArray[numberOfTimesLoaded]["result"]["single"][indexPath.row]["Biography"].string
             //let imageURL = feedJSON["result"]["unmatched"][indexPath.row]["ProfilePicture"].string
             //cell.avatarImageView.image = loadUserPicture(pictureURL: imageURL!)
             //cell.avatarImageView.image = feedImages
@@ -151,11 +161,18 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print(feedOffset)
         let callURL = baseURL + "/php/feed.new.php"
         let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
+        
         Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
             response in
             if response.result.isSuccess {
                 print("sucess got data")
                 self.feedJSON = JSON(response.result.value!)
+                if self.feedArray != nil {
+                    self.feedArray.append(self.feedJSON)
+                } else {
+                    self.feedArray = [self.feedJSON]
+                }
+                //self.feedArray = [self.feedJSON]
                 print(self.feedJSON)
                 self.feedTableView.reloadData()
             } else {
@@ -164,6 +181,31 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             }//end of if/else
         }// end of request
     }// end of getFeed
+    
+    func getRestOfFeed() {
+        print(feedOffset)
+        let callURL = baseURL + "/php/feed.new.php"
+        let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
+        
+        Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                self.feedJSON = JSON(response.result.value!)
+                if self.feedArray != nil {
+                    self.feedArray.append(self.feedJSON)
+                } else {
+                    self.feedArray = [self.feedJSON]
+                }
+                //self.feedArray = [self.feedJSON]
+                print(self.feedJSON)
+            } else {
+                print("Failed to get Data : there was an error during the request")
+                print("error: \(response.result.error!)")
+            }//end of if/else
+        }// end of request
+        
+    }
     
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly
