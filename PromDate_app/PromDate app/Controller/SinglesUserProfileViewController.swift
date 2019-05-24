@@ -100,7 +100,7 @@ class SinglesUserProfileViewController: UIViewController {
         schoolLabel.text = "School: \(userJSON["result"]["school"]["Name"])"
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
         
-        let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
+        //let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
         //loadUserPicture(pictureURL: profilePicURL!)
         
         
