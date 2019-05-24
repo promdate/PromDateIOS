@@ -22,8 +22,6 @@
 		0998FF27225D6B6C00CEB49B /* CouplesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */; };
 		0998FF28225D6B6C00CEB49B /* CouplesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0998FF26225D6B6C00CEB49B /* CouplesTableViewCell.xib */; };
 		0998FF30225D8CEC00CEB49B /* MainFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */; };
-		099E8D9622975B060079452C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099E8D9522975B060079452C /* UserModel.swift */; };
-		099E8D982297786B0079452C /* CouplesUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099E8D972297786B0079452C /* CouplesUserModel.swift */; };
 		09A483F8225FC8670029A6CC /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A483F7225FC8670029A6CC /* MainTabViewController.swift */; };
 		09A483FB2261119E0029A6CC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A483FA2261119E0029A6CC /* UserData.swift */; };
 		09B02DB42271EBD300B00CAF /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */; };
@@ -54,8 +52,6 @@
 		0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesTableViewCell.swift; sourceTree = "<group>"; };
 		0998FF26225D6B6C00CEB49B /* CouplesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouplesTableViewCell.xib; sourceTree = "<group>"; };
 		0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedViewController.swift; sourceTree = "<group>"; };
-		099E8D9522975B060079452C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		099E8D972297786B0079452C /* CouplesUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesUserModel.swift; sourceTree = "<group>"; };
 		09A483F7225FC8670029A6CC /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		09A483FA2261119E0029A6CC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -169,8 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				09A483FA2261119E0029A6CC /* UserData.swift */,
-				099E8D9522975B060079452C /* UserModel.swift */,
-				099E8D972297786B0079452C /* CouplesUserModel.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -322,7 +316,6 @@
 				09B02DB42271EBD300B00CAF /* ChangePasswordViewController.swift in Sources */,
 				096E51142256652300D86172 /* SignUpViewController.swift in Sources */,
 				0998FF30225D8CEC00CEB49B /* MainFeedViewController.swift in Sources */,
-				099E8D982297786B0079452C /* CouplesUserModel.swift in Sources */,
 				0914AE8D228F377100F0C8DE /* NotificationTableViewCell.swift in Sources */,
 				09A483FB2261119E0029A6CC /* UserData.swift in Sources */,
 				0998FF27225D6B6C00CEB49B /* CouplesTableViewCell.swift in Sources */,
@@ -334,7 +327,6 @@
 				09A483F8225FC8670029A6CC /* MainTabViewController.swift in Sources */,
 				091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */,
 				096E51162256699100D86172 /* LogInViewController.swift in Sources */,
-				099E8D9622975B060079452C /* UserModel.swift in Sources */,
 				09B02DB62271EC1000B00CAF /* ApparelRegistryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
