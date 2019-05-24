@@ -12,7 +12,35 @@ import AlamofireImage
 import SwiftyJSON
 
 class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
-
+    @IBOutlet weak var trailingC: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var leadingC: NSLayoutConstraint!
+    
+    @IBOutlet weak var ubeView: UIView!
+    var hamburgerMenusIsPressed = false
+    
+    
+    @IBAction func hamburgerMenuPressed(_ sender: Any) {
+        if hamburgerMenusIsPressed{
+            
+            leadingC.constant = 150
+            trailingC.constant = -150
+            
+            hamburgerMenusIsPressed = true
+        }else{
+            leadingC.constant = 0
+            trailingC.constant = 0
+            
+            hamburgerMenusIsPressed = false
+        }
+    
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+    self.view.layoutIfNeeded()
+    })
+    print("the animation is complete")
+    }
+    
     
     //variables
     @IBOutlet weak var feedTableView: UITableView!
