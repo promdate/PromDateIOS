@@ -47,17 +47,22 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationTableViewCell
         cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
         
+        print(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"])
         switch notificationJSON["result"]["notifications"][indexPath.row]["Type"]{
         case "1":
             cell.titleLabel.text = "Match Requested"
+            cell.messageLabel.text = "\(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["FirstName"]) \(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["LastName"]) has sent a match request"
             //cell.bioLabel.text = "\(notificationSender[indexPath.row]) sent you a match request"
         case "2":
             cell.titleLabel.text = "Match Declined"
+            cell.messageLabel.text = "\(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["FirstName"]) \(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["LastName"])"
             //cell.bioLabel.text = "\(notificationSender[0]) rejected your match request"
         case "3":
             cell.titleLabel.text = "Match Accepted"
+            cell.messageLabel.text = "\(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["FirstName"]) \(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["LastName"])"
         case "4":
             cell.titleLabel.text = "Unmatch Notice"
+            cell.messageLabel.text = "\(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["FirstName"]) \(notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["LastName"])"
         default:
             cell.messageLabel.text = notificationJSON["result"]["notifications"][indexPath.row]["Message"].string
         }//end of switch
@@ -72,16 +77,19 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //we check if notificationJSON has some data and if that's the case we return the quantity of notifications
         if notificationJSON != nil {
+            print("notification count: \(notificationJSON["result"]["notifications"].count)")
             return notificationJSON["result"]["notifications"].count
+            
         } else {
             return 0
         }//end of if/else
     }//end of numberOfRowsInSection
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        senderID = notificationJSON["result"]["notifications"][indexPath.row]["Parameters"].string!
-        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
-        senderID.removeSubrange(dotsIndex)
+//        senderID = notificationJSON["result"]["notifications"][indexPath.row]["Parameters"].string!
+//        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
+//        senderID.removeSubrange(dotsIndex)
+        senderID = notificationJSON["result"]["notifications"][indexPath.row]["ParametersJSON"][0]["initiator-data"]["ID"].string!
         performSegue(withIdentifier: "goToSelectedUser", sender: self)
         
     }//fin de didSelectRowAt
