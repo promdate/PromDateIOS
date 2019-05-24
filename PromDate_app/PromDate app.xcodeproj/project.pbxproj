@@ -30,6 +30,7 @@
 		09B02DB62271EC1000B00CAF /* ApparelRegistryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */; };
 		09B02DB82271EC2F00B00CAF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */; };
 		09D725A5229469F10080AC75 /* CouplesUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D725A4229469F10080AC75 /* CouplesUserProfileViewController.swift */; };
+		09EE0CCD22982C3C00CA952D /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE0CCC22982C3C00CA952D /* NotificationModel.swift */; };
 		09FB55052268F80D00C9416F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FB55042268F80D00C9416F /* SettingsTableViewController.swift */; };
 		59C0C6AE29E59F967A3B2B2A /* Pods_PromDate_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A171B49502DB85068B9AFC /* Pods_PromDate_app.framework */; };
 		637FA8902279E85C00D31B4E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637FA88F2279E85C00D31B4E /* PopUpViewController.swift */; };
@@ -61,6 +62,7 @@
 		09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelRegistryViewController.swift; sourceTree = "<group>"; };
 		09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		09D725A4229469F10080AC75 /* CouplesUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesUserProfileViewController.swift; sourceTree = "<group>"; };
+		09EE0CCC22982C3C00CA952D /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		09FB55042268F80D00C9416F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		39F4AF0D907CAFFD8E029B7D /* Pods-PromDate app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PromDate app.release.xcconfig"; path = "Target Support Files/Pods-PromDate app/Pods-PromDate app.release.xcconfig"; sourceTree = "<group>"; };
 		637FA88F2279E85C00D31B4E /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				09A483FA2261119E0029A6CC /* UserData.swift */,
 				099E8D9522975B060079452C /* UserModel.swift */,
 				099E8D972297786B0079452C /* CouplesUserModel.swift */,
+				09EE0CCC22982C3C00CA952D /* NotificationModel.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */,
 				096E51162256699100D86172 /* LogInViewController.swift in Sources */,
 				099E8D9622975B060079452C /* UserModel.swift in Sources */,
+				09EE0CCD22982C3C00CA952D /* NotificationModel.swift in Sources */,
 				09B02DB62271EC1000B00CAF /* ApparelRegistryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

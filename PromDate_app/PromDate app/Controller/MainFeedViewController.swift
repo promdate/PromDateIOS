@@ -176,7 +176,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print("feedJSON.count \(feedJSON["result"]["single"].count)")
         if feedJSON["result"]["single"].count >= 1 {
             for index in 0...feedJSON["result"]["single"].count - 1 {
-                singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string!, grade: feedJSON["result"]["single"][index]["Grade"].string!, lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string!, userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!))
+                singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!))
             }//end for loop
             if feedJSON["result"]["couple"].count >= 1 {
                 for index in 0...feedJSON["result"]["couple"].count - 1 {
