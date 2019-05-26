@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0900E4DD229A11140090A8EB /* ProfilePictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900E4DC229A11140090A8EB /* ProfilePictureModel.swift */; };
 		0914AE8D228F377100F0C8DE /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */; };
 		0914AE8E228F377100F0C8DE /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */; };
 		091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0900E4DC229A11140090A8EB /* ProfilePictureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureModel.swift; sourceTree = "<group>"; };
 		0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SinglesUserProfileViewController.swift; path = "PromDate app/Controller/SinglesUserProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -171,6 +173,7 @@
 				099E8D9522975B060079452C /* UserModel.swift */,
 				099E8D972297786B0079452C /* CouplesUserModel.swift */,
 				09EE0CCC22982C3C00CA952D /* NotificationModel.swift */,
+				0900E4DC229A11140090A8EB /* ProfilePictureModel.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0900E4DD229A11140090A8EB /* ProfilePictureModel.swift in Sources */,
 				098D50B9228DA5E100669493 /* NotificationsViewController.swift in Sources */,
 				09D725A5229469F10080AC75 /* CouplesUserProfileViewController.swift in Sources */,
 				09B02DB42271EBD300B00CAF /* ChangePasswordViewController.swift in Sources */,

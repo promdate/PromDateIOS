@@ -17,10 +17,11 @@ class UserModel {
     let userBio : String
     let id : String
     let userFirstName : String
+    let userPicURL : String
     
     
     //init
-    init(gender : String, grade : String, lastName : String, schoolID : String, bio : String, userID : String, firstName : String) {
+    init(gender : String, grade : String, lastName : String, schoolID : String, bio : String, userID : String, firstName : String, profilePicURL : String) {
         userGender = gender
         userGrade = grade
         userLastName = lastName
@@ -28,5 +29,6 @@ class UserModel {
         userBio = bio
         id = userID
         userFirstName = firstName
+        userPicURL = profilePicURL
     }//end of the initialisation
 }//end of UserModel

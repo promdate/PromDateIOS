@@ -20,6 +20,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     var senderID = ""
     var matchAction = 2
     var notificationArray = [NotificationModel]()
+    var imageArray = [UIImage]()
     var notificationArrayFilled = false
     
     //MARK: - ViewDidLoad()
@@ -48,7 +49,17 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //we declare the cell which will be used for the notification information
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationTableViewCell
-        cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+        //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+        
+        if indexPath.row <= imageArray.count {
+            //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            cell.avatarImageView.image = imageArray[indexPath.row]
+        } else {
+            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            //cell.avatarImageView.image = imageArray[indexPath.row]
+        }//end of if/else
+
+        
         switch notificationArray[indexPath.row].type {
         case "1":
             print("case 1")
@@ -133,14 +144,37 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func processNotificationData(notificationJSON : JSON) {
         if notificationJSON["result"]["notifications"].count >= 1 {
             for index in 0...notificationJSON["result"]["notifications"].count - 1 {
+                print("entered process for loop")
                 notificationArray.append(NotificationModel(notificationTime: notificationJSON["result"]["notifications"][index]["CreationTime"].string!, notificationViewed: notificationJSON["result"]["notifications"][index]["Viewed"].string!, notificationID: notificationJSON["result"]["notifications"][index]["ID"].string!, notificationType: notificationJSON["result"]["notifications"][index]["Type"].string!, senderLastName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["LastName"].string!, senderFirstName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["FirstName"].string!, senderProfilePicURL: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ProfilePicture"].string!, initiatorID: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ID"].string!, notificationMessage: notificationJSON["result"]["notifications"][index]["Message"].string!))
             }//end of for loop
             //we set notificationArrayFilled to true and refresh the tableViewData
             notificationArrayFilled = true
-            notificationTableView.reloadData()
+            loadNotificationPicture()
+            //notificationTableView.reloadData()
         }//end of if
-        
     }//end of processNotificationData
+    
+    func loadNotificationPicture() {
+        for index in 0...notificationArray.count - 1 {
+            print("entered load picture for loop")
+            let pictureURL = notificationArray[index].profileURL
+            let callURL = baseURL + pictureURL
+            
+            Alamofire.request(callURL).responseImage {
+                response in
+                if response.result.isSuccess {
+                    self.imageArray.append(response.result.value!)
+                    print("imageArray.count: \(self.imageArray.count)")
+                    if self.notificationArray.count == self.imageArray.count {
+                        self.notificationTableView.reloadData()
+                    }//end of if
+                } else {
+                    print("there was an error getting the data")
+                    print("this is the error code: \(response.result.error!)")
+                }//end of if/else
+            }//end of request
+        }//end of for loop
+    }//end of loadNotificationPicture
     
     func configureTableView() {
         notificationTableView.rowHeight = UITableView.automaticDimension

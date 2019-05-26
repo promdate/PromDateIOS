@@ -23,11 +23,16 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedImages : Image!
     var singlesArray = [UserModel]()
     var couplesArray = [CouplesUserModel]()
+    var immageArray = [ProfilePictureModel]()
     var selectedUserID = ""
     let numberUserLoaded = 15
     var feedArraysFilled = false
+    var initialLoad = false
+    var feedComplete = false
     var userToken = UserData().defaults.string(forKey: "userToken")
     var feedOffset = 0
+    var couplesOffset = 0
+    var singlesImmageArray = [Image]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +48,17 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         //giving basic value of true to singlesSelected so that it is the default tab shown when loading this view
         singlesSelected = false
         
-        //giving singlesArrayFilled a default value of false
+        //giving singlesArrayFilled a default value of false and initial load as false
         feedArraysFilled = false
+        initialLoad = false
+        feedComplete = false
         
         // call some kind of function that loads singles data --> dataLoaded() or loadData()
         configureTableView()
         
         //we make sure feedoffset is = to 0
         feedOffset = 0
+        couplesOffset = 0
         
         //get user data
         getFeed()
@@ -63,11 +71,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             print("Couples Selected")
             // set singles as selected
             singlesSelected = false
+            //feedComplete = false
             feedTableView.reloadData()
         case 1:
             print("Singles Selected")
             // set couples as selected
             singlesSelected = true
+            //feedComplete = false
             feedTableView.reloadData()
         case 3:
             print("wish selected")
@@ -88,11 +98,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
         if singlesSelected == true {
             //if that checks if the index path if equal to the #of users in the singlesArray and if so loads another 15 users
-            if indexPath.row == singlesArray.count - 1 {
-                print("loading next page")
-                feedOffset += 15
-                print("Feed offset: \(feedOffset)")
-                getRemainingFeed()
+            if indexPath.row == singlesArray.count - 1 && singlesArray.count >= 15 {
+                if feedComplete == false {
+                    print("loading next page")
+                    feedOffset += 15
+                    print("Feed offset: \(feedOffset)")
+                    getRemainingFeed()
+                }//end of if
             }//end of if
             
 //            loadUserPicture(pictureURL: imageURL!)
@@ -102,7 +114,12 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
             
-            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            
+            if indexPath.row <= singlesImmageArray.count {
+                cell.avatarImageView.image = singlesImmageArray[indexPath.row]
+            } else {
+                cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+            }//end of if/else
             
             cell.nameLabel.text = singlesArray[indexPath.row].userFirstName
             cell.gradeLabel.text = "Grade: \(singlesArray[indexPath.row].userGrade)"
@@ -110,6 +127,16 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             
             return cell
         } else {
+            
+            if indexPath.row == couplesArray.count - 1 && couplesArray.count >= 15 {
+                if feedComplete == false {
+                    print("loading next page")
+                    couplesOffset += 15
+                    print("feed offset: \(couplesOffset)")
+                    getRemainingFeed()
+                }//end of if
+            }//end of if
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
             cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
             
@@ -159,6 +186,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                 print("sucess got data")
                 let responseJSON : JSON = JSON(response.result.value!)
                 print(responseJSON)
+                self.initialLoad = true
                 self.processFeedData(feedJSON: responseJSON)
             } else {
                 print("Failed to get Data : there was an error during the request")
@@ -170,24 +198,36 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func processFeedData(feedJSON : JSON) {
         print("processFeedData entered")
         print("Singles Selected: \(singlesSelected)")
+        //big if that checks if this is the initial load of data or if singles selected is true
         
-        print("if singles entered")
-        //for loop for the singlesData
-        print("feedJSON.count \(feedJSON["result"]["single"].count)")
-        if feedJSON["result"]["single"].count >= 1 {
-            for index in 0...feedJSON["result"]["single"].count - 1 {
-                singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!))
-            }//end for loop
+        if singlesSelected == true || initialLoad == true {
+            if feedJSON["result"]["single"].count >= 1 {
+                for index in 0...feedJSON["result"]["single"].count - 1 {
+                    singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!, profilePicURL: feedJSON["result"]["single"][index]["ProfilePicture"].string!))
+                }//end for loop
+                loadUserPicture()
+            } else {
+                feedComplete = true
+            }//end of if/else
+        }//end of if
+        
+        if singlesSelected == false || initialLoad == true {
             if feedJSON["result"]["couple"].count >= 1 {
+                print("just before for loop for couples")
                 for index in 0...feedJSON["result"]["couple"].count - 1 {
                     couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string!, usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string!, prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string!, prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string!))
                 }//end of for loop
-            }//end of if
-            //self.feedOffset += self.numberUserLoaded
-            print("end of forloop")
-            feedArraysFilled = true
-            self.feedTableView.reloadData()
+            } else {
+                feedComplete = true
+            }//end of if/else
         }//end of if
+        
+        //self.feedOffset += self.numberUserLoaded
+        initialLoad = false
+        print("end of forloop")
+        feedArraysFilled = true
+        loadUserPicture()
+        self.feedTableView.reloadData()
     }//end of processFeedData
     
     
@@ -195,21 +235,44 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print("getRemainingFeed")
         print(feedOffset)
         let callURL = baseURL + "/php/feed.new.php"
-        let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
+        //let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
         
-        Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
-            response in
-            if response.result.isSuccess {
-                print("sucess got data")
-                let responseJSON : JSON = JSON(response.result.value!)
-                print(responseJSON)
-                self.processFeedData(feedJSON: responseJSON)
-            } else {
-                print("Failed to get Data : there was an error during the request")
-                print("error: \(response.result.error!)")
-            }//end of if/else
-        }// end of request
-    }
+        if singlesSelected == true {
+            let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
+            
+            Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    print("sucess got data")
+                    let responseJSON : JSON = JSON(response.result.value!)
+                    print(responseJSON)
+                    self.processFeedData(feedJSON: responseJSON)
+                } else {
+                    print("Failed to get Data : there was an error during the request")
+                    print("error: \(response.result.error!)")
+                }//end of if/else
+            }// end of request
+        }//end of if
+        
+        if singlesSelected == false {
+            print("Feedoffset: \(feedOffset)")
+            let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "couple-offset" : couplesOffset]
+            
+            Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
+                response in
+                if response.result.isSuccess {
+                    print("sucess got data")
+                    let responseJSON = JSON(response.result.value!)
+                    print(responseJSON)
+                    self.processFeedData(feedJSON: responseJSON)
+                } else {
+                    print("there was an error getting the data \n please try later")
+                    print("here is the error code: \(response.result.error!)")
+                }//end of if/else
+            }//end of request
+            
+        }//end of if
+    }//end of getRemainingFeed
     
     
     //MARK: - Declare configureTableView
@@ -232,25 +295,29 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }//end of if
     }//end of prepare for segue
     
-    func loadUserPicture(pictureURL : String) {
-        print("loadUserPicture")
-        var profilePicURL = pictureURL
-        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
-        profilePicURL.removeSubrange(dotsIndex)
-        let callURL = baseURL + profilePicURL
-        //var userImage : Image?
-        
-        Alamofire.request(callURL).responseImage {
-            response in
-            if response.result.isSuccess {
-                print("alamofire request if")
-                self.feedImages = response.result.value
-            } else {
-                print("there was an error getting the image")
-                print("error: \(response.result.error!)")
-            }//end of if/else
-        }//end of request
-        //return userImage ?? UIImage(named: "avatar_placeholder")!
+    func loadUserPicture() {
+        var numberOfTimes = 0
+        for index in 0...singlesArray.count - 1 {
+            numberOfTimes += 1
+            print("load user Picture: \(numberOfTimes)")
+            print("index: \(index)")
+            let profilePicURL = singlesArray[index].userPicURL
+            let callURL = baseURL + profilePicURL
+            
+            Alamofire.request(callURL).responseImage {
+                response in
+                if response.result.isSuccess {
+                    self.singlesImmageArray.append(response.result.value!)
+                    print("SinglesArray.count : \(self.singlesImmageArray.count) singlesArray: \(self.singlesArray.count)")
+                    if self.singlesArray.count == self.singlesImmageArray.count {
+                        self.feedTableView.reloadData()
+                    }//end of if
+                } else {
+                    print("there was an error getting the data")
+                    print("here is the error code: \(response.result.error!)")
+                }//end of if/else
+            }//end of request
+        }//end of for loop
     }//end of loadUserPicture
     
     
@@ -263,5 +330,5 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }// end of MainFeedViewController
