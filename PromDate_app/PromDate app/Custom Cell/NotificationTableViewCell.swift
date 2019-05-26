@@ -18,6 +18,11 @@ class NotificationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        avatarImageView.layer.borderWidth = 1
+        avatarImageView.layer.masksToBounds = false
+        avatarImageView.layer.borderColor = UIColor.black.cgColor
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height/2
+        avatarImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -19,6 +19,20 @@ class CouplesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        firstAvatarImageView.layer.borderWidth = 1
+        seccondAvatarImageView.layer.borderWidth = 1
+        
+        firstAvatarImageView.layer.masksToBounds = false
+        seccondAvatarImageView.layer.masksToBounds = false
+        
+        firstAvatarImageView.layer.borderColor = UIColor.black.cgColor
+        seccondAvatarImageView.layer.borderColor = UIColor.black.cgColor
+        
+        firstAvatarImageView.layer.cornerRadius = firstAvatarImageView.frame.height/2
+        seccondAvatarImageView.layer.cornerRadius = seccondAvatarImageView.frame.height/2
+        
+        firstAvatarImageView.clipsToBounds = true
+        seccondAvatarImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

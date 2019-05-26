@@ -38,7 +38,21 @@ class CouplesUserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        //print("userID: \(userID)")
+        //we set the profilePic ImmageViews to circles
+        userAvatar.layer.borderWidth = 1
+        userAvatar.layer.masksToBounds = false
+        userAvatar.layer.borderColor = UIColor.black.cgColor
+        userAvatar.layer.cornerRadius = userAvatar.frame.height/2
+        userAvatar.clipsToBounds = true
+        
+        partnerAvatar.layer.borderWidth = 1
+        partnerAvatar.layer.masksToBounds = false
+        partnerAvatar.layer.borderColor = UIColor.black.cgColor
+        partnerAvatar.layer.cornerRadius = partnerAvatar.frame.height/2
+        partnerAvatar.clipsToBounds = true
+        
+        
+        //we get the couple Data
         getCoupleData()
     }
     

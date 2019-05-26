@@ -33,8 +33,16 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         // Do any additional setup after loading the view.
         // setup delegates
         
+        //we setup borders and other visual stuff
         bioTextField.layer.borderWidth = 1
         bioTextField.layer.borderColor = UIColor.black.cgColor
+        //visual stuff so that the profile pic is rounded
+        userAvatar.layer.borderWidth = 1
+        userAvatar.layer.masksToBounds = false
+        userAvatar.layer.borderColor = UIColor.black.cgColor
+        userAvatar.layer.cornerRadius = userAvatar.frame.height/2
+        userAvatar.clipsToBounds = true 
+        
         getUserData()
         
         //block which permits to click away when using keyboard
