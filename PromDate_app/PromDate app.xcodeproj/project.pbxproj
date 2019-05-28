@@ -31,6 +31,7 @@
 		09FB55052268F80D00C9416F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FB55042268F80D00C9416F /* SettingsTableViewController.swift */; };
 		59C0C6AE29E59F967A3B2B2A /* Pods_PromDate_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A171B49502DB85068B9AFC /* Pods_PromDate_app.framework */; };
 		637FA8902279E85C00D31B4E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637FA88F2279E85C00D31B4E /* PopUpViewController.swift */; };
+		63FDF21E229D8351000539F9 /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FDF21D229D8351000539F9 /* InviteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		09FB55042268F80D00C9416F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		39F4AF0D907CAFFD8E029B7D /* Pods-PromDate app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PromDate app.release.xcconfig"; path = "Target Support Files/Pods-PromDate app/Pods-PromDate app.release.xcconfig"; sourceTree = "<group>"; };
 		637FA88F2279E85C00D31B4E /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		63FDF21D229D8351000539F9 /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		A3A171B49502DB85068B9AFC /* Pods_PromDate_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PromDate_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBBFAF010155237901C8D86 /* Pods-PromDate app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PromDate app.debug.xcconfig"; path = "Target Support Files/Pods-PromDate app/Pods-PromDate app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 				091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */,
 				09D725A4229469F10080AC75 /* CouplesUserProfileViewController.swift */,
 				637FA88F2279E85C00D31B4E /* PopUpViewController.swift */,
+				63FDF21D229D8351000539F9 /* InviteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				09A483FB2261119E0029A6CC /* UserData.swift in Sources */,
 				0998FF27225D6B6C00CEB49B /* CouplesTableViewCell.swift in Sources */,
 				0998FF23225D5D3700CEB49B /* SinglesTableViewCell.swift in Sources */,
+				63FDF21E229D8351000539F9 /* InviteViewController.swift in Sources */,
 				09FB55052268F80D00C9416F /* SettingsTableViewController.swift in Sources */,
 				09B02DB82271EC2F00B00CAF /* UserProfileViewController.swift in Sources */,
 				637FA8902279E85C00D31B4E /* PopUpViewController.swift in Sources */,

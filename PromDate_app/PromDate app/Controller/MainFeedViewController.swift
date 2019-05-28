@@ -13,6 +13,38 @@ import SwiftyJSON
 
 class MainFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
 
+    @IBOutlet weak var trailingC: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var leadingC: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var ubeView: UIView!
+    var  hamburgerMenuIsPressed = false
+    
+    
+    @IBAction func hamburgerMenuPressed(_ sender: Any) {  
+        if hamburgerMenuIsPressed {
+            trailingC.constant = -150
+            leadingC.constant = 150
+            
+            hamburgerMenuIsPressed = true
+        }else{
+            trailingC.constant = 0
+            leadingC.constant = 0
+            
+            hamburgerMenuIsPressed = false
+        }
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        })
+        print("the animation is complete")
+        
+    }
+    
+    
+    
+    
     
     //variables
     @IBOutlet weak var feedTableView: UITableView!

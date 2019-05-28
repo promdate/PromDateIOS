@@ -254,21 +254,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xqW-wD-goS">
-                                <rect key="frame" x="0.0" y="101" width="414" height="586"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="x0g-to-eWo">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x0g-to-eWo" id="HfL-Aa-GHf">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiW-nf-173">
                                 <rect key="frame" x="160" y="20" width="94" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -276,27 +261,103 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZPe-5c-jSi">
-                                <rect key="frame" x="0.0" y="65" width="414" height="29"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXv-dO-1SY">
+                                <rect key="frame" x="0.0" y="64" width="180" height="622"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Couples"/>
-                                    <segment title="Singles"/>
-                                    <segment title="Wish"/>
-                                </segments>
-                                <color key="tintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="feedIndexChanged:" destination="Bmr-Li-P2t" eventType="valueChanged" id="02q-SJ-Uar"/>
-                                </connections>
-                            </segmentedControl>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfZ-zL-vbL">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Settings">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="grR-Bc-Mk6" kind="show" id="YYa-Lt-nKY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjn-mE-M3o">
+                                        <rect key="frame" x="0.0" y="64" width="180" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Notifcations">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="wcp-v4-f3V" kind="show" id="3wt-Nl-zTO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efb-nI-EfF">
+                                        <rect key="frame" x="0.0" y="128" width="180" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Invite">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="stB-GE-cmb" kind="show" id="2QS-bd-STF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcH-l8-dxC">
+                                        <rect key="frame" x="0.0" y="192" width="180" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.4318779707" green="0.42577612399999998" blue="0.82749211789999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afs-VV-Z9O">
+                                <rect key="frame" x="0.0" y="64" width="414" height="622"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xqW-wD-goS">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="586"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="x0g-to-eWo">
+                                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x0g-to-eWo" id="HfL-Aa-GHf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZPe-5c-jSi">
+                                        <rect key="frame" x="0.0" y="8" width="414" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="Couples"/>
+                                            <segment title="Singles"/>
+                                            <segment title="Wish"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="feedIndexChanged:" destination="Bmr-Li-P2t" eventType="valueChanged" id="02q-SJ-Uar"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="afs-VV-Z9O" firstAttribute="trailing" secondItem="fGl-85-S2n" secondAttribute="trailing" id="9VA-Iw-hyt"/>
+                            <constraint firstItem="afs-VV-Z9O" firstAttribute="top" secondItem="fGl-85-S2n" secondAttribute="top" id="BA8-Ya-i4Q"/>
+                            <constraint firstAttribute="bottom" secondItem="afs-VV-Z9O" secondAttribute="bottom" constant="50" id="L07-bc-duh"/>
+                            <constraint firstItem="afs-VV-Z9O" firstAttribute="leading" secondItem="fGl-85-S2n" secondAttribute="leading" id="W8l-YH-OpS"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fGl-85-S2n"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Main Feed" id="bUh-ey-cvn"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Main Feed" id="pyt-5W-I8O">
+                        <barButtonItem key="leftBarButtonItem" title="Hamburger Menu " id="dzG-zr-Hhm">
+                            <connections>
+                                <action selector="hamburgerMenuPressed:" destination="Bmr-Li-P2t" id="YCf-pP-Qsa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="Jxh-89-ERX">
                             <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -305,13 +366,16 @@
                     <connections>
                         <outlet property="feedSegmentedControl" destination="ZPe-5c-jSi" id="9Yc-Jj-zHK"/>
                         <outlet property="feedTableView" destination="xqW-wD-goS" id="qki-kV-khO"/>
+                        <outlet property="leadingC" destination="W8l-YH-OpS" id="9u0-No-lSf"/>
+                        <outlet property="trailingC" destination="9VA-Iw-hyt" id="mJV-mc-Giy"/>
+                        <outlet property="ubeView" destination="afs-VV-Z9O" id="55x-Ic-XZJ"/>
                         <segue destination="1mB-eQ-fyL" kind="show" identifier="goToSelectedUser" id="0uC-2l-kF6"/>
                         <segue destination="Xfn-jg-KZG" kind="show" identifier="goToSelectedCouple" id="dja-ss-18l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqJ-O7-nwl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4406" y="-337"/>
+            <point key="canvasLocation" x="4405.7971014492759" y="-337.5"/>
         </scene>
         <!--Couple's name-->
         <scene sceneID="huk-uq-Kko">
@@ -912,10 +976,10 @@
             </objects>
             <point key="canvasLocation" x="3642.0289855072465" y="-726.35869565217399"/>
         </scene>
-        <!--View Controller-->
+        <!--Invite View Controller-->
         <scene sceneID="k6a-Bk-DMW">
             <objects>
-                <viewController id="vBP-EC-r11" sceneMemberID="viewController">
+                <viewController id="vBP-EC-r11" customClass="InviteViewController" customModule="PromDate_app" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CqS-yo-fly">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -953,6 +1017,9 @@
                                 <color key="backgroundColor" red="0.4318779707" green="0.42577612399999998" blue="0.82749211789999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <state key="normal" title="Invite!"/>
+                                <connections>
+                                    <action selector="invite:" destination="vBP-EC-r11" eventType="touchUpInside" id="JnL-Th-q0L"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1096,7 +1163,10 @@
         <image name="snap-ghost" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Xl-KU-86f"/>
+        <segue reference="3wt-Nl-zTO"/>
+        <segue reference="2QS-bd-STF"/>
+        <segue reference="YYa-Lt-nKY"/>
+        <segue reference="0uC-2l-kF6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.86274509799999999" green="0.86666666670000003" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
 </document>
