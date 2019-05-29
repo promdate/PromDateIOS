@@ -353,7 +353,7 @@
                     <tabBarItem key="tabBarItem" title="Main Feed" id="bUh-ey-cvn"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Main Feed" id="pyt-5W-I8O">
-                        <barButtonItem key="leftBarButtonItem" title="Hamburger Menu " id="dzG-zr-Hhm">
+                        <barButtonItem key="leftBarButtonItem" title="Hamburger Menu " image="icons8-menu-48" id="dzG-zr-Hhm">
                             <connections>
                                 <action selector="hamburgerMenuPressed:" destination="Bmr-Li-P2t" id="YCf-pP-Qsa"/>
                             </connections>
@@ -984,52 +984,76 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITb-X0-eQG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITb-X0-eQG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.4318779707" green="0.42577612399999998" blue="0.82749211789999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="a8w-ho-YVP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-invite-100" translatesAutoresizingMaskIntoConstraints="NO" id="nI8-pv-hey">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icons8-invite-100" translatesAutoresizingMaskIntoConstraints="NO" id="nI8-pv-hey">
                                 <rect key="frame" x="154" y="229" width="107" height="116"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="116" id="zUP-v3-dBG"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invite a Friend!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVq-RY-8gx">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite a Friend!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVq-RY-8gx">
                                 <rect key="frame" x="123" y="148" width="168" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="dG9-4k-k76"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-dN-oKd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-dN-oKd">
                                 <rect key="frame" x="42" y="353" width="340" height="155"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Got a friend that wants to go to Prom with you but doesn't have this amazing app? Click the button below to bring them over to make your lives much easier!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqq-Cc-csp">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqq-Cc-csp">
                                 <rect key="frame" x="107" y="534" width="201" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.4318779707" green="0.42577612399999998" blue="0.82749211789999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="6yx-X8-s2z"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <state key="normal" title="Invite!"/>
                                 <connections>
-                                    <action selector="invite:" destination="vBP-EC-r11" eventType="touchUpInside" id="JnL-Th-q0L"/>
+                                    <action selector="invite:" destination="vBP-EC-r11" eventType="touchUpInside" id="TQ3-Un-F2G"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eVq-RY-8gx" firstAttribute="top" secondItem="ITb-X0-eQG" secondAttribute="bottom" constant="83" id="6zi-8d-LXM"/>
+                            <constraint firstItem="ITb-X0-eQG" firstAttribute="top" secondItem="CqS-yo-fly" secondAttribute="top" id="7Q5-cY-nyj"/>
+                            <constraint firstItem="qqq-Cc-csp" firstAttribute="leading" secondItem="1Z9-d3-Xbt" secondAttribute="leading" constant="107" id="9jb-lj-eXb"/>
+                            <constraint firstItem="nI8-pv-hey" firstAttribute="leading" secondItem="1Z9-d3-Xbt" secondAttribute="leading" constant="154" id="Ccf-6j-hbk"/>
+                            <constraint firstItem="1Z9-d3-Xbt" firstAttribute="bottom" secondItem="qqq-Cc-csp" secondAttribute="bottom" constant="88" id="Dev-q4-LQa"/>
+                            <constraint firstAttribute="trailing" secondItem="ITb-X0-eQG" secondAttribute="trailing" id="Dij-ZB-RuR"/>
+                            <constraint firstItem="qqq-Cc-csp" firstAttribute="top" secondItem="DdI-dN-oKd" secondAttribute="bottom" constant="26" id="EU5-Q1-cNT"/>
+                            <constraint firstItem="DdI-dN-oKd" firstAttribute="leading" secondItem="1Z9-d3-Xbt" secondAttribute="leading" constant="42" id="Gm3-FO-d9U"/>
+                            <constraint firstItem="eVq-RY-8gx" firstAttribute="centerX" secondItem="nI8-pv-hey" secondAttribute="centerX" id="bdR-1Z-SRG"/>
+                            <constraint firstItem="nI8-pv-hey" firstAttribute="top" secondItem="eVq-RY-8gx" secondAttribute="bottom" constant="26" id="ftJ-E4-a57"/>
+                            <constraint firstItem="nI8-pv-hey" firstAttribute="centerX" secondItem="qqq-Cc-csp" secondAttribute="centerX" id="hxJ-7b-8gs"/>
+                            <constraint firstItem="ITb-X0-eQG" firstAttribute="leading" secondItem="CqS-yo-fly" secondAttribute="leading" id="pFi-zk-GCx"/>
+                            <constraint firstItem="ITb-X0-eQG" firstAttribute="centerX" secondItem="eVq-RY-8gx" secondAttribute="centerX" id="tgi-kP-Uf3"/>
+                            <constraint firstItem="DdI-dN-oKd" firstAttribute="top" secondItem="nI8-pv-hey" secondAttribute="bottom" constant="8" symbolic="YES" id="xz1-bv-tk7"/>
+                            <constraint firstItem="eVq-RY-8gx" firstAttribute="leading" secondItem="1Z9-d3-Xbt" secondAttribute="leading" constant="123" id="yXk-2X-XxR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="1Z9-d3-Xbt"/>
                     </view>
                     <navigationItem key="navigationItem" id="zZa-7V-Lqv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eN-F0-lkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2887" y="836"/>
+            <point key="canvasLocation" x="2886.9565217391305" y="835.59782608695662"/>
         </scene>
         <!--Settings-->
         <scene sceneID="bg4-qy-rBT">
@@ -1158,6 +1182,7 @@
         <image name="icons8-home-page-50" width="16.666666030883789" height="16.666666030883789"/>
         <image name="icons8-invite-100" width="100" height="100"/>
         <image name="icons8-invite-24" width="24" height="24"/>
+        <image name="icons8-menu-48" width="48" height="48"/>
         <image name="instagram_logo" width="100" height="100"/>
         <image name="settings" width="21.333333969116211" height="21.333333969116211"/>
         <image name="snap-ghost" width="144" height="144"/>
