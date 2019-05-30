@@ -52,15 +52,6 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //we declare the cell which will be used for the notification information
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationTableViewCell
-        //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-        
-//        if indexPath.row <= imageArray.count {
-//            //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-//            cell.avatarImageView.image = imageArray[indexPath.row]
-//        } else {
-//            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-//            //cell.avatarImageView.image = imageArray[indexPath.row]
-//        }//end of if/else
         
         let pictureURL = notificationArray[indexPath.row].profileURL
         let callURL = baseURL + pictureURL
@@ -192,54 +183,9 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             }//end of for loop
             //we set notificationArrayFilled to true and refresh the tableViewData
             notificationArrayFilled = true
-            //loadNotificationPicture()
             notificationTableView.reloadData()
         }//end of if
     }//end of processNotificationData
-    
-    func loadNotificationPicture() {
-        for index in 0...notificationArray.count - 1 {
-            let downloader = ImageDownloader()
-            
-            let pictureURL = notificationArray[index].profileURL
-            let callURL = baseURL + pictureURL
-            
-            let urlRequest = URLRequest(url: URL(string: callURL)!)
-            
-            downloader.download(urlRequest) { response in
-                print(response.request!)
-                print(response.response!)
-                debugPrint(response.result)
-                
-                if let image = response.result.value {
-                    self.imageArray.append(image)
-                }//end of if/let
-                
-                if self.notificationArray.count == self.imageArray.count {
-                    
-                }
-            }//end of request
-            
-            
-//            print("entered load picture for loop")
-//            let pictureURL = notificationArray[index].profileURL
-//            let callURL = baseURL + pictureURL
-//
-//            Alamofire.request(callURL).responseImage {
-//                response in
-//                if response.result.isSuccess {
-//                    self.imageArray.append(response.result.value!)
-//                    print("imageArray.count: \(self.imageArray.count)")
-//                    if self.notificationArray.count == self.imageArray.count {
-//                        self.notificationTableView.reloadData()
-//                    }//end of if
-//                } else {
-//                    print("there was an error getting the data")
-//                    print("this is the error code: \(response.result.error!)")
-//                }//end of if/else
-//            }//end of request
-        }//end of for loop
-    }//end of loadNotificationPicture
     
     func offsetFrom(date : Date) -> String {
         let currentDate = Date()

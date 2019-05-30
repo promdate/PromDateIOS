@@ -116,8 +116,6 @@ class SinglesUserProfileViewController: UIViewController {
     
     func loadUserPicture(pictureURL : String) {
         let profilePicURL = pictureURL
-//        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
-//        profilePicURL.removeSubrange(dotsIndex)
         
         let callURL = baseURL + profilePicURL
         

@@ -20,10 +20,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     var singlesSelected : Bool = false
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    var feedImages : Image!
     var singlesArray = [UserModel]()
     var couplesArray = [CouplesUserModel]()
-    var immageArray = [ProfilePictureModel]()
     var selectedUserID = ""
     let numberUserLoaded = 15
     var feedArraysFilled = false
@@ -32,7 +30,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var userToken = UserData().defaults.string(forKey: "userToken")
     var feedOffset = 0
     var couplesOffset = 0
-    var singlesImmageArray = [Image]()
     let placeholderImage = UIImage(named: "avatar_placeholder")
 
     override func viewDidLoad() {
@@ -111,12 +108,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
             
-            
-//            if indexPath.row <= singlesImmageArray.count {
-//                cell.avatarImageView.image = singlesImmageArray[indexPath.row]
-//            } else {
-//                cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-//            }//end of if/else
             
             let profilePicURL = singlesArray[indexPath.row].userPicURL
             let callURL = baseURL + profilePicURL
@@ -216,7 +207,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                 for index in 0...feedJSON["result"]["single"].count - 1 {
                     singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!, profilePicURL: feedJSON["result"]["single"][index]["ProfilePicture"].string!))
                 }//end for loop
-                loadUserPicture()
             } else {
                 feedComplete = true
             }//end of if/else
@@ -233,11 +223,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             }//end of if/else
         }//end of if
         
-        //self.feedOffset += self.numberUserLoaded
         initialLoad = false
         print("end of forloop")
         feedArraysFilled = true
-        //loadUserPicture()
         self.feedTableView.reloadData()
     }//end of processFeedData
     
@@ -246,7 +234,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print("getRemainingFeed")
         print(feedOffset)
         let callURL = baseURL + "/php/feed.new.php"
-        //let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
         
         if singlesSelected == true {
             let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
@@ -281,7 +268,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                     print("here is the error code: \(response.result.error!)")
                 }//end of if/else
             }//end of request
-            
         }//end of if
     }//end of getRemainingFeed
     
@@ -289,7 +275,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly
     func configureTableView() {
-        //feedTableView.rowHeight = UITableView.automaticDimension
         feedTableView.rowHeight = 70.0
         feedTableView.estimatedRowHeight = 70.0
     }//end of configureTableView
@@ -306,41 +291,5 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             destinationVC.userID = selectedUserID
         }//end of if
     }//end of prepare for segue
-    
-    func loadUserPicture() {
-        var numberOfTimes = 0
-        for index in 0...singlesArray.count - 1 {
-            numberOfTimes += 1
-            print("load user Picture: \(numberOfTimes)")
-            print("index: \(index)")
-            let profilePicURL = singlesArray[index].userPicURL
-            let callURL = baseURL + profilePicURL
-            
-            Alamofire.request(callURL).responseImage {
-                response in
-                if response.result.isSuccess {
-                    self.singlesImmageArray.append(response.result.value!)
-                    print("SinglesArray.count : \(self.singlesImmageArray.count) singlesArray: \(self.singlesArray.count)")
-                    if self.singlesArray.count == self.singlesImmageArray.count {
-                        self.feedTableView.reloadData()
-                    }//end of if
-                } else {
-                    print("there was an error getting the data")
-                    print("here is the error code: \(response.result.error!)")
-                }//end of if/else
-            }//end of request
-        }//end of for loop
-    }//end of loadUserPicture
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
 }// end of MainFeedViewController

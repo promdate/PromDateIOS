@@ -85,8 +85,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let callURL = baseURL + "/php/updateUser.php"
-        //let imageJPG = UIImage.pngData(userAvatar.image!)
-        //let imageData = UIImage.jpegData(userAvatar.image!)
         let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!, "bio" : bioTextField.text!, "social-snapchat" : snapchatHandleTextField.text!, "social-instagram" : snapchatHandleTextField.text!, "last-name" : lastNameTextField.text!]
         print("twitterHandle : \(twitterHandleTextField.text!)")
         print("userToken : \(userToken!)")
@@ -170,17 +168,17 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         }//end of request
     }//end of loadUserPicture
     
-    func uploadUserImage() {
-        let imageToUpload = userAvatar.image
-        //let imageData = UIImage.jpegData(userAvatar.image!)
-        //let imageData = UIImage.jpegData(userAvatar.image!)
-        let imageData = UIImage.jpegData(userAvatar.image!)
-        let params : [String : Any] = ["token" : userToken!]
-        let callURL = baseURL + "/php/updateUser.php"
-        
-
-        
-    }//end of uploadUserImage
+//    func uploadUserImage() {
+//        let imageToUpload = userAvatar.image
+//        //let imageData = UIImage.jpegData(userAvatar.image!)
+//        //let imageData = UIImage.jpegData(userAvatar.image!)
+//        let imageData = UIImage.jpegData(userAvatar.image!)
+//        let params : [String : Any] = ["token" : userToken!]
+//        let callURL = baseURL + "/php/updateUser.php"
+//
+//
+//
+//    }//end of uploadUserImage
    
   
     

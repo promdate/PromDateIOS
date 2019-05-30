@@ -79,28 +79,24 @@ class SignUpViewController: UIViewController {
     
     func verifyStatus(json : JSON) {
         let status = json["status"]
-        if status == 400 {
+        if status == 200 {
             //segue towards main feed
+            let alert = UIAlertController(title: "Verify Email required", message: "In order to contiue the sign up process please accept the confirmation email that has been sent", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
             
         } else {
             print("error occured while trying to sign up")
-        }
-        
+            let alert = UIAlertController(title: "An error occured", message: "\(json["result"]) Please try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }//end of if/else
     }// end of verifyStatus
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBAction func loginPressed(_ sender: UIButton) {
+        //dismises so that user is brought back to login page
         self.dismiss(animated: true, completion: nil)
+        
     }// end of loginPressed
-    
 
 }// end of SignUpViewController
