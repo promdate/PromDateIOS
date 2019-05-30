@@ -33,6 +33,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedOffset = 0
     var couplesOffset = 0
     var singlesImmageArray = [Image]()
+    let placeholderImage = UIImage(named: "avatar_placeholder")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,19 +108,20 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                 }//end of if
             }//end of if
             
-//            loadUserPicture(pictureURL: imageURL!)
-            
-            print("singlesArray.count: \(singlesArray.count)")
-            
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
             
             
-            if indexPath.row <= singlesImmageArray.count {
-                cell.avatarImageView.image = singlesImmageArray[indexPath.row]
-            } else {
-                cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-            }//end of if/else
+//            if indexPath.row <= singlesImmageArray.count {
+//                cell.avatarImageView.image = singlesImmageArray[indexPath.row]
+//            } else {
+//                cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+//            }//end of if/else
+            
+            let profilePicURL = singlesArray[indexPath.row].userPicURL
+            let callURL = baseURL + profilePicURL
+            let urlRequest = URL(string: callURL)
+            cell.avatarImageView.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
             
             cell.nameLabel.text = singlesArray[indexPath.row].userFirstName
             cell.gradeLabel.text = "Grade: \(singlesArray[indexPath.row].userGrade)"
@@ -137,11 +139,20 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                 }//end of if
             }//end of if
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
             
-            cell.firstAvatarImageView.image = UIImage(named: "avatar_placeholder")
-            cell.seccondAvatarImageView.image = UIImage(named: "avatar_placeholder")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
+            
+            let usrProfilePicURL = couplesArray[indexPath.row].userPicURL
+            let prtnProfilePicURL = couplesArray[indexPath.row].partnerPicURL
+            let usrCallURL = baseURL + usrProfilePicURL
+            let prtnCallURL = baseURL + prtnProfilePicURL
+            let usrUrlRequest = URL(string: usrCallURL)
+            let prtnUrlRequest = URL(string: prtnCallURL)
+            cell.firstAvatarImageView.af_setImage(withURL: usrUrlRequest!, placeholderImage: placeholderImage)
+            cell.seccondAvatarImageView.af_setImage(withURL: prtnUrlRequest!, placeholderImage: placeholderImage)
+            
+            
+            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
             return cell
         }// end of if/else
     }// end of cellForRowAt
@@ -215,7 +226,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             if feedJSON["result"]["couple"].count >= 1 {
                 print("just before for loop for couples")
                 for index in 0...feedJSON["result"]["couple"].count - 1 {
-                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string!, usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string!, prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string!, prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string!))
+                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string ?? "", prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string ?? "", usrPic: feedJSON["result"]["couple"][index][0]["ProfilePicture"].string!, prtnPic: feedJSON["result"]["couple"][index][1]["ProfilePicture"].string!))
                 }//end of for loop
             } else {
                 feedComplete = true
@@ -226,7 +237,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         initialLoad = false
         print("end of forloop")
         feedArraysFilled = true
-        loadUserPicture()
+        //loadUserPicture()
         self.feedTableView.reloadData()
     }//end of processFeedData
     
@@ -278,8 +289,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly
     func configureTableView() {
-        feedTableView.rowHeight = UITableView.automaticDimension
-        feedTableView.estimatedRowHeight = 60.0
+        //feedTableView.rowHeight = UITableView.automaticDimension
+        feedTableView.rowHeight = 70.0
+        feedTableView.estimatedRowHeight = 70.0
     }//end of configureTableView
     
     

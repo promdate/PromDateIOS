@@ -27,6 +27,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userMain = UserDefaults.standard
     var imagePicker : UIImagePickerController!
+    var profilePictureChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         userAvatar.layer.borderColor = UIColor.black.cgColor
         userAvatar.layer.cornerRadius = userAvatar.frame.height/2
         userAvatar.clipsToBounds = true 
+        
+        //we make sure that profile pic changed is false
+        profilePictureChanged = false
         
         getUserData()
         
@@ -76,10 +80,13 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         userAvatar.image = info[.originalImage] as? UIImage
+        profilePictureChanged = true
     }
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let callURL = baseURL + "/php/updateUser.php"
+        //let imageJPG = UIImage.pngData(userAvatar.image!)
+        //let imageData = UIImage.jpegData(userAvatar.image!)
         let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!, "bio" : bioTextField.text!, "social-snapchat" : snapchatHandleTextField.text!, "social-instagram" : snapchatHandleTextField.text!, "last-name" : lastNameTextField.text!]
         print("twitterHandle : \(twitterHandleTextField.text!)")
         print("userToken : \(userToken!)")
@@ -97,6 +104,12 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("this is the error code: \(response.result.error!)")
             }//end of if/else
         }//end of request
+        
+//        if profilePictureChanged == true {
+//            let params : [String : Any] = ["token" : userToken!, "img" : imageData]
+//
+//
+//        }//end of if
 
         // pop out that says saved!
     }// end of donePressed
@@ -155,7 +168,19 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("error: \(response.result.error!)")
             }//end of if/else
         }//end of request
-    }
+    }//end of loadUserPicture
+    
+    func uploadUserImage() {
+        let imageToUpload = userAvatar.image
+        //let imageData = UIImage.jpegData(userAvatar.image!)
+        //let imageData = UIImage.jpegData(userAvatar.image!)
+        let imageData = UIImage.jpegData(userAvatar.image!)
+        let params : [String : Any] = ["token" : userToken!]
+        let callURL = baseURL + "/php/updateUser.php"
+        
+
+        
+    }//end of uploadUserImage
    
   
     

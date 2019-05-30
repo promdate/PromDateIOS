@@ -17,6 +17,7 @@ class CouplesUserModel {
     let userGender : String
     let userID : String
     let userGrade : String
+    let userPicURL : String
     
     //partner info
     let partnerSchoolID : String
@@ -26,8 +27,9 @@ class CouplesUserModel {
     let partnerGender : String
     let partnerID : String
     let partnerGrade : String
+    let partnerPicURL : String
     
-    init(usrSchoolID : String, usrFirstName : String, usrLastName : String, usrBio : String, usrGender : String, usrID : String, usrGrade : String, prtnSchoolID : String, prtnFirstName : String, prtnLastName : String, prtnBio : String, prtnGender : String, prtnID : String, prtnGrade : String) {
+    init(usrSchoolID : String, usrFirstName : String, usrLastName : String, usrBio : String, usrGender : String, usrID : String, usrGrade : String, prtnSchoolID : String, prtnFirstName : String, prtnLastName : String, prtnBio : String, prtnGender : String, prtnID : String, prtnGrade : String, usrPic : String, prtnPic : String) {
         userSchoolID = usrSchoolID
         userFirstName = usrFirstName
         userLastName = usrLastName
@@ -42,5 +44,8 @@ class CouplesUserModel {
         partnerGender = prtnGender
         partnerID = prtnID
         partnerGrade = prtnGrade
+        userPicURL = usrPic
+        partnerPicURL = prtnPic
+        
     }//end of init
 }//end of CouplesUserModel

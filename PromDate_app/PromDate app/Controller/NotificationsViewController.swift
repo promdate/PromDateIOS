@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import AlamofireImage
 
 class NotificationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -32,11 +33,13 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         notificationTableView.delegate = self
         notificationTableView.dataSource = self
         
+        configureTableView()
+        
         //register cell
         notificationTableView.register(UINib(nibName: "NotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
         
         //we call congifureTableView to set the height of the cells
-        configureTableView()
+        //configureTableView()
         
         //we set the notificationArrayFilled var to false
         notificationArrayFilled = false
@@ -51,13 +54,23 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationTableViewCell
         //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
         
-        if indexPath.row <= imageArray.count {
-            //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-            cell.avatarImageView.image = imageArray[indexPath.row]
-        } else {
-            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
-            //cell.avatarImageView.image = imageArray[indexPath.row]
-        }//end of if/else
+//        if indexPath.row <= imageArray.count {
+//            //cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+//            cell.avatarImageView.image = imageArray[indexPath.row]
+//        } else {
+//            cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
+//            //cell.avatarImageView.image = imageArray[indexPath.row]
+//        }//end of if/else
+        
+        let pictureURL = notificationArray[indexPath.row].profileURL
+        let callURL = baseURL + pictureURL
+        let placeholderImage = UIImage(named: "avatar_placeholder")
+        let urlRequest = URL(string: callURL)
+        
+        
+        
+        
+        let notificationDate = NSDate(timeIntervalSince1970: Double(notificationArray[indexPath.row].creationTime)!)
 
         
         switch notificationArray[indexPath.row].type {
@@ -65,22 +78,52 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             print("case 1")
             cell.titleLabel.text = "Match Requested"
             cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .detailButton
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "2":
             print("case 2")
             cell.titleLabel.text = "Match Declined"
             cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "3":
             print("case 3")
             cell.titleLabel.text = "Match Accepted"
             cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_filled")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "4":
             print("case 4")
             cell.titleLabel.text = "Unmatch Notice"
             cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
+        case "5":
+            print("case 5")
+            cell.titleLabel.text = "Admin Unmatch Notice"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .none
         default:
             print("default picked")
             cell.titleLabel.text = "Unknown notification type"
             cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .none
+            
         }//end of switch
         
         return cell
@@ -149,36 +192,75 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             }//end of for loop
             //we set notificationArrayFilled to true and refresh the tableViewData
             notificationArrayFilled = true
-            loadNotificationPicture()
-            //notificationTableView.reloadData()
+            //loadNotificationPicture()
+            notificationTableView.reloadData()
         }//end of if
     }//end of processNotificationData
     
     func loadNotificationPicture() {
         for index in 0...notificationArray.count - 1 {
-            print("entered load picture for loop")
+            let downloader = ImageDownloader()
+            
             let pictureURL = notificationArray[index].profileURL
             let callURL = baseURL + pictureURL
             
-            Alamofire.request(callURL).responseImage {
-                response in
-                if response.result.isSuccess {
-                    self.imageArray.append(response.result.value!)
-                    print("imageArray.count: \(self.imageArray.count)")
-                    if self.notificationArray.count == self.imageArray.count {
-                        self.notificationTableView.reloadData()
-                    }//end of if
-                } else {
-                    print("there was an error getting the data")
-                    print("this is the error code: \(response.result.error!)")
-                }//end of if/else
+            let urlRequest = URLRequest(url: URL(string: callURL)!)
+            
+            downloader.download(urlRequest) { response in
+                print(response.request!)
+                print(response.response!)
+                debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    self.imageArray.append(image)
+                }//end of if/let
+                
+                if self.notificationArray.count == self.imageArray.count {
+                    
+                }
             }//end of request
+            
+            
+//            print("entered load picture for loop")
+//            let pictureURL = notificationArray[index].profileURL
+//            let callURL = baseURL + pictureURL
+//
+//            Alamofire.request(callURL).responseImage {
+//                response in
+//                if response.result.isSuccess {
+//                    self.imageArray.append(response.result.value!)
+//                    print("imageArray.count: \(self.imageArray.count)")
+//                    if self.notificationArray.count == self.imageArray.count {
+//                        self.notificationTableView.reloadData()
+//                    }//end of if
+//                } else {
+//                    print("there was an error getting the data")
+//                    print("this is the error code: \(response.result.error!)")
+//                }//end of if/else
+//            }//end of request
         }//end of for loop
     }//end of loadNotificationPicture
     
+    func offsetFrom(date : Date) -> String {
+        let currentDate = Date()
+        let dayHourMinuteSecond : Set<Calendar.Component> = [.day, .hour, .minute, .second]
+        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: date, to: currentDate)
+        
+        let seconds = "\(difference.second ?? 0)s ago"
+        let minutes = "\(difference.minute ?? 0)m ago"
+        let hours = "\(difference.hour ?? 0)h ago"
+        let days = "\(difference.day ?? 0)d ago"
+        
+        if let day = difference.day, day > 0 { return days }
+        if let hour = difference.day, hour > 0 { return hours }
+        if let minute = difference.minute, minute > 0 { return minutes }
+        if let second = difference.second, second > 0 { return seconds }
+        return ""
+    }//end of offsetFrom
+    
     func configureTableView() {
-        notificationTableView.rowHeight = UITableView.automaticDimension
-        notificationTableView.estimatedRowHeight = 60.0
+        notificationTableView.rowHeight = 70.0
+        notificationTableView.estimatedRowHeight = 70.0
     }//end of configureTableView
     
     func replyMatchRequest() {

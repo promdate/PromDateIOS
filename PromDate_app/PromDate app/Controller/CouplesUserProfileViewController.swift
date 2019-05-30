@@ -32,6 +32,7 @@ class CouplesUserProfileViewController: UIViewController {
     var userID = ""
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userToken = UserData().defaults.string(forKey: "userToken")
+    let placeholderImage = UIImage(named: "avatar_placeholder")
     
 
     override func viewDidLoad() {
@@ -75,6 +76,14 @@ class CouplesUserProfileViewController: UIViewController {
     func updateCoupleUI(coupleJSON : JSON) {
         print(coupleJSON)
         
+        //we load the userProfilePics
+        let userProfilePicURL = coupleJSON["result"]["user"]["ProfilePicture"].string
+        let partnerProfilePicURl = coupleJSON["result"]["partner"]["ProfilePicture"].string
+        let userCallURL = baseURL + userProfilePicURL!
+        let partnerCallURL = baseURL + partnerProfilePicURl!
+        let userURLRequest = URL(string: userCallURL)
+        let partnerURLRequest = URL(string: partnerCallURL)
+        
         //we load the user Data
         //grade, bio, twitter handle,snapchat handle, insta handle, page title
         userGradeLabel.text = coupleJSON["result"]["user"]["Grade"].string
@@ -82,6 +91,7 @@ class CouplesUserProfileViewController: UIViewController {
         userTwitterHandleLabel.text = coupleJSON["result"]["user"]["SocialTwitter"].string
         userSnapchatHandleLabel.text = coupleJSON["result"]["user"]["SocialSnapchat"].string
         userInstagramHandleLabel.text = coupleJSON["result"]["user"]["SocialInstagram"].string
+        userAvatar.af_setImage(withURL: userURLRequest!, placeholderImage: placeholderImage)
         
         //we load the partner data
         partnerGradeLabel.text = coupleJSON["result"]["partner"]["Grade"].string
@@ -89,6 +99,7 @@ class CouplesUserProfileViewController: UIViewController {
         partnerTwitterHandleLabel.text = coupleJSON["result"]["partner"]["SocialTwitter"].string
         partnerSnapchatHandleLabel.text = coupleJSON["result"]["partner"]["SocialSnapchat"].string
         partnerInstagramHandleLabel.text = coupleJSON["result"]["partner"]["SocialInstagram"].string
+        partnerAvatar.af_setImage(withURL: partnerURLRequest!, placeholderImage: placeholderImage)
         
         //nav bar title name&names' profile or name&name' coupleProfile
         navBar.title = "\(coupleJSON["result"]["user"]["FirstName"]) & \(coupleJSON["result"]["partner"]["FirstName"])' Couple Profile"
