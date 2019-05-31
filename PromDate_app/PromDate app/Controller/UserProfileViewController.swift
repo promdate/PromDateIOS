@@ -21,6 +21,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var twitterHandleTextField: UITextField!
     @IBOutlet weak var snapchatHandleTextField: UITextField!
     @IBOutlet weak var instagramHandleTextField: UITextField!
+    @IBOutlet weak var navBar: UINavigationItem!
     
     
     let userToken = UserData().defaults.string(forKey: "userToken")
@@ -32,7 +33,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // setup delegates
+        // setup white back button
         
         //we setup borders and other visual stuff
         bioTextField.layer.borderWidth = 1
@@ -59,6 +60,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func changePicturePressed(_ sender: UIButton) {
         self.imagePicker = UIImagePickerController()
         self.imagePicker.delegate = self
+        self.imagePicker.allowsEditing = true 
         
         let alert = UIAlertController(title: "Picture Source", message: nil, preferredStyle: .actionSheet)
         let takePicture = UIAlertAction(title: "Take Picture", style: .default) { (UIAlertAction) in
@@ -95,6 +97,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             if response.result.isSuccess {
                 print("sucess got data")
                 print(response.result.value!)
+                let responseJSON = JSON(response.result.value!)
+                self.verifyStatus(statusJSON: responseJSON)
                 
             } else {
                 print("there was an error getting the data please try again")
@@ -102,15 +106,20 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("this is the error code: \(response.result.error!)")
             }//end of if/else
         }//end of request
-        
-//        if profilePictureChanged == true {
-//            let params : [String : Any] = ["token" : userToken!, "img" : imageData]
-//
-//
-//        }//end of if
-
-        // pop out that says saved!
     }// end of donePressed
+    
+    func verifyStatus(statusJSON : JSON) {
+        if statusJSON["status"] == 200 {
+            let alert = UIAlertController(title: "Update Sucessfull", message: "Your user data was sucessfully updated!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Update Unsucessfull", message: "There was an error updating your user Data, please try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+        }//end of if/else
+    }//end of verifyStatus
    
     
     func getUserData() {
@@ -150,8 +159,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
   
     func loadUserPicture(imageURL : String) {
         var profilePicURL = imageURL
-        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
-        profilePicURL.removeSubrange(dotsIndex)
+//        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+//        profilePicURL.removeSubrange(dotsIndex)
         
         let callURL = baseURL + profilePicURL
         
@@ -168,17 +177,15 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         }//end of request
     }//end of loadUserPicture
     
-//    func uploadUserImage() {
-//        let imageToUpload = userAvatar.image
-//        //let imageData = UIImage.jpegData(userAvatar.image!)
-//        //let imageData = UIImage.jpegData(userAvatar.image!)
-//        let imageData = UIImage.jpegData(userAvatar.image!)
-//        let params : [String : Any] = ["token" : userToken!]
-//        let callURL = baseURL + "/php/updateUser.php"
-//
-//
-//
-//    }//end of uploadUserImage
+    func uploadUserImage() {
+        let imageToUpload = userAvatar.image
+        let imageData = UIImage.jpegData(userAvatar.image!)
+        let params : [String : Any] = ["token" : userToken!]
+        let callURL = baseURL + "/php/updateUser.php"
+
+
+
+    }//end of uploadUserImage
    
   
     

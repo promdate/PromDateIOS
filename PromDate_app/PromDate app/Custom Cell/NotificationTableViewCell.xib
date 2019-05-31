@@ -62,7 +62,7 @@
                             <constraint firstItem="j1q-4i-j3g" firstAttribute="leading" secondItem="84e-IG-M60" secondAttribute="trailing" constant="3" id="wDJ-qX-0NX"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qtn-Ng-Aq5">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qtn-Ng-Aq5">
                         <rect key="frame" x="6" y="5" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="GpA-NB-k5q"/>
