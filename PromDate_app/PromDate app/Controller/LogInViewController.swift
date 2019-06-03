@@ -20,10 +20,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     var token : String = ""
     let userData = UserData()
     
-//    struct Data {                                           //creating a structure for storing strings
-//        static let keepEmail = "keepEmail"                  //string
-//        static let keepPassword = "keepPassword"            //string
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,20 +32,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
-        //token = defaults.data(forKey: "userToken")
-        //print("token avant aller le chercher dans defaults : \(token)")
-        //        if let fetchToken = defaults.string(forKey: "userToken") {
-        //            token = fetchToken
-        //        }
+        
         if let fetchToken = userData.defaults.string(forKey: "userToken") {
             token = fetchToken
-        }
+        }//end of if/let
         
-        //print("token appres avoir ete le chercher\(token)")
-        
-        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewControllerTapped))
-        //        emailTextField.addGestureRecognizer(tapGesture)
-        //        passwordTextField.addGestureRecognizer(tapGesture)
         checkIfLoggedIn()
     }// end of viewDidLoad
     
@@ -62,7 +49,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print(password)
         let params : [String : String] = ["email" : email, "password" : password ]
         callLogIn(url: callURL, parameters: params)
-        remainLoggedIn()
     }// end of logInPressed
     
     func callLogIn(url : String, parameters : [String : String]) {
@@ -88,27 +74,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             userData.defaults.set(token, forKey: "userToken")
             userData.defaults.set(true, forKey: "isLoggedIn")
             goToMainFeed()
-            //performSegue(withIdentifier: "goToMainFeed", sender: self)
         } else {
             print("an error occured while loging in")
         }// end of if/else
     }// end of verifyStatus
     
-    //    @objc func viewControllerTapped()  {
-    //        emailTextField.endEditing(true)
-    //        passwordTextField.endEditing(true)
-    //    }// end of viewControllerTapped
     
     
     //MARK: - Navigation
-    
-//    In a storyboard-based application, you will often want to do a little preparation before navigation
-//        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "goToMainFeed" {
-            }// end of if
-        }// end of prepareForSegue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToMainFeed" {
+            
+        }// end of if
+    }// end of prepareForSegue
     
     func goToMainFeed(){
         passwordTextField.text = nil
@@ -116,11 +94,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "goToMainFeed", sender: self)
     }// end of goToMainFeed
     
-    func remainLoggedIn() {
-        userData.defaults.set(emailTextField.text!, forKey: "keepEmail")                     // creates a saved section for emailTextField in userMain
-        userData.defaults.set(passwordTextField.text!, forKey: "keepPassword")              //creates a saved section for passwordTextField in userMain
-        
-    }
     func checkIfLoggedIn() {
         let boolLogIn = userData.defaults.bool(forKey: "isLoggedIn")
         // if the "isLoggedIn" var in the userDefaukts is true the app direcly goes to the main feed otherwise the user has to login normally
@@ -132,13 +105,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         } else {
             print("user is not logged in")
         }//end of if/else
-        
-//        let email = userData.defaults.value(forKey: "keepEmail") as? String ?? ""          //retrieves email and displays it on screen in userMain
-//        let password = userData.defaults.value(forKey: "keepPassword") as? String ?? ""    // retrieves password and displays it on screen userMain
-//
-//        emailTextField.text = email                                                //declaring that emailTextField should be doing the retrieve func
-//        passwordTextField.text = password                                         //declaring that passwordTextField should be doing the retrieve func
-        
     }// end of checkIfLoggedIn
     
     func callRegenToken() {

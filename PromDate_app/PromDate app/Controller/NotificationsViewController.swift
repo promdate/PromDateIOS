@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import AlamofireImage
 
 class NotificationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,12 +18,13 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var userToken = UserData().defaults.string(forKey: "userToken")
-    var notificationJSON : JSON!
-    var notificationSender : [String]!
     var senderID = ""
     var matchAction = 2
+    var notificationArray = [NotificationModel]()
+    var imageArray = [UIImage]()
+    var notificationArrayFilled = false
     
-
+    //MARK: - ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -31,11 +33,16 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         notificationTableView.delegate = self
         notificationTableView.dataSource = self
         
+        configureTableView()
+        
         //register cell
         notificationTableView.register(UINib(nibName: "NotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
         
         //we call congifureTableView to set the height of the cells
-        configureTableView()
+        //configureTableView()
+        
+        //we set the notificationArrayFilled var to false
+        notificationArrayFilled = false
         
         //we call getNotificationData
         getNotificationData()
@@ -45,53 +52,96 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //we declare the cell which will be used for the notification information
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationTableViewCell
-        cell.avatarImageView.image = UIImage(named: "avatar_placeholder")
         
-        switch notificationJSON["result"]["notifications"][indexPath.row]["Type"]{
+        let pictureURL = notificationArray[indexPath.row].profileURL
+        let callURL = baseURL + pictureURL
+        let placeholderImage = UIImage(named: "avatar_placeholder")
+        let urlRequest = URL(string: callURL)
+        
+        
+        
+        
+        let notificationDate = NSDate(timeIntervalSince1970: Double(notificationArray[indexPath.row].creationTime)!)
+
+        
+        switch notificationArray[indexPath.row].type {
         case "1":
+            print("case 1")
             cell.titleLabel.text = "Match Requested"
-            //cell.bioLabel.text = "\(notificationSender[indexPath.row]) sent you a match request"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .detailButton
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "2":
+            print("case 2")
             cell.titleLabel.text = "Match Declined"
-            //cell.bioLabel.text = "\(notificationSender[0]) rejected your match request"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "3":
+            print("case 3")
             cell.titleLabel.text = "Match Accepted"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_filled")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
         case "4":
+            print("case 4")
             cell.titleLabel.text = "Unmatch Notice"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.isHidden = false
+            cell.accessoryType = .none
+            cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
+        case "5":
+            print("case 5")
+            cell.titleLabel.text = "Admin Unmatch Notice"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .none
         default:
-            cell.messageLabel.text = notificationJSON["result"]["notifications"][indexPath.row]["Message"].string
+            print("default picked")
+            cell.titleLabel.text = "Unknown notification type"
+            cell.messageLabel.text = notificationArray[indexPath.row].message
+            cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
+            cell.statusImageView.isHidden = true
+            cell.accessoryType = .none
+            
         }//end of switch
-        
         
         return cell
     }//end of cellForRowAt
     
     
-    
     //MARK: - Declare numberOfRowsInSection method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //we check if notificationJSON has some data and if that's the case we return the quantity of notifications
-        if notificationJSON != nil {
-            return notificationJSON["result"]["notifications"].count
+        //we check if notificationArrayFilled is true and if that's the case we return the quantity of notifications
+        if notificationArrayFilled == true {
+            return notificationArray.count
         } else {
             return 0
         }//end of if/else
     }//end of numberOfRowsInSection
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        senderID = notificationJSON["result"]["notifications"][indexPath.row]["Parameters"].string!
-        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
-        senderID.removeSubrange(dotsIndex)
+        senderID = notificationArray[indexPath.row].senderID
         performSegue(withIdentifier: "goToSelectedUser", sender: self)
         
     }//fin de didSelectRowAt
+    
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        senderID = notificationJSON["result"]["notifications"][indexPath.row]["Parameters"].string!
-        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
-        senderID.removeSubrange(dotsIndex)
+        senderID = notificationArray[indexPath.row].senderID
         
-        if notificationJSON["result"]["notifications"][indexPath.row]["Type"] == "1" {
-            let alert = UIAlertController(title: "Match Request", message: "User __ sent you a match request", preferredStyle: .alert)
+        if notificationArray[indexPath.row].type == "1" {
+            let alert = UIAlertController(title: "Match Request", message: notificationArray[indexPath.row].message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Accept Match", style: .default, handler: { (UIAlertAction) in
                 print("match request accepted")
                 self.matchAction = 0
@@ -115,10 +165,9 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             response in
             if response.result.isSuccess {
                 print("sucess got notification Data!")
-                self.notificationJSON = JSON(response.result.value!)
-                print(self.notificationJSON)
-                //self.loadNotificationData()
-                self.notificationTableView.reloadData()
+                let responseJSON = JSON(response.result.value!)
+                print("responseJSON: \(responseJSON)")
+                self.processNotificationData(notificationJSON: responseJSON)
             } else {
                 print("there was an error getting the notification data")
                 print("this is the error code: \(response.result.error!)")
@@ -126,53 +175,39 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         }//end of request
     }//end of getNotificationData
     
-    func configureTableView() {
-        notificationTableView.rowHeight = UITableView.automaticDimension
-        notificationTableView.estimatedRowHeight = 60.0
-    }//end of configureTableView
+    func processNotificationData(notificationJSON : JSON) {
+        if notificationJSON["result"]["notifications"].count >= 1 {
+            for index in 0...notificationJSON["result"]["notifications"].count - 1 {
+                print("entered process for loop")
+                notificationArray.append(NotificationModel(notificationTime: notificationJSON["result"]["notifications"][index]["CreationTime"].string!, notificationViewed: notificationJSON["result"]["notifications"][index]["Viewed"].string!, notificationID: notificationJSON["result"]["notifications"][index]["ID"].string!, notificationType: notificationJSON["result"]["notifications"][index]["Type"].string!, senderLastName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["LastName"].string!, senderFirstName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["FirstName"].string!, senderProfilePicURL: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ProfilePicture"].string!, initiatorID: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ID"].string!, notificationMessage: notificationJSON["result"]["notifications"][index]["Message"].string!))
+            }//end of for loop
+            //we set notificationArrayFilled to true and refresh the tableViewData
+            notificationArrayFilled = true
+            notificationTableView.reloadData()
+        }//end of if
+    }//end of processNotificationData
     
-    func loadNotificationData() {
-        //let quantityOfNotifications = notificationJSON["result"]["notifications"].count
-        let callURL = baseURL + "/php/getUser.php"
-        var senderID : String = ""
+    func offsetFrom(date : Date) -> String {
+        let currentDate = Date()
+        let dayHourMinuteSecond : Set<Calendar.Component> = [.day, .hour, .minute, .second]
+        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: date, to: currentDate)
         
-        print("entered for loop")
-        senderID = notificationJSON["result"]["notifications"][0]["Parameters"].string!
-        let dotsIndex = senderID.startIndex..<senderID.index(senderID.endIndex, offsetBy: -3)
-        senderID.removeSubrange(dotsIndex)
-        print(senderID)
-        //let params : [String : Any] = ["token" : userToken!, "id" : senderID]
-        let params : [String : Any] = ["token" : userToken!, "id" : "303"]
-        Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
-            response in
-            print("entered alamofire request")
-            if response.result.isSuccess {
-                print("sucess got data")
-                let userJSON : JSON = JSON(response.result.value!)
-                print(userJSON)
-                //self.notificationSender.append("\(userJSON["result"]["user"]["FirstName"]) \(userJSON["result"]["user"]["LastName"])")
-                print(userJSON["result"]["user"]["FirstName"])
-                self.notificationSender.append(userJSON["result"]["user"]["FirstName"].string!)
-                print("we are after the data has been added to notification sender")
-                print(self.notificationSender)
-            } else {
-                print("there was an error getting the userData")
-                print("error code: \(response.result.error!)")
-            }//end of if/else
-        }//end of request
+        let seconds = "\(difference.second ?? 0)s ago"
+        let minutes = "\(difference.minute ?? 0)m ago"
+        let hours = "\(difference.hour ?? 0)h ago"
+        let days = "\(difference.day ?? 0)d ago"
         
-        //code which extracts the senderID
-        //code which gives the var SenderID the value of what was just extracted
-        //alamofire call which finds the user name
-        //when this alamofire request is finished, extract the link for the picture url and make another alamofire call where we extract the picture and append it to an array
-        //when all of that is completed use the reloadData method to load all of the information for the notification page
-        
-        //loop which repeats itself until all of the data is loaded
-//        for index in 0...quantityOfNotifications - 1 {
-//
-//        }//end of for loop
-        //self.notificationTableView.reloadData()
-    }//end of loadNotificationData
+        if let day = difference.day, day > 0 { return days }
+        if let hour = difference.day, hour > 0 { return hours }
+        if let minute = difference.minute, minute > 0 { return minutes }
+        if let second = difference.second, second > 0 { return seconds }
+        return ""
+    }//end of offsetFrom
+    
+    func configureTableView() {
+        notificationTableView.rowHeight = 70.0
+        notificationTableView.estimatedRowHeight = 70.0
+    }//end of configureTableView
     
     func replyMatchRequest() {
         let callURL = baseURL + "/php/match.php"
@@ -195,7 +230,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         if segue.identifier == "goToSelectedUser" {
             let destinationVC = segue.destination as! SinglesUserProfileViewController
             destinationVC.userID = senderID
-        }
+        }//end of if
     }//end of prepareForSegue
 
     /*

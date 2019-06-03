@@ -35,7 +35,15 @@ class SinglesUserProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        //print(userID)
+        
+        //we set the userAvatarImageView to a circle
+        userAvatar.layer.borderWidth = 1
+        userAvatar.layer.masksToBounds = false
+        userAvatar.layer.borderColor = UIColor.black.cgColor
+        userAvatar.layer.cornerRadius = userAvatar.frame.height/2
+        userAvatar.clipsToBounds = true
+        
+        //we load the userData
         getUserData()
     }//end of viewDidLoad
     
@@ -101,15 +109,13 @@ class SinglesUserProfileViewController: UIViewController {
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
         
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
-        //loadUserPicture(pictureURL: profilePicURL!)
+        loadUserPicture(pictureURL: profilePicURL!)
         
         
     }//end of updateUI
     
     func loadUserPicture(pictureURL : String) {
-        var profilePicURL = pictureURL
-        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
-        profilePicURL.removeSubrange(dotsIndex)
+        let profilePicURL = pictureURL
         
         let callURL = baseURL + profilePicURL
         
