@@ -178,6 +178,11 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func processNotificationData(notificationJSON : JSON) {
         if notificationJSON["result"]["notifications"].count >= 1 {
             for index in 0...notificationJSON["result"]["notifications"].count - 1 {
+                var senderPicURL = notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ProfilePicture"].string!
+                let userSlashIndex = senderPicURL.startIndex..<senderPicURL.index(senderPicURL.startIndex, offsetBy: 2)
+                if senderPicURL[userSlashIndex] == "\\/" {
+                    senderPicURL.removeSubrange(userSlashIndex)
+                }//end of if
                 print("entered process for loop")
                 notificationArray.append(NotificationModel(notificationTime: notificationJSON["result"]["notifications"][index]["CreationTime"].string!, notificationViewed: notificationJSON["result"]["notifications"][index]["Viewed"].string!, notificationID: notificationJSON["result"]["notifications"][index]["ID"].string!, notificationType: notificationJSON["result"]["notifications"][index]["Type"].string!, senderLastName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["LastName"].string!, senderFirstName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["FirstName"].string!, senderProfilePicURL: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ProfilePicture"].string!, initiatorID: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ID"].string!, notificationMessage: notificationJSON["result"]["notifications"][index]["Message"].string!))
             }//end of for loop

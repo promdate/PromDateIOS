@@ -115,9 +115,14 @@ class SinglesUserProfileViewController: UIViewController {
     }//end of updateUI
     
     func loadUserPicture(pictureURL : String) {
-        let profilePicURL = pictureURL
+        var profilePicURL = pictureURL
         
-        let callURL = baseURL + profilePicURL
+        let userSlashIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        if profilePicURL[userSlashIndex] == "\\/" {
+            profilePicURL.removeSubrange(userSlashIndex)
+        }//end of if
+        
+        let callURL = baseURL + "/\(profilePicURL)"
         
         Alamofire.request(callURL).responseImage {
             response in

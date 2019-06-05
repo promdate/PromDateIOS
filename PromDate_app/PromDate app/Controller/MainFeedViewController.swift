@@ -176,6 +176,23 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }// end of if
     }// end of didSelectRowAt
     
+//    //refresh function
+//    func configureRefreshControl() {
+//        feedTableView.refreshControl = UIRefreshControl()
+//        feedTableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+//
+//    }//end of refreshControl
+//
+//    @objc func handleRefreshControl() {
+//        //update the content
+//        print("content refreshed")
+//        getFeed()
+//        //dismiss the refresh control
+//        DispatchQueue.main.async {
+//            self.feedTableView.refreshControl?.endRefreshing()
+//        }//end of dispatchQueue
+//    }//end of handleRefreshControl
+    
     //MARK: - getFeedCall function
     func getFeed() {
         print(feedOffset)
@@ -204,8 +221,14 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         
         if singlesSelected == true || initialLoad == true {
             if feedJSON["result"]["single"].count >= 1 {
+                var userPicURL = ""
                 for index in 0...feedJSON["result"]["single"].count - 1 {
-                    singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!, profilePicURL: feedJSON["result"]["single"][index]["ProfilePicture"].string!))
+                    userPicURL = feedJSON["result"]["single"][index]["ProfilePicture"].string!
+                    let userSlashIndex = userPicURL.startIndex..<userPicURL.index(userPicURL.startIndex, offsetBy: 2)
+                    if userPicURL[userSlashIndex] == "\\/" {
+                        userPicURL.removeSubrange(userSlashIndex)
+                    }//end of if
+                    singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!, profilePicURL: "/\(userPicURL)"))
                 }//end for loop
             } else {
                 feedComplete = true
@@ -215,8 +238,22 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         if singlesSelected == false || initialLoad == true {
             if feedJSON["result"]["couple"].count >= 1 {
                 print("just before for loop for couples")
+                var userPicURL = ""
+                var partnerPicURL = ""
+                
+                
                 for index in 0...feedJSON["result"]["couple"].count - 1 {
-                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string ?? "", prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string ?? "", usrPic: feedJSON["result"]["couple"][index][0]["ProfilePicture"].string!, prtnPic: feedJSON["result"]["couple"][index][1]["ProfilePicture"].string!))
+                    userPicURL = feedJSON["result"]["couple"][index][0]["ProfilePicture"].string!
+                    partnerPicURL = feedJSON["result"]["couple"][index][1]["ProfilePicture"].string!
+                    let usrSlashIndex = userPicURL.startIndex..<userPicURL.index(userPicURL.startIndex, offsetBy: 2)
+                    let  prtnSlashIndex = partnerPicURL.startIndex..<partnerPicURL.index(partnerPicURL.startIndex, offsetBy: 2)
+                    if userPicURL[usrSlashIndex] == "\\/" {
+                        userPicURL.removeSubrange(usrSlashIndex)
+                    }//end of if
+                    if partnerPicURL[prtnSlashIndex] == "\\/" {
+                        partnerPicURL.removeSubrange(prtnSlashIndex)
+                    }//end of if
+                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string ?? "", prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string ?? "", usrPic: "/\(userPicURL)", prtnPic: "/\(partnerPicURL)"))
                 }//end of for loop
             } else {
                 feedComplete = true

@@ -28,6 +28,8 @@ class CouplesUserProfileViewController: UIViewController {
     @IBOutlet weak var userInstagramHandleLabel: UILabel!
     @IBOutlet weak var partnerInstagramHandleLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationItem!
+    @IBOutlet weak var coupleNameLabel: UILabel!
+    @IBOutlet weak var schoolLabel: UILabel!
     
     var userID = ""
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
@@ -52,10 +54,16 @@ class CouplesUserProfileViewController: UIViewController {
         partnerAvatar.layer.cornerRadius = partnerAvatar.frame.height/2
         partnerAvatar.clipsToBounds = true
         
-        
+        partnerBioLabel.layer.borderWidth = 1
+        partnerBioLabel.layer.borderColor = UIColor.gray.cgColor
+        userBioLabel.layer.borderWidth = 1
+        userBioLabel.layer.borderColor = UIColor.black.cgColor
         //we get the couple Data
         getCoupleData()
-    }
+    }//end of viewDidLoad
+    
+    
+    
     
     func getCoupleData() {
         let callURL = baseURL + "/php/getUser.php"
@@ -77,32 +85,59 @@ class CouplesUserProfileViewController: UIViewController {
         print(coupleJSON)
         
         //we load the userProfilePics
-        let userProfilePicURL = coupleJSON["result"]["user"]["ProfilePicture"].string
-        let partnerProfilePicURl = coupleJSON["result"]["partner"]["ProfilePicture"].string
-        let userCallURL = baseURL + userProfilePicURL!
-        let partnerCallURL = baseURL + partnerProfilePicURl!
+        var userProfilePicURL = coupleJSON["result"]["user"]["ProfilePicture"].string!
+        var partnerProfilePicURl = coupleJSON["result"]["partner"]["ProfilePicture"].string!
+        
+        let userSlashIndex = userProfilePicURL.startIndex..<userProfilePicURL.index(userProfilePicURL.startIndex, offsetBy: 2)
+        let prtnSlashIndex = partnerProfilePicURl.startIndex..<partnerProfilePicURl.index(partnerProfilePicURl.startIndex, offsetBy: 2)
+        
+        if userProfilePicURL[userSlashIndex] == "\\/" {
+            userProfilePicURL.removeSubrange(userSlashIndex)
+        }//end of if
+        if partnerProfilePicURl[prtnSlashIndex] == "\\/" {
+            partnerProfilePicURl.removeSubrange(prtnSlashIndex)
+        }//end of if
+        
+        
+        let userCallURL = baseURL + "/\(userProfilePicURL)"
+        let partnerCallURL = baseURL + "/\(partnerProfilePicURl)"
         let userURLRequest = URL(string: userCallURL)
         let partnerURLRequest = URL(string: partnerCallURL)
         
         //we load the user Data
         //grade, bio, twitter handle,snapchat handle, insta handle, page title
         userGradeLabel.text = coupleJSON["result"]["user"]["Grade"].string
-        userBioLabel.text = coupleJSON["result"]["user"]["Biography"].string
         userTwitterHandleLabel.text = coupleJSON["result"]["user"]["SocialTwitter"].string
         userSnapchatHandleLabel.text = coupleJSON["result"]["user"]["SocialSnapchat"].string
         userInstagramHandleLabel.text = coupleJSON["result"]["user"]["SocialInstagram"].string
         userAvatar.af_setImage(withURL: userURLRequest!, placeholderImage: placeholderImage)
+        if coupleJSON["result"]["user"]["Biography"].string != "" {
+            userBioLabel.text = coupleJSON["result"]["user"]["Biography"].string
+        } else {
+            userBioLabel.text = "User has no biography"
+        }//end of if/else
+        
+        
         
         //we load the partner data
         partnerGradeLabel.text = coupleJSON["result"]["partner"]["Grade"].string
-        partnerBioLabel.text = coupleJSON["result"]["partner"]["Biography"].string
         partnerTwitterHandleLabel.text = coupleJSON["result"]["partner"]["SocialTwitter"].string
         partnerSnapchatHandleLabel.text = coupleJSON["result"]["partner"]["SocialSnapchat"].string
         partnerInstagramHandleLabel.text = coupleJSON["result"]["partner"]["SocialInstagram"].string
         partnerAvatar.af_setImage(withURL: partnerURLRequest!, placeholderImage: placeholderImage)
+        if coupleJSON["result"]["partner"]["Biography"].string != "" {
+            partnerBioLabel.text = coupleJSON["result"]["partner"]["Biography"].string
+        } else {
+            partnerBioLabel.text = "User has no biography"
+        }//end of if/else
         
-        //nav bar title name&names' profile or name&name' coupleProfile
+        
+        
+        //nav bar title name&names' profile or name&name' coupleProfile and the school Label
         navBar.title = "\(coupleJSON["result"]["user"]["FirstName"]) & \(coupleJSON["result"]["partner"]["FirstName"])' Couple Profile"
+        schoolLabel.text = "Attenting Prom At: \(coupleJSON["result"]["school"]["Name"])"
+        coupleNameLabel.text = "\(coupleJSON["result"]["user"]["FirstName"]) \(coupleJSON["result"]["user"]["LastName"]) & \(coupleJSON["result"]["partner"]["FirstName"]) \(coupleJSON["result"]["partner"]["LastName"])"
+        
     }//end of updateCoupleUI
     
 

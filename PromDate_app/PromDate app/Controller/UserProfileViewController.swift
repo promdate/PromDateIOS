@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import Photos
 
 class UserProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -29,6 +30,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     let userMain = UserDefaults.standard
     var imagePicker : UIImagePickerController!
     var profilePictureChanged = false
+    //let placeholderPic = UIImage(named: "avatar_placeholder")
+    var userProfilePic : UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,11 +63,12 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func changePicturePressed(_ sender: UIButton) {
         self.imagePicker = UIImagePickerController()
         self.imagePicker.delegate = self
-        self.imagePicker.allowsEditing = true 
+        self.imagePicker.allowsEditing = true
         
         let alert = UIAlertController(title: "Picture Source", message: nil, preferredStyle: .actionSheet)
         let takePicture = UIAlertAction(title: "Take Picture", style: .default) { (UIAlertAction) in
             self.imagePicker.sourceType = .camera
+            self.imagePicker.showsCameraControls = true
             self.present(self.imagePicker, animated: true, completion: nil)
         }//end of takePicture
         let choosePicture = UIAlertAction(title: "Pick from Library", style: .default) { (UIAlertAction) in
@@ -80,17 +84,18 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     }// end of changePicture
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imagePicker.dismiss(animated: true, completion: nil)
-        userAvatar.image = info[.originalImage] as? UIImage
+        //imagePicker.dismiss(animated: true, completion: nil)
+        //userAvatar.image = info[.originalImage] as? UIImage
+        userAvatar.image = info[.editedImage] as? UIImage
+        userProfilePic = info[.editedImage] as? UIImage
+        
         profilePictureChanged = true
+        imagePicker.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let callURL = baseURL + "/php/updateUser.php"
         let params : [String : Any] = ["token" : userToken!, "first-name": firstNameTextField.text!, "social-twitter" : twitterHandleTextField.text!, "bio" : bioTextField.text!, "social-snapchat" : snapchatHandleTextField.text!, "social-instagram" : snapchatHandleTextField.text!, "last-name" : lastNameTextField.text!]
-        print("twitterHandle : \(twitterHandleTextField.text!)")
-        print("userToken : \(userToken!)")
-        print("firstName: \(firstNameTextField.text!)")
         
         Alamofire.request(callURL, method: .post, parameters: params).responseJSON {
             response in
@@ -98,7 +103,11 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("sucess got data")
                 print(response.result.value!)
                 let responseJSON = JSON(response.result.value!)
-                self.verifyStatus(statusJSON: responseJSON)
+                if self.profilePictureChanged == true {
+                    self.uploadUserImage()
+                } else {
+                    self.verifyStatus(statusJSON: responseJSON)
+                }//end of if/else
                 
             } else {
                 print("there was an error getting the data please try again")
@@ -106,6 +115,10 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("this is the error code: \(response.result.error!)")
             }//end of if/else
         }//end of request
+        
+//        if profilePictureChanged == true {
+//            uploadUserImage()
+//        }//end of if
     }// end of donePressed
     
     func verifyStatus(statusJSON : JSON) {
@@ -159,10 +172,13 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
   
     func loadUserPicture(imageURL : String) {
         var profilePicURL = imageURL
-//        let dotsIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
-//        profilePicURL.removeSubrange(dotsIndex)
         
-        let callURL = baseURL + profilePicURL
+        let userSlashIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        if profilePicURL[userSlashIndex] == "\\/" {
+            profilePicURL.removeSubrange(userSlashIndex)
+        }//end of if
+        
+        let callURL = baseURL + "/\(profilePicURL)"
         
         //alamofire request to load the userAvatar image
         Alamofire.request(callURL).responseImage {
@@ -178,13 +194,60 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     }//end of loadUserPicture
     
     func uploadUserImage() {
-        let imageToUpload = userAvatar.image
-        let imageData = UIImage.jpegData(userAvatar.image!)
-        let params : [String : Any] = ["token" : userToken!]
+        let imageToUpload = userProfilePic
+        //let imageToUpload = UIImage(named: "alarm-100")
+        print(imageToUpload!)
+        //let imageData = UIImage.jpegData(userAvatar.image!)
+        let otherImageData = imageToUpload!.pngData()!
+        let params : [String : String] = ["token" : userToken!]
         let callURL = baseURL + "/php/updateUser.php"
-
-
-
+        
+//        Alamofire.upload(multipartFormData: { formData in
+//            for (key, value) in params {
+//                print("value \(value) & key \(key)")
+//                formData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+//            }//end of for/loop
+//
+//            formData.append(otherImageData, withName: "img")
+//        }, to: callURL) { (response) in
+//            switch response {
+//            case .success(let upload, _, _):
+//                upload.uploadProgress(closure: { (progress) in
+//                    print(progress)
+//                })//end of closure
+//                upload.responseJSON(completionHandler: { (response) in
+//                    print(response)
+//                })//end of closure
+//            case .failure(let encodingError):
+//                print(encodingError)
+//            }//end of switch
+//        }//end of upload to server
+        
+        
+        Alamofire.upload(multipartFormData: { formData in
+            print("at start of upload call")
+            for (key, value) in params {
+                formData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+            }//end of for/loop
+            formData.append(otherImageData, withName: "img", fileName: "img.png", mimeType: "img/png")
+            
+        }, to: callURL, method: .post) { (response) in
+            switch response {
+            case .success(let upload, _, _):
+                upload.uploadProgress(closure: { (progress) in
+                    print(progress)
+                })//end of closure
+                upload.responseJSON(completionHandler: { (response) in
+                    print(response)
+                    print("Request sent to server: \(response.request!)")
+                    print(response.result)
+                    let responseJSON = JSON(response.result.value!)
+                    self.verifyStatus(statusJSON: responseJSON)
+                })//end of closure
+            case .failure(let encodingError):
+                print(encodingError)
+            }//end of switch
+        }//end of closure/ end of upload
     }//end of uploadUserImage
    
   
