@@ -556,7 +556,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N9q-NK-1NX">
-                                <rect key="frame" x="245" y="140" width="162" height="30"/>
+                                <rect key="frame" x="245" y="122" width="162" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -577,7 +577,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9I-ht-WtU">
-                                <rect key="frame" x="154" y="145" width="87" height="21"/>
+                                <rect key="frame" x="154" y="127" width="87" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -605,14 +605,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-0b-ABK">
-                                <rect key="frame" x="154" y="105" width="50" height="21"/>
+                                <rect key="frame" x="154" y="88" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sFA-hS-u21">
-                                <rect key="frame" x="246" y="102" width="162" height="30"/>
+                                <rect key="frame" x="246" y="84" width="162" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -639,6 +639,17 @@
                                     <action selector="gradeChange:" destination="PUL-hQ-uHq" eventType="touchUpInside" id="i9P-28-KMz"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGx-7p-7Y0">
+                                <rect key="frame" x="188" y="160" width="170" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.53725490196078429" green="0.13333333333333333" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Unmatch from Partner">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="unmatchPressed:" destination="PUL-hQ-uHq" eventType="touchUpInside" id="GTc-iD-Aam"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="xRW-XH-FYg"/>
@@ -659,6 +670,7 @@
                         <outlet property="navBar" destination="u1W-Sw-qDL" id="JMO-sB-h9J"/>
                         <outlet property="snapchatHandleTextField" destination="ohN-hf-A7d" id="Grw-Ko-P5c"/>
                         <outlet property="twitterHandleTextField" destination="kRN-SR-yWf" id="45R-kZ-388"/>
+                        <outlet property="unmatchButton" destination="kGx-7p-7Y0" id="GBr-nt-fcd"/>
                         <outlet property="userAvatar" destination="xp5-QL-UXh" id="rUp-LC-U0N"/>
                     </connections>
                 </viewController>
@@ -926,7 +938,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-invite-100" translatesAutoresizingMaskIntoConstraints="NO" id="nI8-pv-hey">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="inviteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nI8-pv-hey">
                                 <rect key="frame" x="154" y="229" width="107" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -972,7 +984,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grR-Bc-Mk6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="ExK-4G-Qoa">
-                        <color key="badgeColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="badgeColor" red="0.51088893410000003" green="0.17598080639999999" blue="0.64317566159999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SNr-3v-XqH">
@@ -1041,9 +1053,7 @@
         <scene sceneID="0jc-Dk-Gjo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="stB-GE-cmb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Invite" image="icons8-invite-24" id="mZQ-cN-e6d">
-                        <color key="badgeColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Invite" image="inviteIcon" id="mZQ-cN-e6d"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2mc-eC-hWy">
@@ -1095,9 +1105,8 @@
         <image name="avatar_placeholder" width="500" height="500"/>
         <image name="icons8-heart-outline-50" width="33.333332061767578" height="33.333332061767578"/>
         <image name="icons8-home-page-50" width="16.666666030883789" height="16.666666030883789"/>
-        <image name="icons8-invite-100" width="100" height="100"/>
-        <image name="icons8-invite-24" width="24" height="24"/>
         <image name="instagram_logo" width="100" height="100"/>
+        <image name="inviteIcon" width="33.333332061767578" height="33.333332061767578"/>
         <image name="settings" width="21.333333969116211" height="21.333333969116211"/>
         <image name="snap-ghost" width="144" height="144"/>
     </resources>

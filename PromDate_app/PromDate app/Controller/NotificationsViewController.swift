@@ -21,7 +21,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     var senderID = ""
     var matchAction = 2
     var notificationArray = [NotificationModel]()
-    var imageArray = [UIImage]()
+    //var imageArray = [UIImage]()
     var notificationArrayFilled = false
     
     //MARK: - ViewDidLoad()
@@ -34,6 +34,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         notificationTableView.dataSource = self
         
         configureTableView()
+        configureRefreshControl()
         
         //register cell
         notificationTableView.register(UINib(nibName: "NotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
@@ -57,12 +58,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         let callURL = baseURL + pictureURL
         let placeholderImage = UIImage(named: "avatar_placeholder")
         let urlRequest = URL(string: callURL)
-        
-        
-        
-        
         let notificationDate = NSDate(timeIntervalSince1970: Double(notificationArray[indexPath.row].creationTime)!)
-
         
         switch notificationArray[indexPath.row].type {
         case "1":
@@ -114,9 +110,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
             cell.statusImageView.isHidden = true
             cell.accessoryType = .none
-            
         }//end of switch
-        
         return cell
     }//end of cellForRowAt
     
@@ -184,7 +178,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
                     senderPicURL.removeSubrange(userSlashIndex)
                 }//end of if
                 print("entered process for loop")
-                notificationArray.append(NotificationModel(notificationTime: notificationJSON["result"]["notifications"][index]["CreationTime"].string!, notificationViewed: notificationJSON["result"]["notifications"][index]["Viewed"].string!, notificationID: notificationJSON["result"]["notifications"][index]["ID"].string!, notificationType: notificationJSON["result"]["notifications"][index]["Type"].string!, senderLastName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["LastName"].string!, senderFirstName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["FirstName"].string!, senderProfilePicURL: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ProfilePicture"].string!, initiatorID: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ID"].string!, notificationMessage: notificationJSON["result"]["notifications"][index]["Message"].string!))
+                notificationArray.append(NotificationModel(notificationTime: notificationJSON["result"]["notifications"][index]["CreationTime"].string!, notificationViewed: notificationJSON["result"]["notifications"][index]["Viewed"].string!, notificationID: notificationJSON["result"]["notifications"][index]["ID"].string!, notificationType: notificationJSON["result"]["notifications"][index]["Type"].string!, senderLastName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["LastName"].string!, senderFirstName: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["FirstName"].string!, senderProfilePicURL: "/\(senderPicURL)", initiatorID: notificationJSON["result"]["notifications"][index]["ParametersJSON"][0]["initiator-data"]["ID"].string!, notificationMessage: notificationJSON["result"]["notifications"][index]["Message"].string!))
             }//end of for loop
             //we set notificationArrayFilled to true and refresh the tableViewData
             notificationArrayFilled = true
@@ -209,11 +203,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
         return ""
     }//end of offsetFrom
     
-    func configureTableView() {
-        notificationTableView.rowHeight = 70.0
-        notificationTableView.estimatedRowHeight = 70.0
-    }//end of configureTableView
-    
+    //function replyMatchRequest --> called when accesory button is tapped and user picks accept/decline
     func replyMatchRequest() {
         let callURL = baseURL + "/php/match.php"
         let params : [String : Any] = ["token" : userToken!, "partner-id" : senderID, "action" : matchAction]
@@ -237,7 +227,43 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             destinationVC.userID = senderID
         }//end of if
     }//end of prepareForSegue
-
+    
+    
+    //MARK: - Declare configuration functions
+    func configureTableView() {
+        notificationTableView.rowHeight = 70.0
+        notificationTableView.estimatedRowHeight = 70.0
+    }//end of configureTableView
+    
+    //function configureRefreshControl --> called in viewDidLoad and sets up functionality to refresh the tableView with bounce
+    func configureRefreshControl() {
+        //we create the refreshControl ( scrolling wheel and assign it to an action)
+        notificationTableView.refreshControl = UIRefreshControl()
+        
+        //we assign the action/object to the tableView so that when the user
+        notificationTableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }//end of configureRefreshControl
+    
+    //object function handleRefreshControl --> called when refresh is activated & has the physical refresh code
+    @objc func handleRefreshControl() {
+        //update content
+        refreshTableView()
+        
+        //when refreshing has ended we dismiss the refreshControl
+        DispatchQueue.main.async {
+            self.notificationTableView.refreshControl?.endRefreshing()
+        }//end of dispatchQueue
+    }//enbd of handleRefreshControl
+    
+    //func refreshTableView
+    func refreshTableView() {
+        //we remove all of the data stored in notificationArray
+        notificationArray.removeAll()
+        notificationArrayFilled = false
+        getNotificationData()
+    }//end of refreshTableView
+    
+    
     /*
     // MARK: - Navigation
 

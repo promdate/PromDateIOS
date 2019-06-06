@@ -53,6 +53,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         
         // call some kind of function that loads singles data --> dataLoaded() or loadData()
         configureTableView()
+        configureRefreshControl()
         
         //we make sure feedoffset is = to 0
         feedOffset = 0
@@ -107,7 +108,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             
             // initialization of cell which is the var with the custom cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
-            
             
             let profilePicURL = singlesArray[indexPath.row].userPicURL
             let callURL = baseURL + profilePicURL
@@ -176,22 +176,33 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }// end of if
     }// end of didSelectRowAt
     
-//    //refresh function
-//    func configureRefreshControl() {
-//        feedTableView.refreshControl = UIRefreshControl()
-//        feedTableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
-//
-//    }//end of refreshControl
-//
-//    @objc func handleRefreshControl() {
-//        //update the content
-//        print("content refreshed")
-//        getFeed()
-//        //dismiss the refresh control
-//        DispatchQueue.main.async {
-//            self.feedTableView.refreshControl?.endRefreshing()
-//        }//end of dispatchQueue
-//    }//end of handleRefreshControl
+    //refresh function
+    func configureRefreshControl() {
+        feedTableView.refreshControl = UIRefreshControl()
+        feedTableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+
+    }//end of refreshControl
+
+    @objc func handleRefreshControl() {
+        //update the content
+        refreshTableView()
+        //dismiss the refresh control
+        DispatchQueue.main.async {
+            self.feedTableView.refreshControl?.endRefreshing()
+        }//end of dispatchQueue
+    }//end of handleRefreshControl
+    
+    func refreshTableView() {
+        print("content refreshed")
+        singlesArray.removeAll()
+        couplesArray.removeAll()
+        feedArraysFilled = false
+        initialLoad = false
+        feedComplete = false
+        feedOffset = 0
+        couplesOffset = 0
+        getFeed()
+    }//end of refreshTableView
     
     //MARK: - getFeedCall function
     func getFeed() {

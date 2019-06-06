@@ -23,6 +23,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var snapchatHandleTextField: UITextField!
     @IBOutlet weak var instagramHandleTextField: UITextField!
     @IBOutlet weak var navBar: UINavigationItem!
+    @IBOutlet weak var unmatchButton: UIButton!
     
     
     let userToken = UserData().defaults.string(forKey: "userToken")
@@ -32,6 +33,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     var profilePictureChanged = false
     //let placeholderPic = UIImage(named: "avatar_placeholder")
     var userProfilePic : UIImage!
+    var partnerID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,10 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         userAvatar.layer.cornerRadius = userAvatar.frame.height/2
         userAvatar.clipsToBounds = true 
         
+        //we set the unmatch button to hidden/is hilighted
+        //unmatchButton.isHidden = true
+        unmatchButton.isHighlighted = true
+        unmatchButton.isEnabled = false
         //we make sure that profile pic changed is false
         profilePictureChanged = false
         
@@ -83,6 +89,28 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         self.present(alert, animated: true, completion: nil)
     }// end of changePicture
     
+    
+    @IBAction func unmatchPressed(_ sender: Any) {
+        let callURL = baseURL + "/php/match.php"
+        let params : [String : Any] = ["token" : userToken!, "partner-id" : partnerID, "action" : 1]
+        
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON { response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                let unmatchJSON : JSON = JSON(response.result.value!)
+                self.verifyStatus(statusJSON: unmatchJSON, alertTitle: "Unmatch", alertMessage: "Unmatching from your partner")
+                print("sucessfully unmatched from partner")
+                print(response.result.value!)
+                //self.unmatchButton.isEnabled = false
+                
+            } else {
+                print("there was an error getting the data")
+                print("this is the error code: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+    }//end of unmatchPressed
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //imagePicker.dismiss(animated: true, completion: nil)
         //userAvatar.image = info[.originalImage] as? UIImage
@@ -91,7 +119,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         
         profilePictureChanged = true
         imagePicker.dismiss(animated: true, completion: nil)
-    }
+    }//end of imagePickerController
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         let callURL = baseURL + "/php/updateUser.php"
@@ -106,7 +134,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 if self.profilePictureChanged == true {
                     self.uploadUserImage()
                 } else {
-                    self.verifyStatus(statusJSON: responseJSON)
+                    self.verifyStatus(statusJSON: responseJSON, alertTitle: "Update", alertMessage: "Updating your user Data")
                 }//end of if/else
                 
             } else {
@@ -121,13 +149,19 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
 //        }//end of if
     }// end of donePressed
     
-    func verifyStatus(statusJSON : JSON) {
+    func verifyStatus(statusJSON : JSON, alertTitle : String, alertMessage : String) {
         if statusJSON["status"] == 200 {
-            let alert = UIAlertController(title: "Update Sucessfull", message: "Your user data was sucessfully updated!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: "\(alertTitle) Sucessfull", message: "\(alertMessage) was sucessfull!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                if alertTitle == "Unmatch" {
+                    print("in side if alertTitle")
+                    self.unmatchButton.isHighlighted = true
+                    self.unmatchButton.isEnabled = false
+                }//end of if
+            }))
             present(alert, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Update Unsucessfull", message: "There was an error updating your user Data, please try again", preferredStyle: .alert)
+            let alert = UIAlertController(title: "\(alertTitle) Unsucessfull", message: "There was an error \(alertMessage.lowercased()), please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
             
@@ -164,9 +198,24 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         twitterHandleTextField.text = userJSON["result"]["user"]["SocialTwitter"].string
         snapchatHandleTextField.text = userJSON["result"]["user"]["SocialSnapchat"].string
         instagramHandleTextField.text = userJSON["result"]["user"]["SocialInstagram"].string
+        
+        //we load the profile pic
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
         loadUserPicture(imageURL: profilePicURL!)
-
+        
+        //we check to see if the unmatch button should be shown
+        if userJSON["result"]["user"]["Matched"] == "1" {
+            //we set the partnerID var to a value and the button is hidden to false
+            partnerID = userJSON["result"]["user"]["PartnerID"].string!
+            //unmatchButton.isHidden = false
+            unmatchButton.isHighlighted = false
+            unmatchButton.isEnabled = true
+        } else {
+            //we set the button to is  hidden to true
+            //unmatchButton.isHidden = true
+            unmatchButton.isHighlighted = true
+            unmatchButton.isEnabled = false
+        }
 
     }//end of updateUI
   
@@ -242,7 +291,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                     print("Request sent to server: \(response.request!)")
                     print(response.result)
                     let responseJSON = JSON(response.result.value!)
-                    self.verifyStatus(statusJSON: responseJSON)
+                    self.verifyStatus(statusJSON: responseJSON, alertTitle: "updating", alertMessage: "Updating your user data")
                 })//end of closure
             case .failure(let encodingError):
                 print(encodingError)
