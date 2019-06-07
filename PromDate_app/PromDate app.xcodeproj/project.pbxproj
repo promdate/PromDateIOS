@@ -10,6 +10,10 @@
 		0914AE8D228F377100F0C8DE /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */; };
 		0914AE8E228F377100F0C8DE /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */; };
 		091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */; };
+		093E98E522AABD0500FFCD21 /* ApparelFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E98E422AABD0500FFCD21 /* ApparelFeedViewController.swift */; };
+		093E98E822AABEB600FFCD21 /* ApparelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */; };
+		093E98E922AABEB600FFCD21 /* ApparelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093E98E722AABEB600FFCD21 /* ApparelTableViewCell.xib */; };
+		093E98EB22AACC8800FFCD21 /* ApparelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E98EA22AACC8800FFCD21 /* ApparelProfileViewController.swift */; };
 		096E510222565F1F00D86172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096E510122565F1F00D86172 /* AppDelegate.swift */; };
 		096E510722565F1F00D86172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 096E510522565F1F00D86172 /* Main.storyboard */; };
 		096E510922565F2100D86172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096E510822565F2100D86172 /* Assets.xcassets */; };
@@ -40,6 +44,10 @@
 		0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SinglesUserProfileViewController.swift; path = "PromDate app/Controller/SinglesUserProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
+		093E98E422AABD0500FFCD21 /* ApparelFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelFeedViewController.swift; sourceTree = "<group>"; };
+		093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelTableViewCell.swift; sourceTree = "<group>"; };
+		093E98E722AABEB600FFCD21 /* ApparelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApparelTableViewCell.xib; sourceTree = "<group>"; };
+		093E98EA22AACC8800FFCD21 /* ApparelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelProfileViewController.swift; sourceTree = "<group>"; };
 		096E50FE22565F1F00D86172 /* PromDate app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromDate app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		096E510122565F1F00D86172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		096E510622565F1F00D86172 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,6 +139,8 @@
 				0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */,
 				0998FF26225D6B6C00CEB49B /* CouplesTableViewCell.xib */,
 				0998FF25225D6B6C00CEB49B /* CouplesTableViewCell.swift */,
+				093E98E722AABEB600FFCD21 /* ApparelTableViewCell.xib */,
+				093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -139,18 +149,20 @@
 			isa = PBXGroup;
 			children = (
 				096E510122565F1F00D86172 /* AppDelegate.swift */,
-				09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */,
 				09B02DB32271EBD300B00CAF /* ChangePasswordViewController.swift */,
 				096E51152256699100D86172 /* LogInViewController.swift */,
 				096E51132256652300D86172 /* SignUpViewController.swift */,
 				09A483F7225FC8670029A6CC /* MainTabViewController.swift */,
 				0998FF2F225D8CEC00CEB49B /* MainFeedViewController.swift */,
-				098D50B8228DA5E100669493 /* NotificationsViewController.swift */,
-				09FB55042268F80D00C9416F /* SettingsTableViewController.swift */,
-				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
 				091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */,
 				09D725A4229469F10080AC75 /* CouplesUserProfileViewController.swift */,
+				098D50B8228DA5E100669493 /* NotificationsViewController.swift */,
 				09D7E5B8229B57BF00B6103E /* InviteViewController.swift */,
+				09FB55042268F80D00C9416F /* SettingsTableViewController.swift */,
+				09B02DB72271EC2F00B00CAF /* UserProfileViewController.swift */,
+				09B02DB52271EC1000B00CAF /* ApparelRegistryViewController.swift */,
+				093E98E422AABD0500FFCD21 /* ApparelFeedViewController.swift */,
+				093E98EA22AACC8800FFCD21 /* ApparelProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -249,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093E98E922AABEB600FFCD21 /* ApparelTableViewCell.xib in Resources */,
 				096E510C22565F2100D86172 /* LaunchScreen.storyboard in Resources */,
 				0998FF24225D5D3700CEB49B /* SinglesTableViewCell.xib in Resources */,
 				0914AE8E228F377100F0C8DE /* NotificationTableViewCell.xib in Resources */,
@@ -333,6 +346,9 @@
 				09A483F8225FC8670029A6CC /* MainTabViewController.swift in Sources */,
 				091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */,
 				096E51162256699100D86172 /* LogInViewController.swift in Sources */,
+				093E98E822AABEB600FFCD21 /* ApparelTableViewCell.swift in Sources */,
+				093E98E522AABD0500FFCD21 /* ApparelFeedViewController.swift in Sources */,
+				093E98EB22AACC8800FFCD21 /* ApparelProfileViewController.swift in Sources */,
 				099E8D9622975B060079452C /* UserModel.swift in Sources */,
 				09EE0CCD22982C3C00CA952D /* NotificationModel.swift in Sources */,
 				09B02DB62271EC1000B00CAF /* ApparelRegistryViewController.swift in Sources */,

@@ -27,6 +27,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        emailTextField.textContentType = .username
+        passwordTextField.textContentType = .password
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -76,6 +78,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             goToMainFeed()
         } else {
             print("an error occured while loging in")
+            let errorMessage = json["result"].string!
+            let alert = UIAlertController(title: "Log In Error", message: "\(errorMessage), Please try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }// end of if/else
     }// end of verifyStatus
     
@@ -118,14 +124,23 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 let regenJSON : JSON = JSON(response.result.value!)
                 let regenToken = regenJSON["result"].string
                 print("userToken(regen): \(regenToken!)")
-                UserData().defaults.set(regenToken, forKey: "userToken")
-                print("goToMainFeed")
-                self.goToMainFeed()
+                self.verifyStatus(json: regenJSON)
+//                UserData().defaults.set(regenToken, forKey: "userToken")
+//                print("goToMainFeed")
+//                self.goToMainFeed()
             } else {
                 print("there was an error getting the Data")
+                self.networkingAlertControllers(alertTitle: "Error getting Data", alertMessage: "There was an error getting the Data, please check your network connection and try again")
             }//end of if/else
         }//end of request
     }//end of callRegenToken
+    
+    
+    func networkingAlertControllers(alertTitle : String, alertMessage : String) {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }//end of networkingAlertControllers
 
     
 }//end of LogInViewController

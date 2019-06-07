@@ -247,30 +247,10 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         //let imageToUpload = UIImage(named: "alarm-100")
         print(imageToUpload!)
         //let imageData = UIImage.jpegData(userAvatar.image!)
-        let otherImageData = imageToUpload!.pngData()!
+        //let otherImageData = imageToUpload!.pngData()!
+        let otherImageData = imageToUpload!.jpegData(compressionQuality: 1)!
         let params : [String : String] = ["token" : userToken!]
         let callURL = baseURL + "/php/updateUser.php"
-        
-//        Alamofire.upload(multipartFormData: { formData in
-//            for (key, value) in params {
-//                print("value \(value) & key \(key)")
-//                formData.append(value.data(using: String.Encoding.utf8)!, withName: key)
-//            }//end of for/loop
-//
-//            formData.append(otherImageData, withName: "img")
-//        }, to: callURL) { (response) in
-//            switch response {
-//            case .success(let upload, _, _):
-//                upload.uploadProgress(closure: { (progress) in
-//                    print(progress)
-//                })//end of closure
-//                upload.responseJSON(completionHandler: { (response) in
-//                    print(response)
-//                })//end of closure
-//            case .failure(let encodingError):
-//                print(encodingError)
-//            }//end of switch
-//        }//end of upload to server
         
         
         Alamofire.upload(multipartFormData: { formData in

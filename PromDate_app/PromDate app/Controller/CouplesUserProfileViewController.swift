@@ -14,27 +14,23 @@ import SwiftyJSON
 class CouplesUserProfileViewController: UIViewController {
     
     //variables
-    @IBOutlet weak var userAvatar: UIImageView!
-    @IBOutlet weak var partnerAvatar: UIImageView!
+    @IBOutlet weak var userAvatarButton: UIButton!
+    @IBOutlet weak var partnerAvatarButton: UIButton!
     
     @IBOutlet weak var userGradeLabel: UILabel!
     @IBOutlet weak var partnerGradeLabel: UILabel!
-    @IBOutlet weak var userBioLabel: UITextView!
-    @IBOutlet weak var partnerBioLabel: UITextView!
-    @IBOutlet weak var userTwitterHandleLabel: UILabel!
-    @IBOutlet weak var partnerTwitterHandleLabel: UILabel!
-    @IBOutlet weak var userSnapchatHandleLabel: UILabel!
-    @IBOutlet weak var partnerSnapchatHandleLabel: UILabel!
-    @IBOutlet weak var userInstagramHandleLabel: UILabel!
-    @IBOutlet weak var partnerInstagramHandleLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationItem!
-    @IBOutlet weak var coupleNameLabel: UILabel!
-    @IBOutlet weak var schoolLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userSchoolLabel: UILabel!
+    @IBOutlet weak var partnerSchoolLabel: UILabel!
+    @IBOutlet weak var partnerNameLabel: UILabel!
     
     var userID = ""
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userToken = UserData().defaults.string(forKey: "userToken")
     let placeholderImage = UIImage(named: "avatar_placeholder")
+    var partnerID = ""
+    var selectedUserID = ""
     
 
     override func viewDidLoad() {
@@ -42,27 +38,65 @@ class CouplesUserProfileViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         //we set the profilePic ImmageViews to circles
-        userAvatar.layer.borderWidth = 1
-        userAvatar.layer.masksToBounds = false
-        userAvatar.layer.borderColor = UIColor.black.cgColor
-        userAvatar.layer.cornerRadius = userAvatar.frame.height/2
-        userAvatar.clipsToBounds = true
         
-        partnerAvatar.layer.borderWidth = 1
-        partnerAvatar.layer.masksToBounds = false
-        partnerAvatar.layer.borderColor = UIColor.black.cgColor
-        partnerAvatar.layer.cornerRadius = partnerAvatar.frame.height/2
-        partnerAvatar.clipsToBounds = true
+        userAvatarButton.layer.borderWidth = 1
+        userAvatarButton.layer.masksToBounds = false
+        userAvatarButton.layer.borderColor = UIColor.black.cgColor
+        userAvatarButton.layer.cornerRadius = userAvatarButton.frame.height/2
+        userAvatarButton.clipsToBounds = true
         
-        partnerBioLabel.layer.borderWidth = 1
-        partnerBioLabel.layer.borderColor = UIColor.gray.cgColor
-        userBioLabel.layer.borderWidth = 1
-        userBioLabel.layer.borderColor = UIColor.black.cgColor
+        partnerAvatarButton.layer.borderColor = UIColor.black.cgColor
+        partnerAvatarButton.layer.borderWidth = 1
+        partnerAvatarButton.layer.masksToBounds = false
+        partnerAvatarButton.layer.cornerRadius = partnerAvatarButton.frame.height/2
+        partnerAvatarButton.clipsToBounds = true
+        
+        
         //we get the couple Data
         getCoupleData()
     }//end of viewDidLoad
     
     
+//    @IBAction func userPicPressed(_ sender: Any) {
+//        let alert = UIAlertController(title: "Go to user?", message: "Do you want to see this user's profile?", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (UIAlertAction) in
+//            self.selectedUserID = self.userID
+//            self.performSegue(withIdentifier: "goToSelectedUser", sender: self)
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        present(alert, animated: true, completion: nil)
+//    }//end of userPicPressed
+    
+//    @IBAction func partnerPicPressed(_ sender: Any) {
+//        print("partner pic selected")
+//    }//end of partnerPicPressed
+    
+    @IBAction func userPicPressed(_ sender: UIButton) {
+//        let alert = UIAlertController(title: "Go to user?", message: "Do you want to see this user's profile?", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (UIAlertAction) in
+//            self.selectedUserID = self.userID
+//            self.performSegue(withIdentifier: "goToSelectedUser", sender: self)
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        present(alert, animated: true, completion: nil)
+        
+        self.selectedUserID = self.userID
+        self.performSegue(withIdentifier: "goToSelectedUser", sender: self)
+    }//end of userPicPressed
+    
+    @IBAction func partnerPicPressed(_ sender: UIButton) {
+//        let alert = UIAlertController(title: "Go to user?", message: "Do you want to see this user's profile?", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (UIAlertAction) in
+//            self.selectedUserID = self.partnerID
+//            self.performSegue(withIdentifier: "goToSelectedUser", sender: self)
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        present(alert, animated: true, completion: nil)
+        
+        self.selectedUserID = self.partnerID
+        self.performSegue(withIdentifier: "goToSelectedUser", sender: self)
+        
+    }//end of userPicPressed
     
     
     func getCoupleData() {
@@ -103,42 +137,31 @@ class CouplesUserProfileViewController: UIViewController {
         let partnerCallURL = baseURL + "/\(partnerProfilePicURl)"
         let userURLRequest = URL(string: userCallURL)
         let partnerURLRequest = URL(string: partnerCallURL)
+        partnerID = coupleJSON["result"]["partner"]["ID"].string!
         
         //we load the user Data
         //grade, bio, twitter handle,snapchat handle, insta handle, page title
-        userGradeLabel.text = coupleJSON["result"]["user"]["Grade"].string
-        userTwitterHandleLabel.text = coupleJSON["result"]["user"]["SocialTwitter"].string
-        userSnapchatHandleLabel.text = coupleJSON["result"]["user"]["SocialSnapchat"].string
-        userInstagramHandleLabel.text = coupleJSON["result"]["user"]["SocialInstagram"].string
-        userAvatar.af_setImage(withURL: userURLRequest!, placeholderImage: placeholderImage)
-        if coupleJSON["result"]["user"]["Biography"].string != "" {
-            userBioLabel.text = coupleJSON["result"]["user"]["Biography"].string
-        } else {
-            userBioLabel.text = "User has no biography"
-        }//end of if/else
-        
-        
-        
+        userGradeLabel.text = "Grade: \(coupleJSON["result"]["user"]["Grade"])"
+        userAvatarButton.af_setImage(for: .normal, url: userURLRequest!, placeholderImage: placeholderImage)
         //we load the partner data
-        partnerGradeLabel.text = coupleJSON["result"]["partner"]["Grade"].string
-        partnerTwitterHandleLabel.text = coupleJSON["result"]["partner"]["SocialTwitter"].string
-        partnerSnapchatHandleLabel.text = coupleJSON["result"]["partner"]["SocialSnapchat"].string
-        partnerInstagramHandleLabel.text = coupleJSON["result"]["partner"]["SocialInstagram"].string
-        partnerAvatar.af_setImage(withURL: partnerURLRequest!, placeholderImage: placeholderImage)
-        if coupleJSON["result"]["partner"]["Biography"].string != "" {
-            partnerBioLabel.text = coupleJSON["result"]["partner"]["Biography"].string
-        } else {
-            partnerBioLabel.text = "User has no biography"
-        }//end of if/else
-        
-        
-        
+        partnerGradeLabel.text = "Grade: \(coupleJSON["result"]["partner"]["Grade"])"
+        partnerAvatarButton.af_setImage(for: .normal, url: partnerURLRequest!, placeholderImage: placeholderImage)
+    
         //nav bar title name&names' profile or name&name' coupleProfile and the school Label
         navBar.title = "\(coupleJSON["result"]["user"]["FirstName"]) & \(coupleJSON["result"]["partner"]["FirstName"])' Couple Profile"
-        schoolLabel.text = "Attenting Prom At: \(coupleJSON["result"]["school"]["Name"])"
-        coupleNameLabel.text = "\(coupleJSON["result"]["user"]["FirstName"]) \(coupleJSON["result"]["user"]["LastName"]) & \(coupleJSON["result"]["partner"]["FirstName"]) \(coupleJSON["result"]["partner"]["LastName"])"
-        
+        userSchoolLabel.text = "\(coupleJSON["result"]["school"]["Name"])"
+        partnerSchoolLabel.text = "\(coupleJSON["result"]["school"]["Name"])"
+        userNameLabel.text = "\(coupleJSON["result"]["user"]["FirstName"]) \(coupleJSON["result"]["user"]["LastName"])"
+        partnerNameLabel.text = "\(coupleJSON["result"]["partner"]["FirstName"]) \(coupleJSON["result"]["partner"]["LastName"])"
     }//end of updateCoupleUI
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSelectedUser" {
+            let destinationVC = segue.destination as! SinglesUserProfileViewController
+            destinationVC.userID = selectedUserID
+        }//end of if
+    }//end of prepareForSegue
     
 
     /*

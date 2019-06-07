@@ -15,7 +15,7 @@ class SettingsTableViewController: UITableViewController {
     //variables
     var userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    var settingsArray = ["Profile","Change Password", "Apparel Registery", "Delete Account"]
+    var settingsArray = ["Profile","Apparel Registery", "Change Password", "Delete Account"]
     
     
     override func viewDidLoad() {
@@ -51,9 +51,9 @@ class SettingsTableViewController: UITableViewController {
         case 0 :
             performSegue(withIdentifier: "goToUserProfile", sender: self)
         case 1 :
-            performSegue(withIdentifier: "goToChangePassword", sender: self)
-        case 2 :
             performSegue(withIdentifier: "goToApparelRegistery", sender: self)
+        case 2 :
+            performSegue(withIdentifier: "goToChangePassword", sender: self)
         case 3 :
             deleteAccount()
         default :
