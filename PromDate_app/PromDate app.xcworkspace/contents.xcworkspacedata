@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PromDate app.xcodeproj">
+      location = "group:/Users/Olivier/Documents/Digitera_COOP/PromDateIOS/PromDate_app/PromDate.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
