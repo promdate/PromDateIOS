@@ -10,6 +10,4 @@ import Foundation
 
 class UserData {
     let defaults = UserDefaults.standard
-    
-    
 }// end of UserData

@@ -23,11 +23,13 @@ class SinglesUserProfileViewController: UIViewController {
     @IBOutlet weak var snapchatHandleLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var heartButton: UIBarButtonItem!
     
     // variables
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userToken = UserData().defaults.string(forKey: "userToken")
     var userID = ""
+    var userInWishlist = false
     
     
 
@@ -67,6 +69,50 @@ class SinglesUserProfileViewController: UIViewController {
             }//end of if/else
         }//end of request
     }// end of sendRequest
+    
+    
+    @IBAction func wishlistPressed(_ sender: UIBarButtonItem) {
+        var wishlistAction = 2
+        var message = ""
+        var title = ""
+        var heartImage : UIImage!
+        if userInWishlist == true {
+            wishlistAction = 1
+            message = "This was sucessfully removed from your wishlist!"
+            title = "User Removed"
+            heartImage = UIImage(named: "heart_outline")
+        } else {
+            wishlistAction = 0
+            message = "This was sucessfully added to your wishlist!"
+            title = "User Added"
+            heartImage = UIImage(named: "heart_filled")
+        }
+        
+        let callURL = baseURL + "/php/changeWishlist.php"
+        let params : [String : Any] = ["token" : userToken!, "wish-id" : userID, "action" : wishlistAction]
+        
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON { response in
+            if response.result.isSuccess {
+                print("sucess got data")
+                let responseJSON : JSON = JSON(response.result.value!)
+                print(responseJSON)
+                if responseJSON["status"] == 200 {
+                    self.heartButton.image = heartImage
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    let alert = UIAlertController(title: "Networking Error", message: "There was an error modifying your wishlist, please try again", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                print("there was an error getting the data")
+                print("This is the error code: \(response.result.error!)")
+            }//end of if/else
+        }//end of request
+    }//end of wishlistPressed
     
     func matchRequestStatus(matchJSON : JSON) {
         
@@ -111,13 +157,21 @@ class SinglesUserProfileViewController: UIViewController {
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string
         loadUserPicture(pictureURL: profilePicURL!)
         
-        
+        if userJSON["result"]["user"]["InWishList"].bool == true {
+            self.heartButton.image = UIImage(named: "heart_filled")
+            userInWishlist = true
+        }//end of if
     }//end of updateUI
     
     func loadUserPicture(pictureURL : String) {
-        let profilePicURL = pictureURL
+        var profilePicURL = pictureURL
         
-        let callURL = baseURL + profilePicURL
+        let userSlashIndex = profilePicURL.startIndex..<profilePicURL.index(profilePicURL.startIndex, offsetBy: 2)
+        if profilePicURL[userSlashIndex] == "\\/" {
+            profilePicURL.removeSubrange(userSlashIndex)
+        }//end of if
+        
+        let callURL = baseURL + "/\(profilePicURL)"
         
         Alamofire.request(callURL).responseImage {
             response in

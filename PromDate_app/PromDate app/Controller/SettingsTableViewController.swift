@@ -15,7 +15,7 @@ class SettingsTableViewController: UITableViewController {
     //variables
     var userToken = UserData().defaults.string(forKey: "userToken")
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
-    var settingsArray = ["Profile","Change Password", "Apparel Registery", "Delete Account"]
+    var settingsArray = ["Profile","Apparel Registery", "Change Password", "Delete Account"]
     
     
     override func viewDidLoad() {
@@ -51,9 +51,9 @@ class SettingsTableViewController: UITableViewController {
         case 0 :
             performSegue(withIdentifier: "goToUserProfile", sender: self)
         case 1 :
-            performSegue(withIdentifier: "goToChangePassword", sender: self)
-        case 2 :
             performSegue(withIdentifier: "goToApparelRegistery", sender: self)
+        case 2 :
+            performSegue(withIdentifier: "goToChangePassword", sender: self)
         case 3 :
             deleteAccount()
         default :
@@ -105,7 +105,12 @@ class SettingsTableViewController: UITableViewController {
     
     // TODO: - deleteAccount func
     func deleteAccount() {
-        
+        let alert = UIAlertController(title: "Delete Account", message: "Are you sure you want to elete your account? *This is a placeholder*", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (UIAlertAction) in
+            print("account deleted")
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }// end of deleteAccount
     
     //TODO: - delete account confirm prompt and call
