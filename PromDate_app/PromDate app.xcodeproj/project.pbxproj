@@ -52,7 +52,7 @@
 		093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelTableViewCell.swift; sourceTree = "<group>"; };
 		093E98E722AABEB600FFCD21 /* ApparelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApparelTableViewCell.xib; sourceTree = "<group>"; };
 		093E98EA22AACC8800FFCD21 /* ApparelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelProfileViewController.swift; sourceTree = "<group>"; };
-		096E50FE22565F1F00D86172 /* PromDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		096E50FE22565F1F00D86172 /* PromDate app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromDate app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		096E510122565F1F00D86172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		096E510622565F1F00D86172 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		096E510822565F2100D86172 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		096E50FF22565F1F00D86172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				096E50FE22565F1F00D86172 /* PromDate.app */,
+				096E50FE22565F1F00D86172 /* PromDate app.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,9 +204,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		096E50FD22565F1F00D86172 /* PromDate */ = {
+		096E50FD22565F1F00D86172 /* PromDate app */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 096E511022565F2100D86172 /* Build configuration list for PBXNativeTarget "PromDate" */;
+			buildConfigurationList = 096E511022565F2100D86172 /* Build configuration list for PBXNativeTarget "PromDate app" */;
 			buildPhases = (
 				9276C6D6193EDDEF634CF04B /* [CP] Check Pods Manifest.lock */,
 				096E50FA22565F1F00D86172 /* Sources */,
@@ -218,9 +218,9 @@
 			);
 			dependencies = (
 			);
-			name = PromDate;
+			name = "PromDate app";
 			productName = "PromDate app";
-			productReference = 096E50FE22565F1F00D86172 /* PromDate.app */;
+			productReference = 096E50FE22565F1F00D86172 /* PromDate app.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -244,7 +244,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 096E50F922565F1F00D86172 /* Build configuration list for PBXProject "PromDate" */;
+			buildConfigurationList = 096E50F922565F1F00D86172 /* Build configuration list for PBXProject "PromDate app" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -257,7 +257,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				096E50FD22565F1F00D86172 /* PromDate */,
+				096E50FD22565F1F00D86172 /* PromDate app */,
 			);
 		};
 /* End PBXProject section */
@@ -508,13 +508,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B78G86W;
+				DEVELOPMENT_TEAM = K85W3NT78V;
 				INFOPLIST_FILE = "PromDate app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DigiteraInteractive.PromDate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.OlivierCaron.PromDate-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -529,13 +529,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 533B78G86W;
+				DEVELOPMENT_TEAM = K85W3NT78V;
 				INFOPLIST_FILE = "PromDate app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DigiteraInteractive.PromDate;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.OlivierCaron.PromDate-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -546,7 +546,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		096E50F922565F1F00D86172 /* Build configuration list for PBXProject "PromDate" */ = {
+		096E50F922565F1F00D86172 /* Build configuration list for PBXProject "PromDate app" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				096E510E22565F2100D86172 /* Debug */,
@@ -555,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		096E511022565F2100D86172 /* Build configuration list for PBXNativeTarget "PromDate" */ = {
+		096E511022565F2100D86172 /* Build configuration list for PBXNativeTarget "PromDate app" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				096E511122565F2100D86172 /* Debug */,
