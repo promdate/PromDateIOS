@@ -23,6 +23,10 @@ class ApparelRegistryViewController: UIViewController, UIPickerViewDelegate, UIP
         brandPickerView.delegate = self
         brandPickerView.dataSource = self
         //we set ourselves as delegates
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }//end of viewDidLoad
     
     

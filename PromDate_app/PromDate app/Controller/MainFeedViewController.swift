@@ -18,10 +18,12 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var feedTableView: UITableView!
     @IBOutlet weak var feedSegmentedControl: UISegmentedControl!
     
-    var singlesSelected : Bool = false
+    //var singlesSelected : Bool = false
+    var segmentSelected : Int = 0
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var singlesArray = [UserModel]()
     var couplesArray = [CouplesUserModel]()
+    var wishlistArray = [UserModel]()
     var selectedUserID = ""
     let numberUserLoaded = 15
     var feedArraysFilled = false
@@ -31,6 +33,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     var feedOffset = 0
     var couplesOffset = 0
     let placeholderImage = UIImage(named: "avatar_placeholder")
+    var currentIndexPath = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +47,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         feedTableView.register(UINib(nibName: "CouplesTableViewCell", bundle: nil), forCellReuseIdentifier: "couplesCell")
         
         //giving basic value of true to singlesSelected so that it is the default tab shown when loading this view
-        singlesSelected = false
+        //singlesSelected = false
+        segmentSelected = 1
         
         //giving singlesArrayFilled a default value of false and initial load as false
         feedArraysFilled = false
@@ -59,8 +63,11 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         feedOffset = 0
         couplesOffset = 0
         
+        //couplesLauncher = CouplesSelectionLauncher()
         //get user data
         getFeed()
+        
+        //testWishlist()
     }//end of viewDidLoad
     
     
@@ -69,17 +76,20 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         case 0:
             print("Couples Selected")
             // set singles as selected
-            singlesSelected = false
+            //singlesSelected = false
+            segmentSelected = 1
             //feedComplete = false
             feedTableView.reloadData()
         case 1:
             print("Singles Selected")
             // set couples as selected
-            singlesSelected = true
+            //singlesSelected = true
+            segmentSelected = 2
             //feedComplete = false
             feedTableView.reloadData()
-        case 3:
+        case 2:
             print("wish selected")
+            segmentSelected = 3
             feedTableView.reloadData()
         default:
             print("default selected")
@@ -95,9 +105,36 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Declare cellForRowAT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // if that changes the custom cell depending on what segment is choosen ( Singles or couples)
-        if singlesSelected == true {
+        if segmentSelected == 1 {
+            if indexPath.row == couplesArray.count - 1 && couplesArray.count >= 15 {
+                print("feed complete?: \(feedComplete)")
+                if feedComplete == false {
+                    print("loading next page")
+                    couplesOffset += 15
+                    print("feed offset: \(couplesOffset)")
+                    getRemainingFeed()
+                }//end of if
+            }//end of if
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
+            
+            let usrProfilePicURL = couplesArray[indexPath.row].userPicURL
+            let prtnProfilePicURL = couplesArray[indexPath.row].partnerPicURL
+            let usrCallURL = baseURL + usrProfilePicURL
+            let prtnCallURL = baseURL + prtnProfilePicURL
+            let usrUrlRequest = URL(string: usrCallURL)
+            let prtnUrlRequest = URL(string: prtnCallURL)
+            cell.firstAvatarImageView.af_setImage(withURL: usrUrlRequest!, placeholderImage: placeholderImage)
+            cell.seccondAvatarImageView.af_setImage(withURL: prtnUrlRequest!, placeholderImage: placeholderImage)
+            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
+            
+            return cell
+        } else if segmentSelected == 2 {
             //if that checks if the index path if equal to the #of users in the singlesArray and if so loads another 15 users
             if indexPath.row == singlesArray.count - 1 && singlesArray.count >= 15 {
+                print("Feed complete?: \(feedComplete)")
+                print("singlesArray.count: \(singlesArray.count)")
+                print("initial load?: \(initialLoad)")
                 if feedComplete == false {
                     print("loading next page")
                     feedOffset += 15
@@ -120,43 +157,34 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             
             return cell
         } else {
+            print("cell for row at wishlist")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "singlesCell", for: indexPath) as! SinglesTableViewCell
             
-            if indexPath.row == couplesArray.count - 1 && couplesArray.count >= 15 {
-                if feedComplete == false {
-                    print("loading next page")
-                    couplesOffset += 15
-                    print("feed offset: \(couplesOffset)")
-                    getRemainingFeed()
-                }//end of if
-            }//end of if
+            let profilePicURL = wishlistArray[indexPath.row].userPicURL
+            let callURL = baseURL + profilePicURL
+            let urlRequest = URL(string: callURL)
+            cell.avatarImageView.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
             
+            cell.nameLabel.text = wishlistArray[indexPath.row].userFirstName
+            cell.gradeLabel.text = "Grade: \(wishlistArray[indexPath.row].userGrade)"
+            cell.bioLabel.text = wishlistArray[indexPath.row].userBio
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "couplesCell", for: indexPath) as! CouplesTableViewCell
-            
-            let usrProfilePicURL = couplesArray[indexPath.row].userPicURL
-            let prtnProfilePicURL = couplesArray[indexPath.row].partnerPicURL
-            let usrCallURL = baseURL + usrProfilePicURL
-            let prtnCallURL = baseURL + prtnProfilePicURL
-            let usrUrlRequest = URL(string: usrCallURL)
-            let prtnUrlRequest = URL(string: prtnCallURL)
-            cell.firstAvatarImageView.af_setImage(withURL: usrUrlRequest!, placeholderImage: placeholderImage)
-            cell.seccondAvatarImageView.af_setImage(withURL: prtnUrlRequest!, placeholderImage: placeholderImage)
-            
-            
-            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
             return cell
-        }// end of if/else
+        }//end of if/else
     }// end of cellForRowAt
     
     //MARK: - Declare numbersOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 11
+        
         print("entered numbersOfRowsInSection")
         if feedArraysFilled == true {
-            if singlesSelected == true{
+            if segmentSelected == 2{
                 return singlesArray.count
-            } else {
+            } else if segmentSelected == 1 {
                 return couplesArray.count
+            } else {
+                return wishlistArray.count
             }//end of if/else
         } else {
             return 0
@@ -165,14 +193,22 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - didSelectRowAt function
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if singlesSelected == true {
+        
+        if segmentSelected == 2 {
             selectedUserID = singlesArray[indexPath.row].id
             performSegue(withIdentifier: "goToSelectedUser", sender: self)
         }// end of if
         
-        if singlesSelected == false {
+        if segmentSelected == 3 {
+            selectedUserID = wishlistArray[indexPath.row].id
+            performSegue(withIdentifier: "goToSelectedUser", sender: self)
+        }//end of if
+        
+        if segmentSelected == 1 {
             selectedUserID = couplesArray[indexPath.row].userID
             performSegue(withIdentifier: "goToSelectedCouple", sender: self)
+            //            currentIndexPath = indexPath.row
+            //            couplesPopUp()
         }// end of if
     }// end of didSelectRowAt
     
@@ -196,6 +232,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print("content refreshed")
         singlesArray.removeAll()
         couplesArray.removeAll()
+        wishlistArray.removeAll()
         feedArraysFilled = false
         initialLoad = false
         feedComplete = false
@@ -227,10 +264,12 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     func processFeedData(feedJSON : JSON) {
         print("processFeedData entered")
-        print("Singles Selected: \(singlesSelected)")
+        //print("Singles Selected: \(singlesSelected)")
+        print("segment selected: \(segmentSelected)")
         //big if that checks if this is the initial load of data or if singles selected is true
         
-        if singlesSelected == true || initialLoad == true {
+        //process data for singlesArray
+        if segmentSelected == 2 || initialLoad == true {
             if feedJSON["result"]["single"].count >= 1 {
                 var userPicURL = ""
                 for index in 0...feedJSON["result"]["single"].count - 1 {
@@ -242,11 +281,33 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                     singlesArray.append(UserModel(gender: feedJSON["result"]["single"][index]["Gender"].string ?? "", grade: feedJSON["result"]["single"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["single"][index]["LastName"].string!, schoolID: feedJSON["result"]["single"][index]["SchoolID"].string!, bio: feedJSON["result"]["single"][index]["Biography"].string ?? "", userID: feedJSON["result"]["single"][index]["ID"].string!, firstName: feedJSON["result"]["single"][index]["FirstName"].string!, profilePicURL: "/\(userPicURL)"))
                 }//end for loop
             } else {
+                print("setting feedComplete to true")
+                print("feedJSON.count \(feedJSON["result"]["single"].count)")
+                print("feed offset: \(feedOffset)")
                 feedComplete = true
             }//end of if/else
         }//end of if
         
-        if singlesSelected == false || initialLoad == true {
+        if segmentSelected == 3 || initialLoad == true {
+            if feedJSON["result"]["wishlist"].count >= 1 {
+                var userPicURL = ""
+                for index in 0...feedJSON["result"]["wishlist"].count - 1 {
+                    userPicURL = feedJSON["result"]["wishlist"][index]["ProfilePicture"].string!
+                    let userSlashIndex = userPicURL.startIndex..<userPicURL.index(userPicURL.startIndex, offsetBy: 2)
+                    if userPicURL[userSlashIndex] == "\\/" {
+                        userPicURL.removeSubrange(userSlashIndex)
+                    }//end of if
+                    wishlistArray.append(UserModel(gender: feedJSON["result"]["wishlist"][index]["Gender"].string ?? "", grade: feedJSON["result"]["wishlist"][index]["Grade"].string ?? "", lastName: feedJSON["result"]["wishlist"][index]["LastName"].string!, schoolID: feedJSON["result"]["wishlist"][index]["SchoolID"].string!, bio: feedJSON["result"]["wishlist"][index]["Biography"].string ?? "", userID: feedJSON["result"]["wishlist"][index]["ID"].string!, firstName: feedJSON["result"]["wishlist"][index]["FirstName"].string!, profilePicURL: "/\(userPicURL)"))
+                }//end of forloop
+            }//end of if
+        } else {
+            print("initial load?: \(initialLoad)")
+            print("setting feedComplete to true (process feed data wishlist)")
+            //feedComplete = true
+        }//end of if
+
+        
+        if segmentSelected == 1 || initialLoad == true {
             if feedJSON["result"]["couple"].count >= 1 {
                 print("just before for loop for couples")
                 var userPicURL = ""
@@ -264,9 +325,10 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                     if partnerPicURL[prtnSlashIndex] == "\\/" {
                         partnerPicURL.removeSubrange(prtnSlashIndex)
                     }//end of if
-                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string!, usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string!, prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string ?? "", prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string ?? "", usrPic: "/\(userPicURL)", prtnPic: "/\(partnerPicURL)"))
+                    couplesArray.append(CouplesUserModel(usrSchoolID: feedJSON["result"]["couple"][index][0]["SchoolID"].string!, usrFirstName: feedJSON["result"]["couple"][index][0]["FirstName"].string!, usrLastName: feedJSON["result"]["couple"][index][0]["LastName"].string!, usrBio: feedJSON["result"]["couple"][index][0]["Biography"].string ?? "", usrGender: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", usrID: feedJSON["result"]["couple"][index][0]["ID"].string!, usrGrade: feedJSON["result"]["couple"][index][0]["Gender"].string ?? "", prtnSchoolID: feedJSON["result"]["couple"][index][1]["SchoolID"].string!, prtnFirstName: feedJSON["result"]["couple"][index][1]["FirstName"].string!, prtnLastName: feedJSON["result"]["couple"][index][1]["LastName"].string!, prtnBio: feedJSON["result"]["couple"][index][1]["Biography"].string ?? "", prtnGender: feedJSON["result"]["couple"][index][1]["Gender"].string ?? "", prtnID: feedJSON["result"]["couple"][index][1]["ID"].string!, prtnGrade: feedJSON["result"]["couple"][index][1]["Grade"].string ?? "", usrPic: "/\(userPicURL)", prtnPic: "/\(partnerPicURL)"))
                 }//end of for loop
             } else {
+                print("changing feedComplete to true (if couples process data)")
                 feedComplete = true
             }//end of if/else
         }//end of if
@@ -283,7 +345,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         print(feedOffset)
         let callURL = baseURL + "/php/feed.new.php"
         
-        if singlesSelected == true {
+        if segmentSelected == 2 {
             let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "single-offset" : feedOffset]
             
             Alamofire.request(callURL, method: .get, parameters: params).responseJSON {
@@ -300,7 +362,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             }// end of request
         }//end of if
         
-        if singlesSelected == false {
+        if segmentSelected == 1 {
             print("Feedoffset: \(feedOffset)")
             let params : [String : Any] = ["token" : userToken!, "max-size" : numberUserLoaded, "couple-offset" : couplesOffset]
             
@@ -318,6 +380,12 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             }//end of request
         }//end of if
     }//end of getRemainingFeed
+    
+    var couplesLauncher : CouplesSelectionLauncher!
+    
+    func couplesPopUp() {
+    //couplesLauncher.showPopUp()
+    }//end of couplesPopUp
     
     
     //MARK: - Declare configureTableView
@@ -339,5 +407,22 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             destinationVC.userID = selectedUserID
         }//end of if
     }//end of prepare for segue
+    
+    
+    func testWishlist() {
+        let callURL = baseURL + "/php/changeWishlist.php"
+        let params : [String : Any] = ["token" : userToken!, "wish-id" : 2, "action" : 0]
+        Alamofire.request(callURL, method: .post, parameters: params).responseJSON { response in
+            if response.result.isSuccess {
+                print("sucess got wishlist data")
+                print("here is the JSON")
+                print(response.result.value!)
+            } else {
+                print("there was an error getting the data")
+                print("here is the error code: \(response.result.error!)")
+            }
+        }
+        
+    }//end of TestWishList
     
 }// end of MainFeedViewController

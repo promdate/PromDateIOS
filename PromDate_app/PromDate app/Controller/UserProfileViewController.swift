@@ -24,6 +24,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var instagramHandleTextField: UITextField!
     @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var unmatchButton: UIButton!
+    @IBOutlet weak var partnerButton: UIButton!
+    @IBOutlet weak var partnerNameLabel: UILabel!
     
     
     let userToken = UserData().defaults.string(forKey: "userToken")
@@ -54,6 +56,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         //unmatchButton.isHidden = true
         unmatchButton.isHighlighted = true
         unmatchButton.isEnabled = false
+        partnerButton.isHidden = true
+        partnerButton.isEnabled = false
+        partnerNameLabel.isHidden = true
         //we make sure that profile pic changed is false
         profilePictureChanged = false
         
@@ -110,6 +115,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         }//end of request
     }//end of unmatchPressed
     
+    @IBAction func partnerNamePressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToSelectedUser", sender: self)
+    }//end of partnerNamePressed
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //imagePicker.dismiss(animated: true, completion: nil)
@@ -143,10 +151,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print("this is the error code: \(response.result.error!)")
             }//end of if/else
         }//end of request
-        
-//        if profilePictureChanged == true {
-//            uploadUserImage()
-//        }//end of if
     }// end of donePressed
     
     func verifyStatus(statusJSON : JSON, alertTitle : String, alertMessage : String) {
@@ -164,7 +168,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             let alert = UIAlertController(title: "\(alertTitle) Unsucessfull", message: "There was an error \(alertMessage.lowercased()), please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
-            
         }//end of if/else
     }//end of verifyStatus
    
@@ -183,10 +186,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             } else {
                 print("there was an error getting the data please try again")
                 print("this is the error code: \(response.result.error!)")
-            }
+            }//end of if/else
         }// end of the closure
     }// end of getUserData
-    
     
     func updateUI(userJSON : JSON) {
         print("updateUI")
@@ -210,13 +212,17 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             //unmatchButton.isHidden = false
             unmatchButton.isHighlighted = false
             unmatchButton.isEnabled = true
+            partnerNameLabel.isHidden = false
+            partnerButton.isHidden = false
+            partnerButton.isEnabled = true
+            let partnerName = "\(userJSON["result"]["partner"]["FirstName"]) \(userJSON["result"]["partner"]["LastName"])"
+            partnerButton.setTitle("\(partnerName)", for: .normal)
         } else {
             //we set the button to is  hidden to true
             //unmatchButton.isHidden = true
             unmatchButton.isHighlighted = true
             unmatchButton.isEnabled = false
-        }
-
+        }//end of if/else
     }//end of updateUI
   
     func loadUserPicture(imageURL : String) {
@@ -271,17 +277,20 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                     print("Request sent to server: \(response.request!)")
                     print(response.result)
                     let responseJSON = JSON(response.result.value!)
-                    self.verifyStatus(statusJSON: responseJSON, alertTitle: "updating", alertMessage: "Updating your user data")
+                    self.verifyStatus(statusJSON: responseJSON, alertTitle: "Updating", alertMessage: "Updating your user data")
                 })//end of closure
             case .failure(let encodingError):
                 print(encodingError)
             }//end of switch
         }//end of closure/ end of upload
     }//end of uploadUserImage
-   
-  
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSelectedUser" {
+            let destinationVC = segue.destination as! SinglesUserProfileViewController
+            destinationVC.userID = partnerID
+        }//end of if
+    }//end of prepareForSegue
     /*
      //MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
