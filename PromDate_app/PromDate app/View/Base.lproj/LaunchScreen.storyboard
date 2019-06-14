@@ -18,25 +18,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7Zl-Wi-tnW">
-                                <rect key="frame" x="87" y="150" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PromDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-XG-lOS">
-                                <rect key="frame" x="96" y="452" width="231" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1n-8N-5lq" userLabel="Middle Container">
+                                <rect key="frame" x="87" y="187" width="240" height="362"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7Zl-Wi-tnW">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="2iW-c1-sOX"/>
+                                            <constraint firstAttribute="width" constant="240" id="t9f-Ce-Jo3"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PromDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-XG-lOS">
+                                        <rect key="frame" x="0.0" y="302" width="240" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="TT4-zA-xzU"/>
+                                            <constraint firstAttribute="width" constant="240" id="gY6-TM-WTx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ybG-XG-lOS" secondAttribute="trailing" id="3Nf-uz-maX"/>
+                                    <constraint firstAttribute="bottom" secondItem="ybG-XG-lOS" secondAttribute="bottom" id="4Nl-0t-bhO"/>
+                                    <constraint firstItem="7Zl-Wi-tnW" firstAttribute="leading" secondItem="w1n-8N-5lq" secondAttribute="leading" id="CrX-Dv-RaN"/>
+                                    <constraint firstAttribute="height" constant="362" id="IyO-nk-WyA"/>
+                                    <constraint firstItem="7Zl-Wi-tnW" firstAttribute="top" secondItem="w1n-8N-5lq" secondAttribute="top" id="YmR-IO-TBR"/>
+                                    <constraint firstAttribute="width" constant="240" id="c8S-zb-sYD"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Zl-Wi-tnW" secondAttribute="trailing" id="mdH-Nh-enc"/>
+                                    <constraint firstItem="ybG-XG-lOS" firstAttribute="top" secondItem="7Zl-Wi-tnW" secondAttribute="bottom" constant="62" id="npP-31-rLa"/>
+                                    <constraint firstItem="ybG-XG-lOS" firstAttribute="leading" secondItem="w1n-8N-5lq" secondAttribute="leading" id="txT-7g-8GF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.51088893413543701" green="0.17598080635070801" blue="0.64317566156387329" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="w1n-8N-5lq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Pls-w0-JXk"/>
+                            <constraint firstItem="w1n-8N-5lq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xdx-D9-opb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="374.18478260869568"/>
         </scene>
     </scenes>
     <resources>

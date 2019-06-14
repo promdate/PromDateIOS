@@ -141,10 +141,10 @@ class CouplesUserProfileViewController: UIViewController {
         
         //we load the user Data
         //grade, bio, twitter handle,snapchat handle, insta handle, page title
-        userGradeLabel.text = "Grade: \(coupleJSON["result"]["user"]["Grade"])"
+        userGradeLabel.text = "Grade \(coupleJSON["result"]["user"]["Grade"])"
         userAvatarButton.af_setImage(for: .normal, url: userURLRequest!, placeholderImage: placeholderImage)
         //we load the partner data
-        partnerGradeLabel.text = "Grade: \(coupleJSON["result"]["partner"]["Grade"])"
+        partnerGradeLabel.text = "Grade \(coupleJSON["result"]["partner"]["Grade"])"
         partnerAvatarButton.af_setImage(for: .normal, url: partnerURLRequest!, placeholderImage: placeholderImage)
     
         //nav bar title name&names' profile or name&name' coupleProfile and the school Label

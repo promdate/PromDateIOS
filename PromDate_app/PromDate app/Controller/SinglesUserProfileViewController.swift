@@ -24,7 +24,10 @@ class SinglesUserProfileViewController: UIViewController {
     @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var bioLabel: UILabel!
     @IBOutlet weak var heartButton: UIBarButtonItem!
+    @IBOutlet weak var instagramIconImageView: UIImageView!
+    @IBOutlet weak var snapchatIconImageView: UIImageView!
     
+    @IBOutlet weak var twitterIconImageView: UIImageView!
     // variables
     let baseURL = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     let userToken = UserData().defaults.string(forKey: "userToken")
@@ -145,13 +148,39 @@ class SinglesUserProfileViewController: UIViewController {
     }//end of getUserData
     
     func updateUI(userJSON : JSON) {
-        twitterHandleLabel.text = userJSON["result"]["user"]["SocialTwitter"].string
-        snapchatHandleLabel.text = userJSON["result"]["user"]["SocialSnapchat"].string
-        instagramHandleLabel.text = userJSON["result"]["user"]["SocialInstagram"].string
+        if userJSON["result"]["user"]["SocialTwitter"].string != "" && userJSON["result"]["user"]["SocialTwitter"].string != nil  {
+            twitterHandleLabel.text = userJSON["result"]["user"]["SocialTwitter"].string
+            twitterIconImageView.isHidden = false
+            twitterHandleLabel.isHidden = false
+        } else {
+            twitterIconImageView.isHidden = true
+            twitterHandleLabel.isHidden = true
+        }
+        print("social snapchat: \(userJSON["result"]["user"]["SocialSnapchat"].string == nil)")
+        
+        if (userJSON["result"]["user"]["SocialSnapchat"].string != nil) && (userJSON["result"]["user"]["SocialSnapchat"].string != "") {
+            snapchatHandleLabel.text = userJSON["result"]["user"]["SocialSnapchat"].string
+            snapchatHandleLabel.isHidden = false
+            snapchatIconImageView.isHidden = false
+        } else {
+            print("snapchat is = to nil")
+            snapchatIconImageView.isHidden = true
+            snapchatHandleLabel.isHidden = true
+        }
+        
+        if userJSON["result"]["user"]["SocialInstagram"].string != "" && userJSON["result"]["user"]["SocialTwitter"].string != nil {
+            instagramHandleLabel.isHidden = false
+            instagramIconImageView.isHidden = false
+            instagramHandleLabel.text = userJSON["result"]["user"]["SocialInstagram"].string
+        } else {
+            instagramIconImageView.isHidden = true
+            instagramHandleLabel.isHidden = true
+        }
+        
         bioLabel.text = userJSON["result"]["user"]["Biography"].string
-        gradeLabel.text = "Grade: \(userJSON["result"]["user"]["Grade"])"
+        gradeLabel.text = "Grade \(userJSON["result"]["user"]["Grade"])"
         nameLabel.text = "\(userJSON["result"]["user"]["FirstName"]) \(userJSON["result"]["user"]["LastName"])"
-        schoolLabel.text = "School: \(userJSON["result"]["school"]["Name"])"
+        schoolLabel.text = "\(userJSON["result"]["school"]["Name"])"
         navBar.title = "\(userJSON["result"]["user"]["FirstName"])'s Profile"
         
         let profilePicURL = userJSON["result"]["user"]["ProfilePicture"].string

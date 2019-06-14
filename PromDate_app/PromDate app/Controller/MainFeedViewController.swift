@@ -152,7 +152,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             cell.avatarImageView.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
             
             cell.nameLabel.text = singlesArray[indexPath.row].userFirstName
-            cell.gradeLabel.text = "Grade: \(singlesArray[indexPath.row].userGrade)"
+            
+            if singlesArray[indexPath.row].userGrade != "" {
+                cell.gradeLabel.isHidden = false
+               cell.gradeLabel.text = "Grade: \(singlesArray[indexPath.row].userGrade)"
+            } else {
+                cell.gradeLabel.isHidden = true
+            }
             cell.bioLabel.text = singlesArray[indexPath.row].userBio
             
             return cell
