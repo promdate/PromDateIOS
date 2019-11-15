@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,20 +13,20 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="362" height="69.666666666666671"/>
+                <rect key="frame" x="0.0" y="0.0" width="370" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zla-QL-d8w">
-                        <rect key="frame" x="74" y="0.0" width="288" height="70"/>
+                        <rect key="frame" x="74" y="0.0" width="296" height="70.333333333333329"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84e-IG-M60" userLabel="Name Label">
-                                <rect key="frame" x="0.0" y="8" width="195" height="21"/>
+                                <rect key="frame" x="0.0" y="8" width="203" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 days Ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1q-4i-j3g">
-                                <rect key="frame" x="198" y="8" width="83" height="18"/>
+                                <rect key="frame" x="206" y="8" width="83" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="83" id="fVO-rU-l5a"/>
                                 </constraints>
@@ -38,20 +35,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Message hello world blah blah test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU7-Qj-3Ah" userLabel="Message Label">
-                                <rect key="frame" x="0.0" y="28.333333333333332" width="202" height="33.666666666666671"/>
+                                <rect key="frame" x="0.0" y="28.333333333333329" width="210" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u8W-xu-1UB">
-                                <rect key="frame" x="226" y="28" width="40" height="40"/>
+                                <rect key="frame" x="234" y="28.333333333333329" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="AVH-sZ-5l1"/>
                                     <constraint firstAttribute="width" constant="40" id="m7E-jR-rnV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="oU7-Qj-3Ah" secondAttribute="bottom" constant="8" id="8kC-p0-WVL"/>
                             <constraint firstItem="j1q-4i-j3g" firstAttribute="top" secondItem="zla-QL-d8w" secondAttribute="top" constant="8" id="BTe-e2-Eh1"/>
@@ -69,6 +65,7 @@
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qtn-Ng-Aq5">
                         <rect key="frame" x="6" y="5" width="60" height="60"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="GpA-NB-k5q"/>
                             <constraint firstAttribute="width" constant="60" id="ZF0-3u-8oV"/>
