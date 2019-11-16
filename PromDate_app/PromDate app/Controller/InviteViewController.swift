@@ -10,10 +10,13 @@ import UIKit
 
 class InviteViewController: UIViewController {
 
+    @IBOutlet weak var invitationButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        invitationButton.layer.cornerRadius = 10
+        invitationButton.clipsToBounds = true
     }//end of viewDidLoad
     
     @IBAction func invitePressed(_ sender: Any) {

@@ -1735,7 +1735,7 @@
         <scene sceneID="QID-cu-cYT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iFu-ZB-eWP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Main Feed" image="icons8-home-page-50" id="aY3-wZ-HrE"/>
+                    <tabBarItem key="tabBarItem" title="Main Feed" image="house" catalog="system" id="aY3-wZ-HrE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="40u-Xd-T33">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -1799,36 +1799,33 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="314"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="29t-cr-Mw6">
-                                        <rect key="frame" x="123" y="85" width="168" height="144"/>
+                                        <rect key="frame" x="44" y="61.666666666666686" width="326" height="191"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite a Friend!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVq-RY-8gx">
-                                                <rect key="frame" x="0.0" y="0.0" width="168" height="36"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite friends to PromDate!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVq-RY-8gx">
+                                                <rect key="frame" x="0.0" y="0.0" width="326" height="27"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="H9j-6f-tdP"/>
-                                                    <constraint firstAttribute="width" constant="168" id="atq-zM-NrJ"/>
+                                                    <constraint firstAttribute="width" constant="326" id="8tu-Jc-YEH"/>
+                                                    <constraint firstAttribute="height" constant="27" id="qIv-Pr-PGr"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inviteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nI8-pv-hey">
-                                                <rect key="frame" x="34" y="44" width="100" height="100"/>
+                                                <rect key="frame" x="88" y="40.999999999999986" width="150" height="150"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="XFV-qQ-dbV"/>
-                                                    <constraint firstAttribute="height" constant="100" id="hgU-BR-V4F"/>
+                                                    <constraint firstAttribute="width" constant="150" id="6KQ-Q1-UEc"/>
+                                                    <constraint firstAttribute="height" constant="150" id="yPJ-V2-pHK"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="nI8-pv-hey" secondAttribute="trailing" constant="34" id="AbU-y4-J3C"/>
-                                            <constraint firstItem="eVq-RY-8gx" firstAttribute="top" secondItem="29t-cr-Mw6" secondAttribute="top" id="CVr-Pe-1Nf"/>
-                                            <constraint firstAttribute="width" constant="168" id="HhP-ww-v0g"/>
-                                            <constraint firstAttribute="height" constant="144" id="OsC-bg-Y25"/>
-                                            <constraint firstAttribute="bottom" secondItem="nI8-pv-hey" secondAttribute="bottom" id="Q0e-Xc-mVm"/>
-                                            <constraint firstItem="nI8-pv-hey" firstAttribute="leading" secondItem="29t-cr-Mw6" secondAttribute="leading" constant="34" id="WNv-II-a3r"/>
-                                            <constraint firstItem="nI8-pv-hey" firstAttribute="top" secondItem="eVq-RY-8gx" secondAttribute="bottom" constant="8" id="lQ1-vV-I5a"/>
-                                            <constraint firstItem="eVq-RY-8gx" firstAttribute="leading" secondItem="29t-cr-Mw6" secondAttribute="leading" id="oQt-Vx-WjF"/>
-                                            <constraint firstAttribute="trailing" secondItem="eVq-RY-8gx" secondAttribute="trailing" id="w7w-We-jxQ"/>
+                                            <constraint firstItem="nI8-pv-hey" firstAttribute="top" secondItem="eVq-RY-8gx" secondAttribute="bottom" constant="14" id="48m-GQ-Q4m"/>
+                                            <constraint firstAttribute="bottom" secondItem="nI8-pv-hey" secondAttribute="bottom" id="J7L-Jx-zUP"/>
+                                            <constraint firstAttribute="trailing" secondItem="eVq-RY-8gx" secondAttribute="trailing" id="Kyw-S7-cii"/>
+                                            <constraint firstItem="eVq-RY-8gx" firstAttribute="top" secondItem="29t-cr-Mw6" secondAttribute="top" id="VIk-ri-qAY"/>
+                                            <constraint firstItem="nI8-pv-hey" firstAttribute="centerX" secondItem="29t-cr-Mw6" secondAttribute="centerX" id="b2c-HZ-fiQ"/>
+                                            <constraint firstItem="eVq-RY-8gx" firstAttribute="leading" secondItem="29t-cr-Mw6" secondAttribute="leading" id="j5O-Aq-EqF"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1840,13 +1837,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WC-5s-wb4" userLabel="Middle Container">
                                 <rect key="frame" x="20" y="358" width="374" height="126"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-dN-oKd">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have friends going to prom that don’t have the PromDate app? Click the button below and send them an invite!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdI-dN-oKd">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="126"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="126" id="ja3-gO-JbD"/>
                                         </constraints>
-                                        <string key="text">Got a friend that wants to go to Prom with you but doesn't have this app? Click the button below to bring them over to make your lives much easier!</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1861,15 +1857,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lF-Hl-uCy" userLabel="Bottom Container">
                                 <rect key="frame" x="0.0" y="484" width="414" height="203"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqq-Cc-csp">
-                                        <rect key="frame" x="106.66666666666669" y="69" width="201" height="65"/>
-                                        <color key="backgroundColor" red="0.53725490196078429" green="0.13333333333333333" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqq-Cc-csp">
+                                        <rect key="frame" x="106.66666666666666" y="69" width="201" height="45"/>
+                                        <color key="backgroundColor" red="0.28627450980392155" green="0.73333333333333328" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="cwF-4z-mFV"/>
                                             <constraint firstAttribute="width" constant="201" id="lIf-G0-uQ6"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                        <state key="normal" title="Invite!">
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <state key="normal" title="Send Invitation">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -1878,7 +1873,6 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qqq-Cc-csp" firstAttribute="centerY" secondItem="5lF-Hl-uCy" secondAttribute="centerY" id="GSP-CA-txY"/>
                                     <constraint firstItem="qqq-Cc-csp" firstAttribute="centerX" secondItem="5lF-Hl-uCy" secondAttribute="centerX" id="IDm-I8-k6u"/>
                                 </constraints>
                             </view>
@@ -1901,6 +1895,9 @@
                         <viewLayoutGuide key="safeArea" id="1Z9-d3-Xbt"/>
                     </view>
                     <navigationItem key="navigationItem" title="Invite Friends" id="zZa-7V-Lqv"/>
+                    <connections>
+                        <outlet property="invitationButton" destination="qqq-Cc-csp" id="h6V-Od-ZXi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4eN-F0-lkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1910,7 +1907,7 @@
         <scene sceneID="bg4-qy-rBT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grR-Bc-Mk6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="ExK-4G-Qoa">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" selectedImage="gear" catalog="system" id="ExK-4G-Qoa">
                         <color key="badgeColor" red="0.51088893410000003" green="0.17598080639999999" blue="0.64317566159999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1980,7 +1977,7 @@
         <scene sceneID="0jc-Dk-Gjo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="stB-GE-cmb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Invite" image="inviteIcon" id="mZQ-cN-e6d"/>
+                    <tabBarItem key="tabBarItem" title="Invite" image="inviteIconTabBar" id="mZQ-cN-e6d"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2mc-eC-hWy">
@@ -2005,7 +2002,7 @@
         <scene sceneID="Ynx-3O-2p2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wcp-v4-f3V" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notifications" image="alarm-100" id="6RH-LN-R24"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" id="6RH-LN-R24"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Izq-QT-HGD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -2028,13 +2025,15 @@
     </scenes>
     <resources>
         <image name="Twitter_Logo_Blue" width="133.33332824707031" height="133.33332824707031"/>
-        <image name="alarm-100" width="33.333332061767578" height="33.333332061767578"/>
         <image name="avatar_placeholder" width="500" height="500"/>
+        <image name="bell" catalog="system" width="64" height="62"/>
         <image name="dress_icon" width="33.333332061767578" height="33.333332061767578"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
         <image name="heart_outline" width="33.333332061767578" height="33.333332061767578"/>
-        <image name="icons8-home-page-50" width="16.666666030883789" height="16.666666030883789"/>
+        <image name="house" catalog="system" width="64" height="54"/>
         <image name="instagram_logo" width="100" height="100"/>
         <image name="inviteIcon" width="150" height="152"/>
+        <image name="inviteIconTabBar" width="33.333332061767578" height="33.666667938232422"/>
         <image name="realDress_Placeholder" width="213.33332824707031" height="320"/>
         <image name="settings" width="21.333333969116211" height="21.333333969116211"/>
         <image name="snap-ghost" width="144" height="144"/>
