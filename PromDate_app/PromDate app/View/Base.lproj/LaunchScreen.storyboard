@@ -15,11 +15,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 4" translatesAutoresizingMaskIntoConstraints="NO" id="GnC-qa-kwl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="GnC-qa-kwl" secondAttribute="height" multiplier="413:389" id="lqp-X2-JwP"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekj-Jc-WmB" userLabel="Logo View">
+                                <rect key="frame" x="0.0" y="173.66666666666663" width="414" height="389"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promdate_logo_coloured_wo_ring" translatesAutoresizingMaskIntoConstraints="NO" id="gr0-nF-yKO">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="389"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="gr0-nF-yKO" secondAttribute="height" multiplier="414:389" id="Bon-5X-aBT"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PromDate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Igc-mW-VQq">
+                                        <rect key="frame" x="73" y="65" width="268" height="259"/>
+                                        <fontDescription key="fontDescription" name="SnellRoundhand-Black" family="Snell Roundhand" pointSize="94"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Igc-mW-VQq" firstAttribute="leading" secondItem="ekj-Jc-WmB" secondAttribute="leading" constant="73" id="5Z8-nb-Lww"/>
+                                    <constraint firstItem="gr0-nF-yKO" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" id="7iM-aU-IT6"/>
+                                    <constraint firstItem="gr0-nF-yKO" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" id="FKL-9g-ITa"/>
+                                    <constraint firstAttribute="bottom" secondItem="gr0-nF-yKO" secondAttribute="bottom" id="LRv-fg-Jjg"/>
+                                    <constraint firstItem="Igc-mW-VQq" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" constant="65" id="VMT-By-54a"/>
+                                    <constraint firstAttribute="trailing" secondItem="Igc-mW-VQq" secondAttribute="trailing" constant="73" id="bVF-d6-usb"/>
+                                    <constraint firstAttribute="trailing" secondItem="gr0-nF-yKO" secondAttribute="trailing" id="f8Z-UA-m3f"/>
+                                    <constraint firstItem="gr0-nF-yKO" firstAttribute="leading" secondItem="ekj-Jc-WmB" secondAttribute="leading" id="jtJ-TW-5iM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Igc-mW-VQq" secondAttribute="bottom" constant="65" id="riD-YP-vDT"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1n-8N-5lq" userLabel="Middle Container">
                                 <rect key="frame" x="87" y="187" width="240" height="362"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7Zl-Wi-tnW">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promdate_logo_coloured_wo_ring" translatesAutoresizingMaskIntoConstraints="NO" id="7Zl-Wi-tnW">
+                                        <rect key="frame" x="0.0" y="0.0" width="240.00000000000011" height="240"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="240" id="2iW-c1-sOX"/>
                                             <constraint firstAttribute="width" constant="240" id="t9f-Ce-Jo3"/>
@@ -48,13 +82,35 @@
                                     <constraint firstItem="ybG-XG-lOS" firstAttribute="leading" secondItem="w1n-8N-5lq" secondAttribute="leading" id="txT-7g-8GF"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 3" translatesAutoresizingMaskIntoConstraints="NO" id="Udd-v3-eEG">
+                                <rect key="frame" x="0.0" y="346" width="414" height="390"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Udd-v3-eEG" secondAttribute="height" multiplier="69:65" id="Tqc-z8-BR4"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.51088893413543701" green="0.17598080635070801" blue="0.64317566156387329" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ekj-Jc-WmB" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="0yP-wo-hjm"/>
+                            <constraint firstItem="ekj-Jc-WmB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="19C-7W-YAS"/>
+                            <constraint firstItem="ekj-Jc-WmB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Cj3-E5-Y9T"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GnC-qa-kwl" secondAttribute="trailing" id="Dp1-Tz-ioI"/>
+                            <constraint firstAttribute="bottom" secondItem="Udd-v3-eEG" secondAttribute="bottom" id="Jx7-w4-AD8"/>
                             <constraint firstItem="w1n-8N-5lq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Pls-w0-JXk"/>
+                            <constraint firstItem="GnC-qa-kwl" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="c2W-ok-vKc"/>
+                            <constraint firstItem="Udd-v3-eEG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="d2f-ZR-vFA"/>
+                            <constraint firstItem="ekj-Jc-WmB" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gYb-ld-1QN"/>
+                            <constraint firstItem="GnC-qa-kwl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nTM-X8-saJ"/>
                             <constraint firstItem="w1n-8N-5lq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xdx-D9-opb"/>
+                            <constraint firstItem="Udd-v3-eEG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zUn-cK-GHp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="w1n-8N-5lq"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -63,6 +119,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchScreenLogo" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="Ellipse 3" width="716" height="716"/>
+        <image name="Ellipse 4" width="749.33331298828125" height="749.33331298828125"/>
+        <image name="promdate_logo_coloured_wo_ring" width="389" height="389.33334350585938"/>
     </resources>
 </document>

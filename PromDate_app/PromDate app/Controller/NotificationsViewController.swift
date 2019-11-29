@@ -74,7 +74,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             cell.titleLabel.text = "Match Declined"
             cell.messageLabel.text = notificationArray[indexPath.row].message
             cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
-            cell.statusImageView.image = UIImage(named: "heart_broken")
+            //cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.image = UIImage(systemName: "heart.slash.fill")
             cell.statusImageView.isHidden = false
             cell.accessoryType = .none
             cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
@@ -83,7 +84,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             cell.titleLabel.text = "Match Accepted"
             cell.messageLabel.text = notificationArray[indexPath.row].message
             cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
-            cell.statusImageView.image = UIImage(named: "heart_filled")
+            //cell.statusImageView.image = UIImage(named: "heart_filled")
+            cell.statusImageView.image = UIImage(systemName: "heart.fill")
             cell.statusImageView.isHidden = false
             cell.accessoryType = .none
             cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
@@ -92,7 +94,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
             cell.titleLabel.text = "Unmatch Notice"
             cell.messageLabel.text = notificationArray[indexPath.row].message
             cell.timeStampLabel.text = offsetFrom(date: notificationDate as Date)
-            cell.statusImageView.image = UIImage(named: "heart_broken")
+            //cell.statusImageView.image = UIImage(named: "heart_broken")
+            cell.statusImageView.image = UIImage(systemName: "heart.slash.fill")
             cell.statusImageView.isHidden = false
             cell.accessoryType = .none
             cell.avatarImageView!.af_setImage(withURL: urlRequest!, placeholderImage: placeholderImage)
@@ -231,8 +234,8 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     
     //MARK: - Declare configuration functions
     func configureTableView() {
-        notificationTableView.rowHeight = 70.0
-        notificationTableView.estimatedRowHeight = 70.0
+        notificationTableView.rowHeight = 100.0
+        notificationTableView.estimatedRowHeight = 100.0
     }//end of configureTableView
     
     //function configureRefreshControl --> called in viewDidLoad and sets up functionality to refresh the tableView with bounce

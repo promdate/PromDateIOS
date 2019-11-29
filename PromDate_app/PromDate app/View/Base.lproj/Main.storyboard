@@ -1447,10 +1447,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCP-b1-nUd" userLabel="Bottom Container">
-                                <rect key="frame" x="0.0" y="378.33333333333326" width="414" height="259.66666666666674"/>
+                                <rect key="frame" x="0.0" y="378.33333333333326" width="414" height="308.66666666666674"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45D-B7-cZu" userLabel="Social Container">
-                                        <rect key="frame" x="8" y="54.333333333333371" width="233" height="151"/>
+                                        <rect key="frame" x="8" y="78.666666666666686" width="233" height="151"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgq-hf-AMk" userLabel="Twitter Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="233" height="45"/>
@@ -1519,7 +1519,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTe-Zl-Bw3" userLabel="Snapchat Container">
-                                                <rect key="frame" x="0.0" y="105.99999999999994" width="233" height="45"/>
+                                                <rect key="frame" x="0.0" y="106" width="233" height="45"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snap-ghost" translatesAutoresizingMaskIntoConstraints="NO" id="9Ag-eH-GZL">
                                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -1907,7 +1907,7 @@
         <scene sceneID="bg4-qy-rBT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grR-Bc-Mk6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" selectedImage="gear" catalog="system" id="ExK-4G-Qoa">
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="ExK-4G-Qoa">
                         <color key="badgeColor" red="0.51088893410000003" green="0.17598080639999999" blue="0.64317566159999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1984,7 +1984,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.51088893413543701" green="0.17598080635070801" blue="0.64317566156387329" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="0.28627450980000002" green="0.73333333329999995" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -2035,11 +2035,10 @@
         <image name="inviteIcon" width="150" height="152"/>
         <image name="inviteIconTabBar" width="33.333332061767578" height="33.666667938232422"/>
         <image name="realDress_Placeholder" width="213.33332824707031" height="320"/>
-        <image name="settings" width="21.333333969116211" height="21.333333969116211"/>
         <image name="snap-ghost" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0uC-2l-kF6"/>
+        <segue reference="cAu-PY-BuB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.36078431372549019" green="0.0" blue="0.47843137254901957" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
