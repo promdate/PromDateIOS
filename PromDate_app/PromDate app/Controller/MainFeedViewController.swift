@@ -126,7 +126,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             let prtnUrlRequest = URL(string: prtnCallURL)
             cell.firstAvatarImageView.af_setImage(withURL: usrUrlRequest!, placeholderImage: placeholderImage)
             cell.seccondAvatarImageView.af_setImage(withURL: prtnUrlRequest!, placeholderImage: placeholderImage)
-            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) & \(couplesArray[indexPath.row].partnerFirstName)"
+            
+            cell.couplesNamesLabel.text = "\(couplesArray[indexPath.row].userFirstName) \n& \n\(couplesArray[indexPath.row].partnerFirstName)"
             
             return cell
         } else if segmentSelected == 2 {
@@ -397,8 +398,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Declare configureTableView
     //configureTableView is a func which allows the tableViewCells to have the good rowHeight so that the custom cells will fit properly
     func configureTableView() {
-        feedTableView.rowHeight = 70.0
-        feedTableView.estimatedRowHeight = 70.0
+        feedTableView.rowHeight = 117.0
+        feedTableView.estimatedRowHeight = 117.0
     }//end of configureTableView
     
     

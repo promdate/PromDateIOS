@@ -18,6 +18,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var logInButton: UIButton!
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     @IBOutlet weak var warningLabel: UILabel!
     
@@ -29,6 +30,8 @@ class SignUpViewController: UIViewController {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         warningLabel.isHidden = true
+        logInButton.layer.cornerRadius = 10
+        logInButton.clipsToBounds = true
     }// end of viewDidLoad
     
 

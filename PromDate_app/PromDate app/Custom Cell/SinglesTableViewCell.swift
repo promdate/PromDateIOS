@@ -21,9 +21,10 @@ class SinglesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        avatarImageView.layer.borderWidth = 1
+        avatarImageView.layer.borderWidth = 2
         avatarImageView.layer.masksToBounds = false
-        avatarImageView.layer.borderColor = UIColor.black.cgColor
+        //avatarImageView.layer.borderColor = UIColor.black.cgColor
+        avatarImageView.layer.borderColor = UIColor.label.cgColor
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height/2
         avatarImageView.clipsToBounds = true
     }
@@ -33,5 +34,14 @@ class SinglesTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        print("traitCollectionDidChange was called")
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)   {
+            print("if traitCollection.hasDifferentColorApperance was called")
+            avatarImageView.layer.borderColor = UIColor.label.cgColor
+        } //end of if
+    }//end of traitCollectionDidChange
     
 }
