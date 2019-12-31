@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907CF6423B99E7C000A91DF /* Hallo Oyster - Personal Use.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0907CF6323B99E7C000A91DF /* Hallo Oyster - Personal Use.otf */; };
+		0907CF6723B9A3AB000A91DF /* Century Gothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0907CF6623B9A3AB000A91DF /* Century Gothic.ttf */; };
+		0907CF6923B9A3CE000A91DF /* Century Gothic Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0907CF6823B9A3CE000A91DF /* Century Gothic Bold.ttf */; };
 		0914AE8D228F377100F0C8DE /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */; };
 		0914AE8E228F377100F0C8DE /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */; };
 		091551CC22860F76001F0E48 /* SinglesUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */; };
 		0915B29922B28FA600BDEF13 /* SchoolChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0915B29822B28FA600BDEF13 /* SchoolChoiceViewController.swift */; };
+		0937472123B6EC300011FFD9 /* TroubleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937472023B6EC300011FFD9 /* TroubleLoginViewController.swift */; };
 		09374DF222AF0D2300D5D3CC /* CouplesSelectionLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09374DF122AF0D2300D5D3CC /* CouplesSelectionLauncher.swift */; };
 		093E98E522AABD0500FFCD21 /* ApparelFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E98E422AABD0500FFCD21 /* ApparelFeedViewController.swift */; };
 		093E98E822AABEB600FFCD21 /* ApparelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */; };
@@ -43,10 +47,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0907CF6323B99E7C000A91DF /* Hallo Oyster - Personal Use.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hallo Oyster - Personal Use.otf"; sourceTree = "<group>"; };
+		0907CF6623B9A3AB000A91DF /* Century Gothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Century Gothic.ttf"; sourceTree = "<group>"; };
+		0907CF6823B9A3CE000A91DF /* Century Gothic Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Century Gothic Bold.ttf"; sourceTree = "<group>"; };
 		0914AE8B228F377100F0C8DE /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		0914AE8C228F377100F0C8DE /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		091551CB22860F76001F0E48 /* SinglesUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SinglesUserProfileViewController.swift; path = "PromDate app/Controller/SinglesUserProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
 		0915B29822B28FA600BDEF13 /* SchoolChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolChoiceViewController.swift; sourceTree = "<group>"; };
+		0937472023B6EC300011FFD9 /* TroubleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TroubleLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		09374DF122AF0D2300D5D3CC /* CouplesSelectionLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesSelectionLauncher.swift; sourceTree = "<group>"; };
 		093E98E422AABD0500FFCD21 /* ApparelFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelFeedViewController.swift; sourceTree = "<group>"; };
 		093E98E622AABEB600FFCD21 /* ApparelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApparelTableViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +111,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		0907CF6523B99EB5000A91DF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0907CF6823B9A3CE000A91DF /* Century Gothic Bold.ttf */,
+				0907CF6623B9A3AB000A91DF /* Century Gothic.ttf */,
+				0907CF6323B99E7C000A91DF /* Hallo Oyster - Personal Use.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		096E50F522565F1F00D86172 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +145,7 @@
 				09A483F9226111750029A6CC /* Data Model */,
 				0998FF20225D5CAB00CEB49B /* Custom Cell */,
 				0998FF2B225D7A1E00CEB49B /* Controller */,
+				0907CF6523B99EB5000A91DF /* Fonts */,
 				096E510822565F2100D86172 /* Assets.xcassets */,
 				0998FF2C225D7A6C00CEB49B /* View */,
 				096E510D22565F2100D86172 /* Info.plist */,
@@ -152,6 +171,7 @@
 		0998FF2B225D7A1E00CEB49B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0937472023B6EC300011FFD9 /* TroubleLoginViewController.swift */,
 				0915B29822B28FA600BDEF13 /* SchoolChoiceViewController.swift */,
 				096E510122565F1F00D86172 /* AppDelegate.swift */,
 				096E51152256699100D86172 /* LogInViewController.swift */,
@@ -267,12 +287,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0907CF6923B9A3CE000A91DF /* Century Gothic Bold.ttf in Resources */,
 				093E98E922AABEB600FFCD21 /* ApparelTableViewCell.xib in Resources */,
 				096E510C22565F2100D86172 /* LaunchScreen.storyboard in Resources */,
+				0907CF6423B99E7C000A91DF /* Hallo Oyster - Personal Use.otf in Resources */,
 				0998FF24225D5D3700CEB49B /* SinglesTableViewCell.xib in Resources */,
 				0914AE8E228F377100F0C8DE /* NotificationTableViewCell.xib in Resources */,
 				096E510922565F2100D86172 /* Assets.xcassets in Resources */,
 				0998FF28225D6B6C00CEB49B /* CouplesTableViewCell.xib in Resources */,
+				0907CF6723B9A3AB000A91DF /* Century Gothic.ttf in Resources */,
 				096E510722565F1F00D86172 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +355,7 @@
 				09B02DB42271EBD300B00CAF /* ChangePasswordViewController.swift in Sources */,
 				096E51142256652300D86172 /* SignUpViewController.swift in Sources */,
 				0998FF30225D8CEC00CEB49B /* MainFeedViewController.swift in Sources */,
+				0937472123B6EC300011FFD9 /* TroubleLoginViewController.swift in Sources */,
 				099E8D982297786B0079452C /* CouplesUserModel.swift in Sources */,
 				0914AE8D228F377100F0C8DE /* NotificationTableViewCell.swift in Sources */,
 				09A483FB2261119E0029A6CC /* UserData.swift in Sources */,

@@ -30,10 +30,17 @@
                                             <constraint firstAttribute="width" secondItem="gr0-nF-yKO" secondAttribute="height" multiplier="414:389" id="Bon-5X-aBT"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PromDate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Igc-mW-VQq">
-                                        <rect key="frame" x="73" y="65" width="268" height="259"/>
-                                        <fontDescription key="fontDescription" name="SnellRoundhand-Black" family="Snell Roundhand" pointSize="94"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Igc-mW-VQq">
+                                        <rect key="frame" x="73" y="52" width="268" height="286"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="PromDate">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <font key="NSFont" size="160" name="Hallo-Oyster---Personal-Use"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -42,11 +49,11 @@
                                     <constraint firstItem="gr0-nF-yKO" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" id="7iM-aU-IT6"/>
                                     <constraint firstItem="gr0-nF-yKO" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" id="FKL-9g-ITa"/>
                                     <constraint firstAttribute="bottom" secondItem="gr0-nF-yKO" secondAttribute="bottom" id="LRv-fg-Jjg"/>
-                                    <constraint firstItem="Igc-mW-VQq" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" constant="65" id="VMT-By-54a"/>
                                     <constraint firstAttribute="trailing" secondItem="Igc-mW-VQq" secondAttribute="trailing" constant="73" id="bVF-d6-usb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Igc-mW-VQq" secondAttribute="bottom" constant="51" id="deI-aK-Nnu"/>
                                     <constraint firstAttribute="trailing" secondItem="gr0-nF-yKO" secondAttribute="trailing" id="f8Z-UA-m3f"/>
                                     <constraint firstItem="gr0-nF-yKO" firstAttribute="leading" secondItem="ekj-Jc-WmB" secondAttribute="leading" id="jtJ-TW-5iM"/>
-                                    <constraint firstAttribute="bottom" secondItem="Igc-mW-VQq" secondAttribute="bottom" constant="65" id="riD-YP-vDT"/>
+                                    <constraint firstItem="Igc-mW-VQq" firstAttribute="top" secondItem="ekj-Jc-WmB" secondAttribute="top" constant="52" id="yng-be-IZB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1n-8N-5lq" userLabel="Middle Container">

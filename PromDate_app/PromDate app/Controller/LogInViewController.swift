@@ -15,6 +15,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     // variables
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var logInButton: UIButton!
+    
     
     let baseURL : String = "http://ec2-35-183-247-114.ca-central-1.compute.amazonaws.com"
     var token : String = ""
@@ -34,6 +36,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
+        logInButton.layer.cornerRadius = 10
+        logInButton.clipsToBounds = true
         
         if let fetchToken = userData.defaults.string(forKey: "userToken") {
             token = fetchToken
@@ -61,8 +65,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 let authJSON : JSON = JSON(response.result.value!)
                 print(authJSON)
                 self.verifyStatus(json: authJSON)
-            }else {
+            } else {
                 print("error \(response.result.error!)")
+                print("App failed to reach server")
+                self.networkingAlertControllers(alertTitle: "Networking Error", alertMessage: "The app failed to reach the server. Please check your network connection.")
             }// end of if/else
         }// end of the request
     }// end of callLogIn
