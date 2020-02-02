@@ -15,11 +15,13 @@ class ChangePasswordViewController: UIViewController {
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var confirmNewPasswordTextField: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var changePasswordButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        changePasswordButton.layer.cornerRadius = 10
+        changePasswordButton.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
     

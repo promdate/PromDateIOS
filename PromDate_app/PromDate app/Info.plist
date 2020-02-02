@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Hallo Oyster - Personal Use.otf</string>
-		<string>Century Gothic.ttf</string>
-		<string>Century Gothic Bold.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_CA</string>
 	<key>CFBundleDisplayName</key>
@@ -37,6 +31,12 @@
 	<string>This application uses the photo library so that the user is able to set photos as profile pictures</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This application uses the camera so that the user is able to take photos as profile pictures</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Hallo Oyster - Personal Use.otf</string>
+		<string>Century Gothic.ttf</string>
+		<string>Century Gothic Bold.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
