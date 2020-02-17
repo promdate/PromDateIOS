@@ -15,7 +15,7 @@ class ApparelFeedViewController: UIViewController, UITableViewDelegate, UITableV
     
     let apparelBrandArray = ["Nice Dress", "Pretty dress", "Beautiful dress", "Cute dress", "Hot dress", "Sexy dress", "Yet another dress", "Too many dresses!", "Something possibly nice", "Finally the last dress"]
     let apparelModelNumberArray = ["#001", "#002", "#003", "#004", "#005", "#006", "Bond, James Bond", "#008", "#009", "#010"]
-    let dress_Placeholder = UIImage(named: "dress_icon")
+    let dress_Placeholder = UIImage(named: "dress_placeholder")
     
 
     override func viewDidLoad() {
@@ -53,8 +53,8 @@ class ApparelFeedViewController: UIViewController, UITableViewDelegate, UITableV
     }//end of didSelectRowAt
     
     func configureTableView() {
-        apparelFeedTableView.rowHeight = 80
-        apparelFeedTableView.estimatedRowHeight = 80
+        apparelFeedTableView.rowHeight = 100
+        apparelFeedTableView.estimatedRowHeight = 100
     }//end of configureTableView
 
     /*

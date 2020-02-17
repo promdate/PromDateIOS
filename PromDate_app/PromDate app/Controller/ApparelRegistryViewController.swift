@@ -12,7 +12,8 @@ class ApparelRegistryViewController: UIViewController, UIPickerViewDelegate, UIP
     
     // varriables
     @IBOutlet weak var brandPickerView: UIPickerView!
-    @IBOutlet weak var keywordSearchBar: UISearchBar!
+    @IBOutlet weak var modelNumberTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
     
     let apparelBrandsArray = ["Dress Brand", "Dress Brand", "Another Dress Brand", "Some Dress Brand", "Starfleet Uniforms", "Star Wars Outfiters", "Apple Merch", "Every Youtuber's Merch Ever", "Top Marks", "Every other Company"]
     
@@ -27,6 +28,10 @@ class ApparelRegistryViewController: UIViewController, UIPickerViewDelegate, UIP
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        
+        //round the search button's corners
+        searchButton.layer.cornerRadius = 10
+        searchButton.clipsToBounds = true
     }//end of viewDidLoad
     
     
